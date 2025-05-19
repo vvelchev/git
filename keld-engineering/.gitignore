@@ -9,7 +9,7 @@ yarn-error.log*
 node_modules/
 
 # Build directory
-build/
+# build/
 
 # Use yarn, don't commit package-lock.json
 package-lock.json

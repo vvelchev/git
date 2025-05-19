@@ -1,0 +1,286 @@
+{
+	"nav": [
+		{
+			"text": {
+				"en": "OUR SERVICES",
+				"bg": "НАШИТЕ УСЛУГИ"
+			},
+			"link": "./about.html"
+		},
+		{
+			"text": {
+				"en": "OUR PROJECTS",
+				"bg": "НАШИТЕ ПРОЕКТИ"
+			},
+			"link": "./projects.html"
+		},
+		{
+			"text": {
+				"en": "CONTACT US",
+				"bg": "СВЪРЖЕТЕ СЕ С НАС"
+			},
+			"link": "./contact.html"
+		}
+	],
+	"hero-home": {
+		"en": "<h5>Keld Engineering</h5><h1>Engineering and Consulting Services</h1><ul><li>Design Engineering<li>Project Development<li>Project Management<li>Consulting Services<li>Feasibility Studies</ul>",
+		"bg": "<h5>Келд Инженеринг</h5><h1>Инженерни и консултантски услуги</h1><ul><li>Работно проектиране<li>Разработване на проекти<li>Ръководене на проекти<li>Консултиране<li>Предпроектни проучвания</ul>"
+	},
+	"scroll-btn": {
+		"en": "Scroll down for more",
+		"bg": "Превъртете надолу за още"
+	},
+	"section-experience-title": {
+		"en": "<h5>Our Experience</h5>",
+		"bg": "<h5>Нашият опит</h5>"
+	},
+	"section-experience-aside": {
+		"en": "<h2>With extensive practical experience, our staff excels in both technical execution and innovative problem-solving.</h2>",
+		"bg": "<h2>С богат технически опит нашият екип се отличава както в техническото изпълнение, така и в иновативното решаване на проблеми.</h2>"
+	},
+	"section-experience-content": {
+		"en": "<h3>In recent years, we have successfully participated in:</h3><ul><li>Photovoltaic power plants <span>across Europe, including Bulgaria, North Macedonia, Hungary, Italy, and Germany, with a total installed capacity of over 800MW.</span><li>Energy storage system<span> in Bulgaria, with capacities ranging from 1MWh to 40MWh per project, and a total installed capacity exceeding 200MWh.</span><li>Cables and overhead line connections<span>, delivering reliable and efficient infrastructure solutions.</span><li>Substations consulting and design<span> for various substation components up to 110kV.</span><li>Studies<span>, including feasibility studies, short circuit analysis, power loss analysis, grid compliance, relay protection coordination, and more, to support project success.</span></ul>",
+		"bg": "<h3>В последните години успешно участвахме в:</h3><ul><li>Проекти за фотоволтаични централа <span>в Европа (България, Северна Македония, Унгария, Италия и Германия), с обща инсталирана мощност от повече от 800MW</span><li>Системи за съхранение <span>на електрическа енергия, с инсталиран капацитет от 1MWh до 40MWh на проект, и общ инсталиран >200МWh</span><li>Кабелни и въздушни линии<span>, осигуряващи надеждни и ефективни инфраструктурни решения</span><li>Консултиране и проектиране <span>на компонентни на подстанции до 110kV</span><li>Проучвания и изследвания<span>, включително предпроектни проучвания, изчисления на т.к.с. и загуби на мощност, съответствия с мрежови оператори, координация на релейни защити и други, подкрепяйки успешната реализация на проекта</span></ul>"
+	},
+	"section-partners-title": {
+		"en": "<h5>Why Partner with Us</h5>",
+		"bg": "<h5>Защо да използваш нашите услуги</h5>"
+	},
+	"section-partners-subtitle": {
+		"en": "<h2>Our team consists of highly professional and expert engineers, each specializing in their respective fields.</h2>",
+		"bg": "<h2>Нашият екип се състои от висококвалифицирани и опитни инженери, всеки със специализация в своята област.</h2>"
+	},
+	"section-partners-aside": {
+		"en": "<p>This ensures that every project benefits from the precise knowledge and skills required for its unique demands.</p>",
+		"bg": "<p>Това гарантира, че всеки проект се възползва от точните знания и умения, необходими за неговите специфични изисквания.</p>"
+	},
+	"section-partners-list": {
+		"en": "<ul><li><div><h4>Tailored Solutions</h4><p>Each project is handled individually, ensuring all requirements are met with precision.</div><li><div><h4>Task-Specific Expertise</h4><p>Engineers are assigned based on the specific needs of your project, providing specialized skills for each task.</div><li><div><h4>Diverse Team</h4><p>Our extensive network of engineers ensures the right expertise for every project, whether it’s a substation, PV plant, or energy storage system.</div><li><div><h4>Reliable and Timely Delivery</h4><p>We are committed to delivering high-quality results on time, ensuring your project stays on schedule without compromise.</div></ul>",
+		"bg": "<ul><li><div><h4>Индивидуални решения</h4><p>Всеки проект се разработва индивидуално, като се гарантира, че всички изисквания са изпълнени с прецизнос</div><li><div><h4>Специализирани решения</h4><p>Инженерите по проекта се избират според конкретните нужди на Вашия проект, предоставяйки специализирани умения за всяка задача</div><li><div><h4>Разнообразен екип</h4><p>Нашата широка мрежа от инженери осигурява необходимата експертиза за всеки проект, независимо дали става въпрос за подстанция, фотоволтаична централа или система за съхранение на енергия</div><li><div><h4>Надеждност и навременно изпълнение</h4><p>Ние сме ангажирани с предоставянето на висококачествени резултати в срок, гарантирайки, че вашият проект се изпълнява по график без компромис</div></ul>"
+	},
+	"section-vision": {
+		"en": "<h1>Let's Bring Your Vision to Life</h1><p>With our tailored solutions and expert engineers, your next project is in safe hands. Reach out to us for a custom proposal.</p><a class=btn href=/contact.html>Talk to an Expert</a>",
+		"bg": "<h1>Нека сбъднем вашата визия</h1><p>С нашите индивидуални решения и опитни инженери вашият следващ проект е в сигурни ръце. Свържете се с нас за персонализирана оферта.</p><a class=btn href=/contact.html>Говорете със специалист</a>"
+	},
+	"hero-about": {
+		"en": "<h5>Keld Engineering</h5><h1>Engineering and Consulting Services</h1>",
+		"bg": "<h5>Келд Инженеринг</h5><h1>Инженерни и консултантски услуги</h1>"
+	},
+	"tabs-about": [
+		{
+			"title": {
+				"en": "<h2>Design Engineering</h2>",
+				"bg": "<h2>Работно проектиране</h2>"
+			},
+			"content": {
+				"en": "<h3>We provide comprehensive design engineering services to support every stage of your project.</h3><p>This includes preliminary technical analyses to assess project feasibility, detailed engineering designs to ensure compliance with regulations, and permit-ready designs for building approvals.</p><p>Our team prepares detailed construction drawings and specifications to guide the execution phase. We also conduct reviews to optimize designs for efficiency, reliability, and cost-effectiveness.</p><p>With our expertise, you can be confident that your project/ system will meet all technical, operational, and regulatory requirements.</p>",
+				"bg": "<h3>Ние предлагаме цялостни инженерингови услуги за проектиране, които подпомагат всеки етап от вашия проект.</h3><p>Това включва предварителни технически анализи за оценка на осъществимостта на проекта, подробни инженерни проекти, които гарантират съответствие с нормативната уредба, както и готови за одобрение проекти за разрешителни за строеж.</p><p>Нашият екип изготвя детайлни строителни чертежи и спецификации, които ръководят изпълнителната фаза. Провеждаме също така прегледи с цел оптимизиране на проектите за ефективност, надеждност и рентабилност.</p><p>С нашия опит можете да бъдете уверени, че вашият проект/система ще отговаря на всички технически, експлоатационни и нормативни изисквания.</p>"
+			}
+		},
+		{
+			"title": {
+				"en": "<h2>Project Development</h2>",
+				"bg": "<h2>Работно проектиране</h2>"
+			},
+			"content": {
+				"en": "<h3>Our project development services transform your ideas into fully realized projects.</h3><p>We assist from the initial concept phase through detailed planning and execution strategies. This includes conducting technical and financial feasibility studies, developing timelines and budgets, and ensuring all required permits and approvals are secured.</p><p>We coordinate with local authorities, utilities, and stakeholders to streamline the development process. Our experts analyze every aspect of the project to mitigate risks and identify opportunities for optimization. </p><p>Whether you're developing a PV plant, substation, or energy storage system, we provide end-to-end solutions tailored to your goals.</p>",
+				"bg": "<h3>Нашите услуги за разработване на проекти превръщат вашите идеи във въплътени и реализирани проекти.</h3><p>Ние съдействаме от началната концептуална фаза до детайлното планиране и стратегиите за изпълнение. Това включва извършване на технически и финансови проучвания за осъществимост, разработване на времеви графици и бюджети, както и осигуряване на всички необходими разрешителни и одобрения.</p><p>Координираме с местните власти, комунални дружества и заинтересовани страни, за да улесним процеса на развитие. Нашите експерти анализират всеки аспект от проекта с цел намаляване на рисковете и идентифициране на възможности за оптимизация.</p><p>Независимо дали разработвате фотоволтаична централа, подстанция или система за съхранение на енергия, ние предоставяме цялостни решения, съобразени с вашите цели.</p>"
+			}
+		},
+		{
+			"title": {
+				"en": "<h2>Project Management</h2>",
+				"bg": "<h2>Управление на проекти</h2>"
+			},
+			"content": {
+				"en": "<h3>Effective project management is crucial for the success of any engineering endeavor, and we excel in coordinating every aspect of your project.</h3><p>Our services include planning, scheduling, and resource management to ensure projects stay on track and within budget. </p><p>We can manage your teams, liaise with additional engineering companies, and oversee subcontractors to guarantee seamless collaboration. Our hands-on approach ensures that milestones are met and quality standards are upheld. </p><p>From resolving technical challenges to coordinating logistics, we act as a single point of contact for all project-related activities, delivering high-quality results on time.</p>",
+				"bg": "<h3>Ефективното управление на проекти е от съществено значение за успеха на всяко инженерно начинание, а ние сме отлични в координирането на всеки аспект от вашия проект.</h3><p>Нашите услуги включват планиране, изготвяне на графици и управление на ресурси, за да гарантираме, че проектът върви по график и в рамките на бюджета. Можем да управляваме вашите екипи, да взаимодействаме с допълнителни инженерингови компании и да наблюдаваме работата на подизпълнителите, за да осигурим безпроблемно сътрудничество. Нашият практичен подход гарантира спазването на всички етапи и поддържане на високи стандарти за качество.</p><p>От решаването на технически предизвикателства до координацията на логистиката — ние сме единна точка на контакт за всички дейности, свързани с проекта, и доставяме висококачествени резултати в срок</p>"
+			}
+		},
+		{
+			"title": {
+				"en": "<h2>Consulting Services</h2>",
+				"bg": "<h2>Управление на проекти</h2>"
+			},
+			"content": {
+				"en": "<h3>Our consulting services are designed to provide tailored solutions to your specific challenges in electric power systems.</h3><p>We offer expert advice on system design, optimization, and compliance with industry standards. </p><p>Whether you need guidance on integrating renewable energy sources, improving grid stability, or planning for future expansions, our consultants deliver actionable insights. We also help troubleshoot existing systems, identify inefficiencies, and recommend upgrades to improve performance. </p><p>With in-depth industry knowledge and hands-on experience, we empower you to make informed decisions that enhance the reliability and efficiency of your power systems.</p>",
+				"bg": "<h3>Ефективното управление на проекти е от съществено значение за успеха на всяко инженерно начинание, а ние сме отлични в координирането на всеки аспект от вашия проект.</h3><p>Нашите услуги включват планиране, изготвяне на графици и управление на ресурси, за да гарантираме, че проектът върви по график и в рамките на бюджета. Можем да управляваме вашите екипи, да взаимодействаме с допълнителни инженерингови компании и да наблюдаваме работата на подизпълнителите, за да осигурим безпроблемно сътрудничество. Нашият практичен подход гарантира спазването на всички етапи и поддържане на високи стандарти за качество.</p><p>От решаването на технически предизвикателства до координацията на логистиката — ние сме единна точка на контакт за всички дейности, свързани с проекта, и доставяме висококачествени резултати в срок</p>"
+			}
+		},
+		{
+			"title": {
+				"en": "<h2>Studies</h2>",
+				"bg": "<h2>Изследвания и изчисления</h2>"
+			},
+			"content": {
+				"en": "<h3>Our studies provide the critical insights needed to determine the technical and economic viability of your project.</h3><ul class='list-checked list-checked--spacer-row-big'><li>Feasibility Study: <span>Analyzing project potential, including technical, financial, and regulatory aspects, to ensure a solid foundation for decision-making.</span></li><li>Short Circuit Analysis: <span>Assessing the electrical fault levels in your system to verify equipment ratings and system safety.</span></li><li>Power Loss Analysis: <span>Identifying areas of energy loss within your system and recommending solutions to improve overall efficiency.</span></li><li>Grid Compliance: <span>Ensuring your project meets the technical and operational requirements of the grid operator for smooth integration.</span></li><li>Relay Protection Coordination: <span>Analyzing and optimizing protection systems to ensure proper coordination and minimize outage risks.</span></li></ul><!-- /.list-checked --><p>Each study is conducted with precision, ensuring that your project meets both technical and financial objectives while adhering to industry standards and best practices.</p>",
+				"bg": "<h3>Нашите изследвания предоставят ключова информация, необходима за определяне на техническата и икономическата осъществимост на вашия проект.</h3><ul class='list-checked list-checked--spacer-row-big'><li>Проучване за осъществимост: <span>: Анализ на потенциала на проекта, включително технически, финансови и регулаторни аспекти, с цел осигуряване на стабилна основа за вземане на информирани решения.</span></li><li>Анализ на късо съединение: <span>Оценка на нивата на електрически повреди във вашата система за проверка на съответствието на оборудването и безопасността на системата.</span></li><li>Анализ на енергийните загуби: <span>Идентифициране на зони с енергийни загуби във вашата система и препоръки за решения с цел повишаване на общата ефективност.</span></li><li>Съответствие с изискванията на мрежата: <span>Осигуряване, че проектът отговаря на техническите и оперативните изисквания на оператора на електропреносната мрежа за безпроблемна интеграция.</span></li><li>Координация на релейна защита: <span>Анализ и оптимизация на релейни защити с цел правилна координация и минимизиране на риска от неселективни изключвания.</span></li></ul><!-- /.list-checked --><p>Всяко изследване се извършва с прецизност, като се гарантира, че проектът ви отговаря както на техническите, така и на финансовите цели, в съответствие с отрасловите стандарти и добрите практики.</p>"
+			}
+		},
+		{
+			"title": {
+				"en": "<h2>Supervision</h2>",
+				"bg": "<h2>Надзор от страна на Инвеститора</h2>"
+			},
+			"content": {
+				"en": "<p>We provide professional supervision services to ensure that project implementation aligns with design specifications, quality standards, and regulatory requirements.</p><p>Acting on behalf of the investor, our team monitors construction activities, verifies compliance, and addresses technical issues on-site to safeguard the project's success.</p><p>Through continuous oversight and clear reporting, we protect your interests and ensure that timelines, budgets, and quality expectations are met.</p>",
+				"bg": "<p>Предоставяме професионални услуги по надзор по време на строителство от страна на Инвеститора, за да гарантираме, че изпълнението на проекта отговаря на проектната документация, стандартите за качество и нормативните изисквания.</p><p> Действайки от името на инвеститора, нашият екип следи строителните дейности, проверява съответствието и разрешава технически въпроси на място, с цел да осигури успешното реализиране на проекта. </p><p>Чрез постоянен контрол и ясна отчетност защитаваме вашите интереси и гарантираме спазването на срокове, бюджети и изисквания за качество.</p>"
+			}
+		}
+	],
+	"hero-projects": {
+		"en": "<h5>Our Projects</h5><h1>We offer tailored solutions in energy systems across Europe.</h1>",
+		"bg": "<h5>Нашите проекти</h5><h1>Предлагаме индивидуални решения в енергийните системи из цяла Европа.</h1>"
+	},
+	"section-projects": {
+		"filters": [
+			{
+				"text": {
+					"en": "All Projects",
+					"bg": "Всички проекти"
+				},
+				"tag": "all"
+			},
+			{
+				"text": {
+					"en": "Photovoltaic plants",
+					"bg": "Фотоволтаични централи"
+				},
+				"tag": "photovoltaic"
+			},
+			{
+				"text": {
+					"en": "Battery Storage Systems",
+					"bg": "Системи за съхранение на батерии"
+				},
+				"tag": "battery"
+			},
+			{
+				"text": {
+					"en": "Substations",
+					"bg": "Подстанции"
+				},
+				"tag": "substations"
+			},
+			{
+				"text": {
+					"en": "Others",
+					"bg": "Други"
+				},
+				"tag": "others"
+			}
+		],
+		"projects": [
+			{
+				"tags": "all photovoltaic",
+				"img": "/assets/images/svg/logo-pvp.svg",
+				"title": {
+					"en": "<h6>1en Photovoltaic</h6><h4>Engineering and Consulting Services</h4>",
+					"bg": "<h6>1bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
+				},
+				"content": {
+					"en": "<h6>LOCATION</h6><p>Varna, Bulgaria</p><h6>SCOPE</h6><ul><li>Full detailed design</li><li>Technical analysis</li></ul><h6>REFERENCE</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename,pdf</a></div>",
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Варна, България</p><h6>ОБХВАТ</h6><ul><li>Пълен технически проект</li><li>Технически анализ</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename.pdf</a>"
+				}
+			},
+			{
+				"tags": "all photovoltaic battery",
+				"img": "/assets/images/svg/logo-electricity.svg",
+				"title": {
+					"en": "<h6>2en photovoltaic battery</h6><h4>Engineering and Consulting Services</h4>",
+					"bg": "<h6>2bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
+				},
+				"content": {
+					"en": "<h6>LOCATION</h6><p>Varna, Bulgaria</p><h6>SCOPE</h6><ul><li>Full detailed design</li><li>Technical analysis</li></ul><h6>REFERENCE</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename,pdf</a></div>",
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Варна, България</p><h6>ОБХВАТ</h6><ul><li>Пълен технически проект</li><li>Технически анализ</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename.pdf</a>"
+					
+				}
+			},
+			{
+				"tags": "all battery",
+				"img": "/assets/images/svg/logo-electricity.svg",
+				"title": {
+					"en": "<h6>3en Battery Storage</h6><h4>Engineering and Consulting Services</h4>",
+					"bg": "<h6>3bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
+				},
+				"content": {
+					"en": "<h6>LOCATION</h6><p>Varna, Bulgaria</p><h6>SCOPE</h6><ul><li>Full detailed design</li><li>Technical analysis</li></ul><h6>REFERENCE</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename,pdf</a></div>",
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Варна, България</p><h6>ОБХВАТ</h6><ul><li>Пълен технически проект</li><li>Технически анализ</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename.pdf</a>"
+					
+				}
+			},
+			{
+				"tags": "all substations",
+				"img": "/assets/images/svg/logo-electricity.svg",
+				"title": {
+					"en": "<h6>4en substations</h6><h4>Engineering and Consulting Services</h4>",
+					"bg": "<h6>4bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
+				},
+				"content": {
+					"en": "<h6>LOCATION</h6><p>Varna, Bulgaria</p><h6>SCOPE</h6><ul><li>Full detailed design</li><li>Technical analysis</li></ul><h6>REFERENCE</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename,pdf</a></div>",
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Варна, България</p><h6>ОБХВАТ</h6><ul><li>Пълен технически проект</li><li>Технически анализ</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename.pdf</a>"
+					
+				}
+			},
+			{
+				"tags": "all others",
+				"img": "/assets/images/svg/logo-electricity.svg",
+				"title": {
+					"en": "<h6>5en Others</h6><h4>Engineering and Consulting Services</h4>",
+					"bg": "<h6>5bg други</h6><h4>Инженерни и консултантски услуги</h4>"
+				},
+				"content": {
+					"en": "<h6>LOCATION</h6><p>Varna, Bulgaria</p><h6>SCOPE</h6><ul><li>Full detailed design</li><li>Technical analysis</li></ul><h6>REFERENCE</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename,pdf</a></div>",
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Варна, България</p><h6>ОБХВАТ</h6><ul><li>Пълен технически проект</li><li>Технически анализ</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='http://example.com/files/myfile.pdf' target='_blank'>filename.pdf</a>"
+					
+				}
+			}
+		]
+	},
+	"hero-contacts": {
+		"en": "<h5>Contact Us</h5><h1>Send us a message for <br>more information and inquiries.</h1>",
+		"bg": "<h5>Свържете се с нас</h5><h1>Изпратете ни съобщение за повече информация и запитвания.</h1>"
+	},
+	"contacts-info": {
+		"en": "If needed, you can contact directly:",
+		"bg": "Ако е необходимо, можете да се свържете директно с:"
+	},
+	"contacts-about": {
+		"en": "<h6>Kiril Dimitrov</h6><p><span>Founder, Managing director</span></p><p><a href='mailto:k.dimitrov@keld-engineering.com'>k.dimitrov@keld-engineering.com</a></p>",
+		"bg": "<h6>Кирил Димитров</h6><p><span>Основател, управляващ директор</span></p><p><a href='mailto:k.dimitrov@keld-engineering.com'>k.dimitrov@keld-engineering.com</a></p>"
+	},
+	"label-email": {
+		"en": "Email",
+		"bg": "Имейл"
+	},
+	"label-subject": {
+		"en": "SUBJECT",
+		"bg": "ТЕМА"
+	},
+	"label-message": {
+		"en": "Message",
+		"bg": "Съобщение"
+	},
+	"field-email": {
+		"en": "your@email.com",
+		"bg": "вашият@email.com"
+	},
+	"field-subject": {
+		"en": "How can we help?",
+		"bg": "Как можем да помогнем?"
+	},
+	"field-message": {
+		"en": "Give us more information about your inquiry...",
+		"bg": "Дайте ни повече информация за вашето запитване..."
+	}
+	,
+	"form-btn": {
+		"en": "Submit",
+		"bg": "Изпрати"
+	},
+	"thank-you": {
+		"en": "<h5>Thank You</h5><h2>Your request is sent. We will get in touch with you as soon as possible.</h2>",
+		"bg": "<h5>Благодаря ти</h5><h2>Вашето запитване е изпратено. Ще се свържем с вас възможно най-скоро.</h2>"
+	}
+}
+
