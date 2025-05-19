@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head }}
+
+<body class="contact">
+	<div class="wrapper">
+		{{> header }}
+
+		<div class="hero-base js-hero-content">
+			<div class="shell">
+				<div class="hero__bg" style="background-image: url(/assets/images/hero-contacts.jpg);"></div><!-- /.hero__media -->
+
+				<div class="hero__inner">
+					<div class="hero__content js-rich-text" data-name="hero-contacts"></div>
+				</div><!-- /.hero__inner -->
+			</div><!-- /.shell -->
+		</div><!-- /.hero -->
+
+		<main id="main">
+			<section class="section section--form">
+				<div class="shell">
+					<div class="section__body">
+						<div class="grid grid--disable-mobile ">
+							<div class="grid__col grid__col--6of12">
+								<div class="section__aside">
+									<p class="js-rich-text" data-name="contacts-info"></p>
+
+									<div class="team">
+										<div class="team__media">
+											<img src="/assets/images/team-1.jpg" alt="team img">
+										</div><!-- /.team__media -->
+
+										<div class="team__content js-rich-text" data-name="contacts-about"></div><!-- /.team__content -->
+									</div><!-- /.team -->
+								</div><!-- /.section__aside -->
+							</div><!-- /.grid__col -->
+
+							<div class="grid__col grid__col--6of12">
+								<div class="section__main">
+									<div class="form">
+										<form id="contact-form">
+											<div class="form__body">
+												<div class="form__row">
+													<label class="form__label js-rich-text" data-name="label-email" for="field-email" ></label>
+
+													<div class="form__controls">
+														<input type="email" name="field-email" id="field-email" class="js-placeholder-text" data-name="field-email"  required />
+													</div><!-- /.form__controls -->
+												</div>
+
+												<div class="form__row">
+													<label class="form__label js-rich-text" data-name="label-subject" for="field-subject"></label>
+
+													<div class="form__controls">
+														<input type="text" name="field-subject" id="field-subject" class="js-placeholder-text" data-name="field-subject" required />
+													</div><!-- /.form__controls -->
+												</div><!-- /.form__row -->
+
+												<div class="form__row">
+													<label class="form__label js-rich-text" data-name="label-message" for="message"></label>
+
+													<div class="form__controls">
+														<textarea name="message" id="message" class="js-placeholder-text" data-name="field-message" required></textarea>
+													</div><!-- /.form__controls -->
+												</div><!-- /.form__row -->
+											</div><!-- /.form__body -->
+
+											<div class="form__actions">
+												<button class="btn js-rich-text" data-name="form-btn" type="submit"></button><!-- /.btn -->
+											</div><!-- /.form__actions -->
+
+											<a href="./thank-you.html" class="form__success sr-only js-on-success"></a><!-- /.form__success -->
+										</form>
+									</div><!-- /.form -->
+								</div><!-- /.section__main -->
+							</div><!-- /.grid__col -->
+						</div><!-- /.grid -->
+					</div><!-- /.section__body -->
+				</div><!-- /.shell -->
+			</section><!-- /.section-form -->
+		</main>
+
+		{{> footer }}
+	</div><!-- /.wrapper -->
+
+	{{> scripts }}
+	<script type="text/javascript" src="/assets/vendor/email.min.js"> </script>
+	<script>
+		emailjs.init("oWlHiOZwr4Bv9NraU"); // Заменяш с твоето ID
+		const $form = $('#contact-form');
+
+		$form.on('submit', function (e) {
+			e.preventDefault();
+			const formElement = document.getElementById('contact-form');
+
+			emailjs.sendForm('service_o3tf51t', 'template_a91xx0l', formElement).then(
+				function (response) {
+					console.log('SUCCESS!', response.status, response.text);
+					// alert('Съобщението е изпратено успешно!');
+					$form[0].reset();
+					
+					$form.find('.js-on-success').trigger('click');
+				},
+				function (error) {
+					console.log('FAILED...', error);
+					// alert('Имаше грешка при изпращането.');
+				}
+			);
+		});
+	</script>
+</body>
+
+</html>

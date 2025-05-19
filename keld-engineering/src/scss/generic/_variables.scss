@@ -1,0 +1,24 @@
+//Variables
+$responsive-ios             : 812px;
+
+$ff-base:   "Be Vietnam Pro";
+$ff-titles: "Be Vietnam" ;
+
+$breakpoints: (
+	mobile-small: 374px,
+	mobile-medium: 575px,
+	mobile: 767px,
+	admin-bar: 782px,
+	tablet: 1023px,
+	small-desktop: 1199px,
+	large-desktop: 1399px
+);
+
+
+:root { // Colors
+	--white: #fff;
+	--primary: #231F20;
+	--tertiary: #000000;
+	--accent: #318D8D;
+	--error: #B10E1C;
+}

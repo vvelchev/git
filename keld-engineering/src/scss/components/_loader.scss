@@ -1,0 +1,49 @@
+/* ------------------------------------------------------------ *\
+    Loader
+\* ------------------------------------------------------------ */
+
+.loader {
+	position: fixed;
+	z-index: 14;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background-color: var(--accent);
+	display:flex; 
+	justify-content: center; 
+	align-items: center;
+	clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+	transition: clip-path 1s;
+
+	svg {
+		scale: 0.5;
+		opacity: 0;
+
+		@include breakpoint-down(mobile) {
+			max-width: 70vw;
+		}
+		
+		g {
+			rotate:-180deg;
+			transform-origin: center;
+		}
+	}
+	
+	&.state-1 {
+		svg {
+			scale: 1;
+			opacity: 1;
+			transition: scale 2s, opacity 2s;
+			
+			g {
+				transition: rotate 2s;
+				rotate:0deg;
+			}
+		}
+	}
+	
+	&.state-2 {
+		clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+	}
+}

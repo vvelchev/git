@@ -1,0 +1,26 @@
+/* ------------------------------------------------------------ *\
+    Form
+\* ------------------------------------------------------------ */
+
+.form {
+	.form__controls {
+		@extend %style-fields;
+	}
+
+	.form__label {
+		line-height: 1.2;
+		@extend .h6;
+		opacity: 0.5;
+		display: block;
+		text-transform: uppercase;
+		@include margin-bottom(1.9rem);
+	}
+
+	.form__row {
+		@include margin-bottom(3.2rem);
+	}
+
+	.form__actions {
+		@include margin-top(3.5rem);
+	}
+}

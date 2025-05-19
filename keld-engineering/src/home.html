@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head }}
+
+<body class="home">
+	<div class="wrapper">
+		{{> header }}
+
+		<div class="loader js-loader">
+			{{> main-logo }}
+		</div><!-- /.loader -->
+
+		<div class="hero js-hero-content">
+			<div class="shell">
+				<div class="hero__bg" style="background-image: url(/assets/images/hero.jpg);"></div><!-- /.hero__media -->
+
+				<div class="hero__inner">
+					<div class="grid grid--disable-mobile">
+						<div class="grid__col grid__col--6of12">
+							<div class="hero__media">
+								<img src="/assets/images/logo.svg" alt="Logo KelD Engineering Ltd">
+							</div><!-- /.hero__media -->
+						</div><!-- /.grid__col -->
+
+						<div class="grid__col grid__col--6of12">
+							<div class="hero__content js-rich-text" data-name="hero-home"></div><!-- /.hero__content -->
+						</div><!-- /.grid__col -->
+
+						<div class="grid__col">
+							<div class="hero__foot">
+								<a href="#main" class="btn-scroll">
+									<div class="mask-img" style="--url:url(../assets/images/icons/mouse.svg)"><img alt="ico"></div><!-- /.mask-img -->
+
+									<span class="js-rich-text" data-name="scroll-btn"></span>
+								</a><!-- /.btn-scroll -->
+							</div><!-- /.hero__foot -->
+						</div><!-- /.grid__col -->
+					</div><!-- /.grid -->
+				</div><!-- /.hero__inner -->
+			</div><!-- /.shell -->
+		</div><!-- /.hero -->
+
+		<main id="main">
+			<section class="section section--experience">
+				<div class="shell">
+					<div class="section__inner" style="background-image: url(/assets/images/section-bg.png)">
+						<div class="grid grid--disable-mobile">
+							<div class="grid__col">
+								<div class="section__title js-rich-text" data-name="section-experience-title"></div><!-- /.section__title -->
+							</div><!-- /.grid__col -->
+	
+							<div class="grid__col grid__col--6of12">
+								<div class="section__aside js-rich-text" data-name="section-experience-aside"></div><!-- /.section__aside -->
+							</div><!-- /.grid__col -->
+	
+							<div class="grid__col grid__col--6of12">
+								<div class="section__content js-rich-text" data-name="section-experience-content"></div><!-- /.section__content -->
+							</div><!-- /.grid__col -->
+						</div><!-- /.grid -->
+					</div><!-- /.section__inner -->
+				</div><!-- /.shell -->
+			</section><!-- /.section -->
+	
+			<section class="section section--partners">
+				<div class="shell">
+					<div class="section__inner">
+						<div class="grid grid--disable-mobile">
+							<div class="grid__col ">
+								<div class="section__title js-rich-text" data-name="section-partners-title"></div><!-- /.section__title -->
+							</div><!-- /.grid__col -->
+	
+							<div class="grid__col grid__col--6of12">
+								<div class="section__sub-title js-rich-text" data-name="section-partners-subtitle"></div><!-- /.section__title -->
+							</div><!-- /.grid__col -->
+	
+							<div class="grid__col grid__col--6of12">
+								<div class="section__aside txt-xl js-rich-text" data-name="section-partners-aside"></div><!-- /.section__aside -->
+							</div><!-- /.grid__col -->
+	
+							<div class="grid__col">
+								<div class="section__content js-rich-text" data-name="section-partners-list" ></div><!-- /.section__content -->
+							</div><!-- /.grid__col -->
+						</div><!-- /.grid -->
+					</div>
+				</div>
+			</section><!-- /.section -->
+	
+			<section class="section-img">
+				<img src="/assets/images/img-2.jpg" alt="architect works image">
+			</section><!-- /.section-img -->
+	
+			{{> vision}}
+		</main>
+
+		{{> footer }}
+	</div><!-- /.wrapper -->
+
+	{{> scripts }}
+</body>
+
+</html>

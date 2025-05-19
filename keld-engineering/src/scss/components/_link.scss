@@ -1,0 +1,22 @@
+/* ------------------------------------------------------------ *\
+    Link
+\* ------------------------------------------------------------ */
+
+.link {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	gap: 1.1rem;
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: var(--primary);
+	transition: color 0.3s;
+	
+
+	@include hover {
+		color: var(--green);
+	}
+	
+}

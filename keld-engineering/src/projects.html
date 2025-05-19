@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head }}
+
+<body class="projects">
+	<div class="wrapper">
+		{{> header }}
+
+		<div class="hero-base js-hero-content">
+			<div class="shell">
+				<div class="hero__bg" style="background-image: url(/assets/images/img-3.jpg);"></div><!-- /.hero__media -->
+
+				<div class="hero__inner">
+					<div class="hero__content js-rich-text" data-name="hero-projects"></div>
+				</div><!-- /.hero__inner -->
+			</div><!-- /.shell -->
+		</div><!-- /.hero -->
+
+		<main id="main">
+			<section class="section section--projects js-filters" data-name="section-projects">
+				<div class="shell">
+					<div class="section__inner">
+						<div class="section__head">
+							<div class="filters txt-l">
+								<ul></ul>
+							</div><!-- /.filters -->
+						</div><!-- /.section__head -->
+
+						<div class="section__body">
+							<div class="grid grid--disable-mobile"></div><!-- /.grid -->
+						</div><!-- /.section__body -->
+					</div><!-- /.section__inner -->
+				</div><!-- /.shell -->
+			</section><!-- /.section-acc -->
+
+			{{> vision}}
+		</main>
+
+		{{> footer }}
+	</div><!-- /.wrapper -->
+
+	{{> scripts }}
+</body>
+
+</html>

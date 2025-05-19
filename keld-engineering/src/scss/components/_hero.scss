@@ -1,0 +1,133 @@
+/* ------------------------------------------------------------ *\
+    Hero
+\* ------------------------------------------------------------ */
+
+.hero {
+	position: relative;
+	transform: translateY(6rem);
+
+	.hero__bg {
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		opacity: 0.5;
+		clip-path: polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%);
+	}
+
+	.hero__inner {
+		position: relative;
+		z-index: 2;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		padding: 12rem 0;
+
+		@include breakpoint-down(large-desktop) {
+			padding: 10rem 0;
+		}
+		
+		@include breakpoint-down(mobile) {
+			padding: 2rem 0 3rem;
+			align-items: flex-start;
+		}
+
+		>.grid {
+			--gutter-y: 0;
+			--gutter-x: var(--spacer-big);
+			
+			align-items: center;
+
+			@include breakpoint-down(tablet) {
+				--gutter-y: 2rem;
+			}
+
+			@include breakpoint-down(mobile) {
+				align-items: flex-start;
+				
+			}
+		}
+	}
+
+	.hero__content {
+		padding: 0;
+		translate: 6rem 0;
+		opacity: 0;
+
+		@include breakpoint-down(large-desktop) {
+			padding: 0;
+		}
+
+		h1 {
+			@include margin-bottom(0.85em);
+		}
+
+		h5 {
+			@include breakpoint-down(mobile) {
+				margin-bottom: 9vh;
+			}
+		}
+
+
+		ul {
+			@extend .list-checked;
+		}
+	}
+
+	.hero__media {
+		translate: calc(var(--shell-max-width)/2 - 50%) 0;
+		width: fit-content;
+
+		@media (max-width: 1317px) {
+			translate: calc(50vw - var(--shell-gutter) - 50%) 0;
+		}
+
+		@include breakpoint-down(mobile) {
+			max-width: 10rem;
+		}
+	}
+
+	.hero__foot {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		padding: 3.4rem 0;
+		max-width: var(--shell-max-width);
+		opacity: 0;
+		translate: 0 30px;
+		
+
+		@include breakpoint-down(mobile) {
+			transition: padding 0.15s;
+			padding-bottom: calc(1.5rem + 100vh - 100dvh);
+		}
+	}
+}
+
+body:has(.loader.state-2) .hero {
+	transition: transform 1s 0s;
+	transform: translateY(0);
+}
+
+body:has(.loader.state-3) .hero {
+	.hero__bg {
+		opacity: 0.15;
+		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+		transition: opacity 0.8s, clip-path 0.8s;
+	}
+
+	.hero__content,
+	.hero__media,
+	.hero__foot {
+		transition: opacity 1s, translate 1s;
+		opacity: 1;
+		translate: 0 0;
+	}
+}

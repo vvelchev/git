@@ -1,0 +1,38 @@
+/* ------------------------------------------------------------ *\
+    Field
+\* ------------------------------------------------------------ */
+
+%style-fields {
+	--border-opacity: 10%;
+	input:not([type='radio']):not([type='checkbox']):not([type='submit']):not([type='button']):not([type='image']):not([type='file']),
+	select,
+	textarea {
+		@extend .txt-l;
+		font-family: var(--ff-titles);
+		display: block;
+		width: 100%;
+		color: color-mix(in srgb, currentColor var(--color-opacity, 30%), transparent);
+		background: transparent;
+		border: 1px solid color-mix(in srgb, currentColor var(--border-opacity, 10%), transparent);
+		transition: border 0.3s, color 0.3s;
+		padding: 1.4rem 2.2rem;
+
+		&::placeholder {}
+
+		@include hover {
+			--border-opacity: 50%;
+
+		}
+
+		&:not(:placeholder-shown),
+		&:focus {
+			--border-opacity: 60%;
+			--color-opacity: 60%;
+		}
+	}
+
+	textarea {
+		height: 24rem;
+		resize: none !important;
+	}
+}

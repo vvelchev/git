@@ -1,0 +1,58 @@
+/* ------------------------------------------------------------ *\
+    Nav
+\* ------------------------------------------------------------ */
+
+.nav {
+	font-size: 1.4rem;
+	font-weight: 500;
+	text-transform: uppercase;
+
+	ul {
+		list-style-type:none;
+		display: flex;
+		align-items: center;
+		flex-wrap:wrap;
+		gap: 8rem;
+		
+		@include breakpoint-down(large-desktop) {
+			gap: 2.6rem 4rem;
+		}
+
+		@include breakpoint-down(tablet) {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	a {
+		text-decoration: none;
+		position: relative;
+		
+		&:after {
+			@include breakpoint-up(tablet) {
+				opacity: 0;;
+				content: '';
+				position:absolute; 
+				top:-12rem; 
+				left:50%; 
+				translate: -50% 0%;
+				width: 10rem;
+				aspect-ratio: 352/474;
+				background-image: url('/assets/images/spotlight-3.png');
+				background-size: cover; 
+				background-position: center; 
+				background-repeat: no-repeat; 
+				pointer-events: none;
+				opacity: 0;
+				transition: opacity 0.3s, width 0.3s;
+			}
+		}
+		
+		@include hover {
+			&:after {
+				opacity: 0.15;
+				width: 45rem;
+			}
+		}
+	}
+}

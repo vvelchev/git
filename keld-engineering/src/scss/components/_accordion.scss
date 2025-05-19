@@ -1,0 +1,138 @@
+/* ------------------------------------------------------------ *\
+    Accordion
+\* ------------------------------------------------------------ */
+
+.accordion {
+	counter-reset: acc-list;
+
+	.grid {
+		@include breakpoint-down(mobile) {
+			--gutter-y: 0rem;
+		}
+	}
+
+	.accordion__section {
+		--spacer-top: 3.2rem;
+		border-top: 1px solid color-mix(in srgb, var(--white) 10%, transparent);
+		padding: var(--spacer-top) 0 calc(var(--spacer-top) * 2.565);
+		position: relative;
+		cursor: pointer;
+		
+		@include breakpoint-down(small-desktop) {
+			--spacer-top: 2.5rem;
+			padding: var(--spacer-top) 0 calc(var(--spacer-top) * 1.8);
+		}
+		
+		@include breakpoint-down(mobile) {
+			--spacer-top: 2.2rem;
+			padding: var(--spacer-top) 0 0;
+		}
+		
+		&:after {
+			content: '';
+			position: absolute;
+			top: var(--spacer-top);
+			right: 0;
+			mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"><path stroke="%23318D8D" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M25.334 16H6.666M16 25.333V6.667"/></svg>');
+			width: 3.2rem;
+			aspect-ratio: 1;
+			background-color: var(--accent);
+			transition: rotate 0.3s;
+			
+		}
+
+		&.is-expanded {
+			&:after {
+				rotate: 45deg;
+			}
+
+			.accordion__head {
+				h2:before {
+					color: var(--accent);
+				}
+			}
+		}
+
+		@include hover {
+			&:not(.is-expanded) .accordion__head {
+				h2{
+					padding-right: 0;
+					&:before{
+						margin-right: 4.5rem;
+					}
+				}
+			}
+		}
+	}
+	
+	.accordion__head {
+		@include breakpoint-down(mobile) {
+			padding-right: 3.4rem;
+			padding-bottom: var(--spacer-top);
+		}
+
+		h2 {
+			display: flex;
+			align-items: center;
+			padding-right: 2rem;
+			transition: padding 0.3s;
+
+			@include breakpoint-down(small-desktop) {
+				align-items: flex-start;
+			}
+			
+			&:before {
+				counter-increment: acc-list;
+				content: counter(acc-list, decimal-leading-zero) "/";
+				color: rgba(255, 255, 255, 0.2);
+				font-weight: 100;
+				font-family: var(--ff-base);
+				margin-right: 2.5rem;
+				transition: color 0.3s, margin 0.3s;
+				
+				@include breakpoint-down(small-desktop) {
+					margin-top: 0.5rem;
+				}
+				
+				@include breakpoint-down(tablet) {
+					margin-right: 1.2rem;
+				}
+			}
+		}
+	}
+
+	.accordion__body {
+		@include breakpoint-up(tablet) {
+			padding-left: 11.6%;
+			padding-right: 7.2rem;
+			
+			@include breakpoint-down(small-desktop) {
+				padding-left: 6%;
+				padding-right: 4rem;
+			}
+		}
+
+		display: none;
+
+		@include breakpoint-down(mobile) {
+			padding-bottom: var(--spacer-top);
+		}
+
+		h3 {
+			@include margin-bottom(1.3em);
+			
+			@include breakpoint-down(tablet) {
+				@include margin-bottom(0.8em);
+			}
+		}
+
+		p {
+			opacity: 0.5;
+			@include margin-bottom(1.5em);
+			
+			@include breakpoint-down(tablet) {
+				@include margin-bottom(0.7em);
+			}
+		}
+	}
+}

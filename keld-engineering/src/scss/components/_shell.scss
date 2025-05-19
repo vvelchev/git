@@ -1,0 +1,26 @@
+/* ------------------------------------------------------------ *\
+  Shell
+\* ------------------------------------------------------------ */
+
+:root {
+	--shell-max-width: 127.6rem;
+	--shell-gutter: 2rem;
+	
+	@include breakpoint-down(mobile) {
+		--shell-gutter: 1.5rem;
+	}
+}
+
+.shell {
+	max-width: calc( var(--shell-max-width) + var(--shell-gutter) * 2 );
+	padding-left: var(--shell-gutter);	
+	padding-right: var(--shell-gutter);
+	margin: auto;
+	width: 100%;
+}
+
+/* Shell Fluid */
+
+.shell--fluid {
+	max-width: none;
+}

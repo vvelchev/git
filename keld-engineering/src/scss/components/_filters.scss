@@ -1,0 +1,70 @@
+/* ------------------------------------------------------------ *\
+    Filters
+\* ------------------------------------------------------------ */
+
+.filters {
+	@include breakpoint-down(tablet) {
+		white-space: nowrap;
+		overflow-y: auto;
+		margin: 0 calc(var(--shell-gutter) * -1);
+		mask-image: linear-gradient(to right, transparent 0%, currentColor var(--shell-gutter), currentcolor calc(100% - var(--shell-gutter)), transparent 100%);
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	@include breakpoint-down(mobile) {
+		font-size: 1.4rem;
+	}
+
+	ul {
+		display: flex;
+		align-items: center;
+		list-style-type: none;
+		gap: 2rem;
+
+		@include breakpoint-down(tablet) {
+			gap: 1rem;
+		}
+
+		li {
+			a {
+				text-decoration: none;
+				border: 1px solid transparent;
+				display: block;
+				padding: 0.8rem 1.4rem;
+				opacity: 0.5;
+				transition: opacity 0.3s, border-color 0.3s;
+
+				@include breakpoint-down(tablet) {
+					padding: 0.5rem 1.1rem;
+				}
+
+				@include hover {
+					opacity: 1;
+				}
+
+			}
+
+			&.is-active {
+				a {
+					opacity: 1;
+					border-color: var(--accent);
+				}
+			}
+
+			&:first-child {
+				@include breakpoint-down(tablet) {
+					padding-left: var(--shell-gutter);
+				}
+			}
+			
+			&:last-child {
+				@include breakpoint-down(tablet) {
+					padding-right: var(--shell-gutter);
+				}
+			}
+		}
+	}
+}

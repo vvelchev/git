@@ -1,0 +1,137 @@
+/* ------------------------------------------------------------ *\
+	Base
+\* ------------------------------------------------------------ */
+
+:root {
+	--fsz-base: 1.6rem;
+	--line-height-base: 1.5;
+	--ff-base:   #{$ff-base}, Helvetica, Arial, sans-serif ;
+	--ff-titles: #{$ff-titles}, Helvetica, Arial, sans-serif  ;
+	--spacer-med: 8rem;
+	--spacer: 9.6rem;
+	--spacer-big: 16rem;
+	background: var(--primary);
+	
+	@include breakpoint-down(large-desktop) {
+		--spacer: 6.2rem;
+		--spacer-med: 5rem;
+		--spacer-big: 8rem;
+	}
+	
+	@include breakpoint-down(tablet) {
+		--spacer: 5rem;
+		--spacer-med: 4rem;
+		--spacer-big: 5rem;
+	}
+}
+html { font-size: 62.5%; }
+
+body {
+	min-width: 320px;
+	font-family: var(--ff-base);
+	font-weight: 400;
+	font-size: var(--fsz-base);
+	line-height: var(--line-height-base);
+	color: var(--white);
+	background: var(--primary);
+}
+
+a {
+	color: inherit;
+	text-decoration: underline;
+
+	&:hover { text-decoration: none; }
+	&[href^="tel"] { text-decoration: none; }
+}
+
+
+.h1,h1,.h2,h2,.h3,h3,.h4,h4,.h5,h5,.h6,h6,.txt-xl {
+	font-family: var(--ff-titles);
+	margin-bottom: 1em;
+	font-weight: 400;
+}
+
+.h1,h1  { font-size: 5.6rem; line-height: 1.1; font-weight: 500; @include margin-bottom(0.45em); }
+.h2,h2  { font-size: 4rem;   line-height: 1.1; }
+.h3,h3  { font-size: 3.2rem; line-height: 1.3; @include margin-bottom(1.3em); }
+.h4,h4  { font-size: 2.4rem; line-height: 1.4; font-weight: 500; }
+.h5,h5  { font-size: 2rem;   line-height: 1.4; font-weight: 500; @include margin-bottom(0.7em); color: var(--accent); }
+.h6,h6  { font-size: 1.4rem; line-height: 1;   }
+.txt-xl	{ font-size: 2rem;   line-height: 1.5; }
+.txt-l	{ font-size: 1.8rem; line-height: 1.5; }
+.txt-s	{ font-size: 1.6rem; line-height: 1.5; }
+
+@include breakpoint-down(large-desktop) {
+	.h1,h1  { font-size: 4.2rem; }
+	.h2,h2  { font-size: 3.6rem;   }
+	.h3,h3  { font-size: 3rem; }
+	.h4,h4  { font-size: 2rem; }
+	.h5,h5  { font-size: 1.8rem; }
+}
+
+@include breakpoint-down(tablet) {
+	.txt-xl	{ font-size: 1.8rem; }
+	.txt-l	{ font-size: 1.6rem; }
+	.txt-s	{ font-size: 1.4rem; }
+}
+
+@include breakpoint-down(mobile) {
+	.h1,h1  { font-size: 3.4rem; }
+	.h2,h2  { font-size: 2.8rem; }
+	.h3,h3  { font-size: 2.4rem; }
+	.h4,h4  { font-size: 1.8rem; }
+	.h5,h5  { font-size: 1.6rem; }
+}
+
+@include breakpoint-down(mobile-small) {
+	.h1,h1  { font-size: 3rem; }
+	.h2,h2  { font-size: 2.4rem; }
+	.h3,h3  { font-size: 2.2rem; }
+	.h4,h4  { font-size: 1.8rem; }
+	.h5,h5  { font-size: 1.6rem; }
+}
+
+p,
+ul,
+ol,
+dl,
+hr,
+table,
+blockquote {
+	margin-bottom: 1em;
+}
+
+.txt-xl,
+h1[class],
+h2[class],
+h3[class],
+h4[class],
+h5[class],
+h6[class],
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child,
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+table:last-child,
+blockquote:last-child {
+	margin-bottom: 0;
+}
+
+#main {
+	display: flex;
+	flex-direction: column;
+	height: 10%;
+	flex-grow: 1;
+}
+
+br {
+	@include breakpoint-down(tablet) {
+		display: none;
+	}
+}

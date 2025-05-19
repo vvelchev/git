@@ -1,0 +1,55 @@
+/* ------------------------------------------------------------ *\
+    Article
+\* ------------------------------------------------------------ */
+
+.article {
+	@extend .animate;
+	@extend .animate--fade-in;
+	@extend .is-animated;
+
+	.grid {
+		--gutter-x: 5.6rem;
+	}
+	.article__media {
+		background-color: #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap:wrap;
+		background-color: rgba(0,0,0,0.4);
+		aspect-ratio: 1;
+	}
+
+	.article__title {
+		@include margin-bottom(1.7em);
+		
+		h6 {
+			color: var(--accent);
+		}
+	}
+
+	.article__content {
+		h6 {
+			@include margin-bottom(1.1em);
+			opacity: 0.5;
+		}
+		
+		p {
+			opacity: 0.25;
+			
+			+ h6 {
+				@include margin-top(1.7em);
+			}
+		}
+		
+		ul {
+			opacity: 0.5;
+			@extend .list-dots;
+			@include margin-bottom(1.6em);
+		}
+		
+		a {
+			@extend .link-file;
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"type": "html",
+	"client_name": "Prescriber Point",
+	"project_name": "Prescriber Point - HubSpot Website",
+	"exclude_from_client_archive": [
+		"settings.json",
+		"node_modules"
+	],
+
+	"cleanup_in_old_working_copies": [
+	],
+
+	"scripts": {
+		"default": "yarn run dev",
+		"build": "yarn run build"
+	}
+}

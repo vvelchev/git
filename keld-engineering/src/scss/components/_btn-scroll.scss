@@ -1,0 +1,18 @@
+/* ------------------------------------------------------------ *\
+    Btn Scroll
+\* ------------------------------------------------------------ */
+
+.btn-scroll {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.7rem;
+	opacity: 0.5;
+	text-decoration: none;
+	font-size: 1.486rem;
+	transition: opacity 0.3s;
+	
+
+	&:hover {
+		opacity: 1;
+	}
+}

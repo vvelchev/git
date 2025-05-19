@@ -1,0 +1,25 @@
+/* ------------------------------------------------------------ *\
+	Button
+\* ------------------------------------------------------------ */
+
+.btn {
+	cursor: pointer;
+	text-decoration: none;
+	appearance: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1.3rem 2.4rem 1.5rem;
+	gap: 8px;
+	border: 1px solid var(--accent);
+	background: var(--accent);
+	color: var(--white);
+	font-weight: 400;
+	font-size: 1.8rem;
+	transition: background-color 0.3s, color 0.3s;
+
+	@include hover {
+		color: var(--accent);
+		background-color: transparent;
+	}
+}

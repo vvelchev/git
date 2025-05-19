@@ -1,0 +1,39 @@
+/* ------------------------------------------------------------ *\
+    Logo
+\* ------------------------------------------------------------ */
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 1.6rem;
+	text-decoration: none;
+
+	img {
+		max-width: 7.2rem;
+
+		@include breakpoint-down(large-desktop) {
+			max-width: 5rem;
+		}
+		
+		@include breakpoint-down(small-desktop) {
+			max-width: 4rem;
+		}
+	}
+
+	.slogan {
+		font-size: 1.8rem;
+		font-weight: 500;
+
+		@include breakpoint-down(large-desktop) {
+			font-size: 1.6rem;
+		}
+		
+		@include breakpoint-down(small-desktop) {
+			font-size: 1.5rem;
+		}
+		
+		@include breakpoint-down(tablet) {
+			font-size: 1.4rem;
+		}
+	}
+}

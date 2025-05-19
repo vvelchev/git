@@ -1,0 +1,125 @@
+/* ------------------------------------------------------------ *\
+    Section
+\* ------------------------------------------------------------ */
+
+.section {
+	padding: var(--spacer) 0;
+
+	.section__inner>.grid {
+		--gutter-x : var(--spacer-big);
+	}
+
+	&--experience {
+		@include breakpoint-down(mobile) {
+			padding-bottom: 0;
+		}
+		.section__inner {
+			background-size: 100% auto;
+			background-position: center bottom;
+			background-repeat: no-repeat;
+			padding-bottom: 57rem;
+			
+			@include breakpoint-down(large-desktop) {
+				padding-bottom: 43rem;
+			}
+			
+			@include breakpoint-down(tablet) {
+				padding-bottom: 26rem;
+			}
+			
+			@include breakpoint-down(mobile) {
+			}
+		}
+
+		.section__content {
+			ul {
+				@extend .list-checked;
+				@extend .list-checked--spacer-row-big;
+			}
+		}
+	}
+
+	&--partners {
+		background-color: color-mix(in srgb, var(--tertiary) 20%, transparent);
+		
+		.section__content {
+			padding-top: 5.3rem;
+
+			ul {
+				@extend .list-checked-ver;
+			}
+			
+			@include breakpoint-down(mobile) {
+				padding-top: 3rem;
+			}
+		}
+	}
+	
+	&--vision {
+		background-color: color-mix(in srgb, var(--tertiary) 20%, transparent);
+
+		.section__inner {
+			padding: var(--spacer-med) 0;
+		}
+
+		.section__content {
+			text-align: center;
+
+			.btn {
+				@include margin-top(2rem);
+			}
+		}
+	}
+
+	&--acc {
+		padding-bottom: 2rem;
+	}
+
+	&--projects {
+		.section__head {
+			margin-bottom: var(--spacer-med);
+		}
+
+		.section__body {
+			> .grid {
+				--gutter-x: var(--spacer-med);
+				--gutter-y: var(--spacer);
+			}
+		}
+	}
+
+	&--form {
+		padding: var(--spacer-med) 0;
+
+		.section__body {
+			> .grid {
+				--gutter-x: var(--spacer-med);
+				--gutter-y: var(--spacer-med);
+			}
+		}
+
+		.section__aside {
+			> p {
+				@extend .txt-l;
+				opacity: 0.5;
+				font-family: var(--ff-titles);
+				@include margin-bottom(2.3rem);
+			}
+		}
+	}
+
+	&--thx {
+		padding: var(--header-height) 0;
+		height: 10%;
+		flex-grow: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+
+		.section__inner {
+			max-width: 85rem;
+			margin: auto;
+		}
+	}
+}

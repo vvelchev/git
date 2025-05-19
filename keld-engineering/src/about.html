@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head }}
+
+<body class="about">
+	<div class="wrapper">
+		{{> header }}
+
+		<div class="hero-base js-hero-content">
+			<div class="shell">
+				<div class="hero__bg" style="background-image: url(/assets/images/hero-about.jpg);"></div><!-- /.hero__media -->
+
+				<div class="hero__inner">
+					<div class="hero__content js-rich-text" data-name="hero-about"></div>
+				</div><!-- /.hero__inner -->
+			</div><!-- /.shell -->
+		</div><!-- /.hero -->
+
+		<main id="main">
+			<section class="section section--acc">
+				<div class="shell">
+					<div class="section__inner">
+						<div class="accordion js-accordion js-accordion-appender" data-name="tabs-about"></div><!-- /.accordion -->
+					</div><!-- /.section__inner -->
+				</div><!-- /.shell -->
+			</section><!-- /.section-acc -->
+
+			{{> vision}}
+		</main>
+
+		{{> footer }}
+	</div><!-- /.wrapper -->
+
+	{{> scripts }}
+</body>
+
+</html>

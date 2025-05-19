@@ -1,0 +1,36 @@
+/* ------------------------------------------------------------ *\
+    Nav Lang		
+\* ------------------------------------------------------------ */
+
+.nav-lang {
+	font-size: 1.4rem;
+	text-transform: uppercase;
+
+	ul {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.8rem;
+
+		li {
+			
+			a {
+				border: 1px solid transparent;
+				padding: 0.4rem 1.1rem;
+				display: block;
+				text-decoration: none;
+				opacity: 0.8;
+
+				@include hover {
+					opacity: 1;
+				}
+				
+			}
+
+			&.is-active a {
+				border-color: currentColor;
+			}
+		}
+	}
+
+}
