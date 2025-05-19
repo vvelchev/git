@@ -173,7 +173,7 @@
 		"projects": [
 			{
 				"tags": "all photovoltaic",
-				"img": "/assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>1en Photovoltaic</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>1bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -185,7 +185,7 @@
 			},
 			{
 				"tags": "all photovoltaic battery",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>2en photovoltaic battery</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>2bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -198,7 +198,7 @@
 			},
 			{
 				"tags": "all battery",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>3en Battery Storage</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>3bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -211,7 +211,7 @@
 			},
 			{
 				"tags": "all substations",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>4en substations</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>4bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -224,7 +224,7 @@
 			},
 			{
 				"tags": "all others",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>5en Others</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>5bg други</h6><h4>Инженерни и консултантски услуги</h4>"

@@ -59,8 +59,8 @@
 		"bg": "<ul><li><div><h4>Индивидуални решения</h4><p>Всеки проект се разработва индивидуално, като се гарантира, че всички изисквания са изпълнени с прецизнос</div><li><div><h4>Специализирани решения</h4><p>Инженерите по проекта се избират според конкретните нужди на Вашия проект, предоставяйки специализирани умения за всяка задача</div><li><div><h4>Разнообразен екип</h4><p>Нашата широка мрежа от инженери осигурява необходимата експертиза за всеки проект, независимо дали става въпрос за подстанция, фотоволтаична централа или система за съхранение на енергия</div><li><div><h4>Надеждност и навременно изпълнение</h4><p>Ние сме ангажирани с предоставянето на висококачествени резултати в срок, гарантирайки, че вашият проект се изпълнява по график без компромис</div></ul>"
 	},
 	"section-vision": {
-		"en": "<h1>Let's Bring Your Vision to Life</h1><p>With our tailored solutions and expert engineers, your next project is in safe hands. Reach out to us for a custom proposal.</p><a class=btn href=/contact.html>Talk to an Expert</a>",
-		"bg": "<h1>Нека сбъднем вашата визия</h1><p>С нашите индивидуални решения и опитни инженери вашият следващ проект е в сигурни ръце. Свържете се с нас за персонализирана оферта.</p><a class=btn href=/contact.html>Говорете със специалист</a>"
+		"en": "<h1>Let's Bring Your Vision to Life</h1><p>With our tailored solutions and expert engineers, your next project is in safe hands. Reach out to us for a custom proposal.</p><a class=btn href=./contact.html>Talk to an Expert</a>",
+		"bg": "<h1>Нека сбъднем вашата визия</h1><p>С нашите индивидуални решения и опитни инженери вашият следващ проект е в сигурни ръце. Свържете се с нас за персонализирана оферта.</p><a class=btn href=./contact.html>Говорете със специалист</a>"
 	},
 	"hero-about": {
 		"en": "<h5>Keld Engineering</h5><h1>Engineering and Consulting Services</h1>",
@@ -173,7 +173,7 @@
 		"projects": [
 			{
 				"tags": "all photovoltaic",
-				"img": "/assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>1en Photovoltaic</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>1bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -185,7 +185,7 @@
 			},
 			{
 				"tags": "all photovoltaic battery",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>2en photovoltaic battery</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>2bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -198,7 +198,7 @@
 			},
 			{
 				"tags": "all battery",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>3en Battery Storage</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>3bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -211,7 +211,7 @@
 			},
 			{
 				"tags": "all substations",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>4en substations</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>4bg ФОТОВОЛТАИЧНА ЦЕНТРАЛА</h6><h4>Инженерни и консултантски услуги</h4>"
@@ -224,7 +224,7 @@
 			},
 			{
 				"tags": "all others",
-				"img": "/assets/images/svg/logo-electricity.svg",
+				"img": "./assets/images/svg/logo-electricity.svg",
 				"title": {
 					"en": "<h6>5en Others</h6><h4>Engineering and Consulting Services</h4>",
 					"bg": "<h6>5bg други</h6><h4>Инженерни и консултантски услуги</h4>"
