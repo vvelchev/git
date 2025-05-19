@@ -152,6 +152,14 @@ const projectsHandler = (savedLang, data2) => {
     $this.parent().addClass("is-active").siblings().removeClass("is-active");
   });
 };
+const loadAjax = (filePath) => {
+  return $.ajax({
+    async: false,
+    global: false,
+    url: filePath,
+    dataType: "json"
+  }).responseJSON;
+};
 const $html = $("html");
 const $body = $("body");
 const $window = $(window);
@@ -161,6 +169,7 @@ let heroHeight = $hero.outerHeight();
 let headerHeight = $header.outerHeight();
 let winScroll = $window.scrollTop();
 const $navLang = $(".js-nav-lang");
+const data = loadAjax("./ajax/data.json");
 const loadAnimation = () => {
   const $loader = $(".js-loader");
   setTimeout(() => {
