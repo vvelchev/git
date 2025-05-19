@@ -8,7 +8,7 @@ import richTextHandler from "./modules/richTextHandler.js";
 import placeholderTextHandler from "./modules/placeholderTextHandler.js";
 import accordionHandler from "./modules/accordionHandler.js";
 import projectsHandler from "./modules/projectsHandler.js";
-// import loadAjax from "./modules/loadAjax.js";
+import loadAjax from "./modules/loadAjax.js";
 
 const $html = $('html');
 const $body = $('body');
@@ -19,7 +19,7 @@ let heroHeight = $hero.outerHeight();
 let headerHeight = $header.outerHeight();
 let winScroll = $window.scrollTop();
 const $navLang = $('.js-nav-lang');
-// const data = loadAjax('./ajax/data.json')
+const data = loadAjax('./ajax/data.json')
 const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
 const isTablet = () => window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches;
 
