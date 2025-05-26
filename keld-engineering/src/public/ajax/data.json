@@ -114,7 +114,7 @@
 			},
 			"content": {
 				"en": "<h3>Our studies provide the critical insights needed to determine the technical and economic viability of your project.</h3><ul class='list-checked list-checked--spacer-row-big'><li>Feasibility Study: <span>Analyzing project potential, including technical, financial, and regulatory aspects, to ensure a solid foundation for decision-making.</span></li><li>Short Circuit Analysis: <span>Assessing the electrical fault levels in your system to verify equipment ratings and system safety.</span></li><li>Power Loss Analysis: <span>Identifying areas of energy loss within your system and recommending solutions to improve overall efficiency.</span></li><li>Grid Compliance: <span>Ensuring your project meets the technical and operational requirements of the grid operator for smooth integration.</span></li><li>Relay Protection Coordination: <span>Analyzing and optimizing protection systems to ensure proper coordination and minimize outage risks.</span></li></ul><!-- /.list-checked --><p>Each study is conducted with precision, ensuring that your project meets both technical and financial objectives while adhering to industry standards and best practices.</p>",
-				"bg": "<h3>Нашите изследвания предоставят ключова информация, необходима за определяне на техническата и икономическата осъществимост на вашия проект.</h3><ul class='list-checked list-checked--spacer-row-big'><li>Проучване за осъществимост: <span> Анализ на потенциала на проекта, включително технически, финансови и регулаторни аспекти, с цел осигуряване на ясна основа за вземане на информирани решения.</span></li><li>с Изследване на режим на т.к.с.: <span>Оценка на нивата на електрически повреди във вашата система за проверка на съответствието на оборудването и безопасността на системата.</span></li><li>Изследване на загубите на мощност: <span>Идентифициране на зони със загуби във Вашата система и препоръки за решения с цел повишаване на общата ефективност.</span></li><li>Съответствие с изискванията на мрежата: <span>Проверяваме, че проектът отговаря на техническите и оперативните изисквания на оператора на електропреносната мрежа за безпроблемна интеграция.</span></li><li>Координация на релейна защита: <span>Анализ и оптимизация на релейни защити с цел правилна координация и минимизиране на риска от неселективни изключвания.</span></li></ul><!-- /.list-checked --><p>Всяко изследване се извършва с прецизност, като се гарантира, че проектът ви отговаря както на техническите, така и на финансовите цели, в съответствие с отрасловите стандарти и добрите практики.</p>"
+				"bg": "<h3>Нашите изследвания предоставят ключова информация, необходима за определяне на техническата и икономическата осъществимост на вашия проект.</h3><ul class='list-checked list-checked--spacer-row-big'><li>Проучване за осъществимост: <span> Анализ на потенциала на проекта, включително технически, финансови и регулаторни аспекти, с цел осигуряване на ясна основа за вземане на информирани решения.</span></li><li>Изследване на режим на т.к.с.: <span>Оценка на нивата на електрически повреди във вашата система за проверка на съответствието на оборудването и безопасността на системата.</span></li><li>Изследване на загубите на мощност: <span>Идентифициране на зони със загуби във Вашата система и препоръки за решения с цел повишаване на общата ефективност.</span></li><li>Съответствие с изискванията на мрежата: <span>Проверяваме, че проектът отговаря на техническите и оперативните изисквания на оператора на електропреносната мрежа за безпроблемна интеграция.</span></li><li>Координация на релейна защита: <span>Анализ и оптимизация на релейни защити с цел правилна координация и минимизиране на риска от неселективни изключвания.</span></li></ul><!-- /.list-checked --><p>Всяко изследване се извършва с прецизност, като се гарантира, че проектът ви отговаря както на техническите, така и на финансовите цели, в съответствие с отрасловите стандарти и добрите практики.</p>"
 			}
 		},
 		{
@@ -124,7 +124,7 @@
 			},
 			"content": {
 				"en": "<h3>We provide professional supervision services to ensure that project implementation aligns with design specifications, quality standards, and regulatory requirements.</h3><p>Acting on behalf of the investor, our team monitors construction activities, verifies compliance, and addresses technical issues on-site to safeguard the project's success.</p><p>Through continuous oversight and clear reporting, we protect your interests and ensure that timelines, budgets, and quality expectations are met.</p>",
-				"bg": "<p>Предоставяме професионални услуги по надзор по време на строителство от страна на Инвеститора, за да гарантираме, че изпълнението на проекта отговаря на проектната документация, стандартите за качество и нормативните изисквания.</p><p> Действайки от името на Инвеститора, нашият екип следи строителните дейности, проверява съответствието и разрешава технически въпроси на място, с цел да осигури успешното реализиране на проекта. </p><p>Чрез постоянен контрол и ясна отчетност защитаваме Вашите интереси и гарантираме спазването на срокове, бюджети и изисквания за качество.</p>"
+				"bg": "<h3>Предоставяме професионални услуги по надзор по време на строителство от страна на Инвеститора, за да гарантираме, че изпълнението на проекта отговаря на проектната документация, стандартите за качество и нормативните изисквания.</h3><p> Действайки от името на Инвеститора, нашият екип следи строителните дейности, проверява съответствието и разрешава технически въпроси на място, с цел да осигури успешното реализиране на проекта. </p><p>Чрез постоянен контрол и ясна отчетност защитаваме Вашите интереси и гарантираме спазването на срокове, бюджети и изисквания за качество.</p>"
 			}
 		}
 	],
@@ -151,14 +151,21 @@
 			{
 				"text": {
 					"en": "Battery Storage system",
-					"bg": "Батерийна система за съхранение"
+					"bg": "Система за съхранение на енергия"
 				},
 				"tag": "battery"
 			},
 			{
 				"text": {
-					"en": "Analysis",
-					"bg": "Анализ"
+					"en": "Hybrid power plant",
+					"bg": "Хибридни централи"
+				},
+				"tag": "hybrid"
+			},
+			{
+				"text": {
+					"en": "Consulting",
+					"bg": "Консултантски услуги"
 				},
 				"tag": "analysis"
 			},
@@ -172,7 +179,7 @@
 		],
 		"projects": [
 			{
-				"tags": "all photovoltaic",
+				"tags": "all hybrid",
 				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>Hybrid power plant</h6><h5>Photovoltaic power plant with installed power of 80MWp and BESS with capacity of 20MW/40MWh</h5>",
@@ -180,7 +187,7 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Development</li><li>Engineering</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>Hybrid_plant_80MWp_20MW/40MWh.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработка</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>Hybrid_plant_80MWp_20MW/40MWh.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработване на проект</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>Hybrid_plant_80MWp_20MW/40MWh.pdf</a>"
 				}
 			},
 			{
@@ -216,7 +223,7 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Development</li><li>Engineering</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_3MW_DEV.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработка</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_3MW_DEV.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработване на проект</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_3MW_DEV.pdf</a>"
 				}
 			},
 			{
@@ -228,11 +235,11 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Development</li><li>Engineering</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_12MW_DEV.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработка</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_12MW_DEV.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработване на проект</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_12MW_DEV.pdf</a>"
 				}
 			},
 			{
-				"tags": "all photovoltaic",
+				"tags": "all hybrid",
 				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>Hybrid power plant</h6><h5>Photovoltaic power plant with installed power of 60MWp and BESS with capacity of 20MW/40MWh</h5>",
@@ -240,7 +247,7 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Development</li><li>Engineering</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>Hybrid_plant_60MWp_20MW/40MWh.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработка</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>Hybrid_plant_60MWp_20MW/40MWh.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработване на проект</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>Hybrid_plant_60MWp_20MW/40MWh.pdf</a>"
 				}
 			},
 			{
@@ -268,7 +275,7 @@
 				}
 			},
 			{
-				"tags": "all photovoltaic",
+				"tags": "all hybrid",
 				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>Hybrid power plant</h6><h5>Photovoltaic power plant with installed power of 35MWp and BESS with capacity of 15MW/30MWh</h5>",
@@ -288,7 +295,7 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Consulting</li><li>Engineering</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_MAT_45MWp.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Консултации</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_MAT_45MWp.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Консултантски услуги</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_MAT_45MWp.pdf</a>"
 				}
 			},
 			{
@@ -304,7 +311,7 @@
 				}
 			},
 			{
-				"tags": "all analysis",
+				"tags": "all consulting",
 				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>Analysis</h6><h5>Photovoltaic power plant with installed power of 250MWp</h5>",
@@ -312,7 +319,7 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Consulting</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_250MWp.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Консултации</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_250MWp.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Консултантски услуги</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_250MWp.pdf</a>"
 				}
 			},
 			{
@@ -324,11 +331,11 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Development</li><li>Engineering</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_250MWp.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработване</li><li>Инженерство</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_250MWp.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Разработване на проект</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_250MWp.pdf</a>"
 				}
 			},
 			{
-				"tags": "all analysis",
+				"tags": "all consulting",
 				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>Analysis</h6><h5>Analysis of the production and grid connection possibilities for PV Projects in North Macedonia</h5>",
@@ -336,11 +343,11 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>North Macedonia</p><h6>SCOPE</h6><ul><li>Consulting</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_RNM_PVS.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Северна Македония</p><h6>ОБХВАТ</h6><ul><li>Консултации</li><li>Инженерство</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_RNM_PVS.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>Северна Македония</p><h6>ОБХВАТ</h6><ul><li>Консултантски услуги</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_RNM_PVS.pdf</a>"
 				}
 			},
 			{
-				"tags": "all analysis",
+				"tags": "all consulting",
 				"img": "./assets/images/svg/logo-pvp.svg",
 				"title": {
 					"en": "<h6>Analysis</h6><h5>Photovoltaic power plant with installed power of 140MWp</h5>",
@@ -348,7 +355,7 @@
 				},
 				"content": {
 					"en": "<h6>LOCATION</h6><p>Bulgaria</p><h6>SCOPE</h6><ul><li>Consulting</li></ul><h6>REFERENCE</h6><a href='#' target='_blank'>PV_140MWp.pdf</a></div>",
-					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Консултации</li><li>Инженерство</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_140MWp.pdf</a>"
+					"bg": "<h6>МЕСТОПОЛОЖЕНИЕ</h6><p>България</p><h6>ОБХВАТ</h6><ul><li>Консултантски услуги</li><li>Инженеринг</li></ul><h6>РЕФЕРЕНЦИЯ</h6><a href='#' target='_blank'>PV_140MWp.pdf</a>"
 				}
 			}
 		]

@@ -225,8 +225,8 @@ select:-webkit-autofill:focus {
 :root {
   --fsz-base: 1.6rem;
   --line-height-base: 1.5;
-  --ff-base: Be Vietnam Pro, Helvetica, Arial, sans-serif ;
-  --ff-titles: Be Vietnam, Helvetica, Arial, sans-serif ;
+  --ff-base: Be Vietnam Pro, "Noto Sans", Arial, sans-serif ;
+  --ff-titles: Be Vietnam, "Noto Sans", Arial, sans-serif ;
   --spacer-med: 8rem;
   --spacer: 9.6rem;
   --spacer-big: 16rem;
@@ -1859,6 +1859,11 @@ body:has(.loader.state-3) .hero .hero__foot {
 }
 .section--vision .section__content {
   text-align: center;
+}
+.section--vision .section__content p {
+  max-width: 78rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .section--vision .section__content .btn {
   margin-top: 0;
