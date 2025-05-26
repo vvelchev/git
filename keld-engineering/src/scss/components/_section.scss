@@ -85,6 +85,22 @@
 				--gutter-x: var(--spacer-med);
 				--gutter-y: var(--spacer);
 			}
+
+			&:not(:has(.grid > *)) {
+				.grid {
+					&:after {
+						content: '';
+						display: block;
+						aspect-ratio: 1;
+						width: 10rem;
+						margin: 0 auto;
+						background-color: currentColor;
+						mask-image: url("/assets/images/icons/no-data.png");
+						mask-size: 100% 100%;
+						opacity: 0.3;
+					}
+				}
+			}
 		}
 	}
 

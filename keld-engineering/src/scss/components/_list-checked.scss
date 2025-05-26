@@ -5,6 +5,8 @@
 .list-checked {
 	@extend .txt-xl;
 	list-style-type:none;
+	@include margin-bottom(1em);
+	
 
 	li {
 		position: relative;

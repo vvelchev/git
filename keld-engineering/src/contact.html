@@ -26,12 +26,18 @@
 									<p class="js-rich-text" data-name="contacts-info"></p>
 
 									<div class="team">
-										<div class="team__media">
-											<img src="/assets/images/team-1.jpg" alt="team img">
-										</div><!-- /.team__media -->
-
 										<div class="team__content js-rich-text" data-name="contacts-about"></div><!-- /.team__content -->
 									</div><!-- /.team -->
+
+									<nav class="socials">
+										<ul>
+											<li>
+												<a href="#">
+													<div class="mask-img" style="--url:url(../assets/images/icons/ico-instagram.svg)"><img alt="ico"></div><!-- /.mask-img -->
+												</a>
+											</li>
+										</ul>
+									</nav>
 								</div><!-- /.section__aside -->
 							</div><!-- /.grid__col -->
 
@@ -41,10 +47,10 @@
 										<form id="contact-form">
 											<div class="form__body">
 												<div class="form__row">
-													<label class="form__label js-rich-text" data-name="label-email" for="field-email" ></label>
+													<label class="form__label js-rich-text" data-name="label-email" for="field-email"></label>
 
 													<div class="form__controls">
-														<input type="email" name="field-email" id="field-email" class="js-placeholder-text" data-name="field-email"  required />
+														<input type="email" name="field-email" id="field-email" class="js-placeholder-text" data-name="field-email" required />
 													</div><!-- /.form__controls -->
 												</div>
 
@@ -98,7 +104,7 @@
 					console.log('SUCCESS!', response.status, response.text);
 					// alert('Съобщението е изпратено успешно!');
 					$form[0].reset();
-					
+
 					$form.find('.js-on-success').trigger('click');
 				},
 				function (error) {
