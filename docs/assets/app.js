@@ -115,8 +115,9 @@ const projectsHandler = (savedLang, data2) => {
   const appendContent = (data3, savedLang2) => {
     $projectsList.html("");
     data3.forEach((item, _) => {
-      if (!item.tags.includes(sectionActiveFilter))
+      if (!item.tags.includes(sectionActiveFilter)) {
         return;
+      }
       $projectsList.append(`
 				<div class="grid__col grid__col--6of12" data-filters="${item.tags}">
 					<article class="article">
