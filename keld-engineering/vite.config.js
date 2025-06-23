@@ -12,7 +12,7 @@ import { directoryPlugin } from 'vite-plugin-list-directory-contents';
 const root = resolve(__dirname, 'src');
 const outDir = resolve(__dirname, 'build');
 const allHtmlFiles = glob.sync(resolve(root, '.\/*.html').replace(/\\/g, '/'));
-const htmlFilesToBuild = allHtmlFiles.filter(file => !file.includes('index.html')); // Excludes index.html from the build array so we don't build an emtpy index.
+// const htmlFilesToBuild = allHtmlFiles.filter(file => !file.includes('index.html')); // Excludes index.html from the build array so we don't build an emtpy index.
 
 export default defineConfig({
 	base: '',
@@ -23,7 +23,7 @@ export default defineConfig({
 	build: {
 		outDir,
 		rollupOptions: {
-			input: htmlFilesToBuild,
+			input: allHtmlFiles,
 			output: {
 				assetFileNames: (assetInfo) => {
 					const extType = assetInfo.name.split('.').pop();
