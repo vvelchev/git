@@ -45,7 +45,7 @@ body:has(.loader.state-3) .header {
 	transition: transform 1s 0s;
 }
 
-.pas-hero .header {
+.solid-header .header {
 	@include breakpoint-down(tablet) {
 		background-color: color-mix(in srgb, var(--primary) 90%, transparent);
 	}
@@ -58,7 +58,7 @@ body:has(.loader.state-3) .header {
 			transition: opacity 0.3s;
 			opacity: 0;
 		}
-		&.pas-hero .header .logo {
+		&.solid-header .header .logo {
 			opacity: 1;
 		}
 	}

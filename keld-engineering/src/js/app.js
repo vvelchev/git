@@ -56,7 +56,10 @@ const updateHeaderHeight = () => {
  *  Page Scroll States
  */
 const pageScrollStates = () => {
-	$body.toggleClass('pas-hero', winScroll > (heroHeight - headerHeight ));
+	const solidHeader = $body.hasClass('home') 
+		? winScroll > (heroHeight - headerHeight ) 
+		: winScroll > headerHeight;
+	$body.toggleClass('solid-header', solidHeader);
 }
 
 /**	
