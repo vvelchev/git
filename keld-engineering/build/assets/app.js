@@ -197,7 +197,8 @@ const updateHeaderHeight = () => {
   observer.observe($header[0], { box: "border-box" });
 };
 const pageScrollStates = () => {
-  $body.toggleClass("pas-hero", winScroll > heroHeight - headerHeight);
+  const solidHeader = $body.hasClass("home") ? winScroll > heroHeight - headerHeight : winScroll > headerHeight;
+  $body.toggleClass("solid-header", solidHeader);
 };
 $(document).on("click", "a", function(event) {
   let href = $(this).attr("href");

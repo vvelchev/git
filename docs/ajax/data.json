@@ -167,7 +167,7 @@
 					"en": "Consulting",
 					"bg": "Консултантски услуги"
 				},
-				"tag": "analysis"
+				"tag": "consulting"
 			},
 			{
 				"text": {
@@ -180,7 +180,7 @@
 		"projects": [
 			{
 				"tags": "all hybrid",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Hybrid power plant</h6><h5>Photovoltaic power plant with installed power of 80MWp and BESS with capacity of 20MW/40MWh</h5>",
 					"bg": "<h6>Хибридна електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 80MWp и батерийна система за съхранение на енергия (BESS) с капацитет 20MW/40MWh</h5>"
@@ -192,7 +192,7 @@
 			},
 			{
 				"tags": "all battery",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/BATTERY.svg",
 				"title": {
 					"en": "<h6>Battery storage system</h6><h5>Stand-alone Battery energy system with installed capacity of 10MW/40MWh</h5>",
 					"bg": "<h6>Батерийна система за съхранение</h6><h5>Самостоятелна батерийна енергийна система с инсталиран капацитет 10MW/40MWh</h5>"
@@ -204,7 +204,7 @@
 			},
 			{
 				"tags": "all battery",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/BATTERY.svg",
 				"title": {
 					"en": "<h6>Battery storage system</h6><h5>Stand-alone Battery energy system with installed capacity of 10MW/26MWh</h5>",
 					"bg": "<h6>Батерийна система за съхранение</h6><h5>Самостоятелна батерийна енергийна система с инсталиран капацитет 10MW/26MWh</h5>"
@@ -216,7 +216,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Photovoltaic power plant with installed power of 3MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 3MWp</h5>"
@@ -228,7 +228,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Three Photovoltaic power plants with total installed power of 12MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Три фотоволтаични електроцентрали с обща инсталирана мощност 12 MWp</h5>"
@@ -240,7 +240,7 @@
 			},
 			{
 				"tags": "all hybrid",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Hybrid power plant</h6><h5>Photovoltaic power plant with installed power of 60MWp and BESS with capacity of 20MW/40MWh</h5>",
 					"bg": "<h6>Хибридна електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 60MWp и батерийна система за съхранение на енергия (BESS) с капацитет 20MW/40MWh</h5>"
@@ -252,7 +252,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Photovoltaic power plant with installed power of 5MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 5MWp</h5>"
@@ -264,7 +264,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Three Photovoltaic power plants with total installed power of 5MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Три фотоволтаични електроцентрали с обща инсталирана мощност 5 MWp</h5>"
@@ -276,7 +276,7 @@
 			},
 			{
 				"tags": "all hybrid",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Hybrid power plant</h6><h5>Photovoltaic power plant with installed power of 35MWp and BESS with capacity of 15MW/30MWh</h5>",
 					"bg": "<h6>Хибридна електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 35MWp и BESS с капацитет 15MW/30MWh</h5>"
@@ -288,7 +288,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Photovoltaic power plant with installed power of 45MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 45 MWp</h5>"
@@ -300,7 +300,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Two Photovoltaic power plants with total installed power of 7.75MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Две фотоволтаични електроцентрали с обща инсталирана мощност 7,75 MWp</h5>"
@@ -312,7 +312,7 @@
 			},
 			{
 				"tags": "all consulting",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/CONSULTING.svg",
 				"title": {
 					"en": "<h6>Analysis</h6><h5>Photovoltaic power plant with installed power of 250MWp</h5>",
 					"bg": "<h6>Анализ</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 250 MWp</h5>"
@@ -324,7 +324,7 @@
 			},
 			{
 				"tags": "all photovoltaic",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/SOLAR.svg",
 				"title": {
 					"en": "<h6>Photovoltaic power plant</h6><h5>Photovoltaic power plant with installed power of 70MWp</h5>",
 					"bg": "<h6>Фотоволтаична електроцентрала</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 70 MWp</h5>"
@@ -336,7 +336,7 @@
 			},
 			{
 				"tags": "all consulting",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/CONSULTING.svg",
 				"title": {
 					"en": "<h6>Analysis</h6><h5>Analysis of the production and grid connection possibilities for PV Projects in North Macedonia</h5>",
 					"bg": "<h6>Анализ</h6><h5>Анализ на възможностите за производство и свързване към мрежата за фотоволтаични проекти в Северна Македония</h5>"
@@ -348,7 +348,7 @@
 			},
 			{
 				"tags": "all consulting",
-				"img": "./assets/images/svg/logo-pvp.svg",
+				"img": "./assets/images/svg/CONSULTING.svg",
 				"title": {
 					"en": "<h6>Analysis</h6><h5>Photovoltaic power plant with installed power of 140MWp</h5>",
 					"bg": "<h6>Анализ</h6><h5>Фотоволтаична електроцентрала с инсталирана мощност 140 MWp</h5>"

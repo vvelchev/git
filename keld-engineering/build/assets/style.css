@@ -702,7 +702,7 @@ body {
 }
 body:after {
   content: "";
-  position: absolute;
+  position: fixed;
   z-index: 99;
   left: 0;
   top: 0;
@@ -1168,7 +1168,7 @@ body:has(.loader.state-3) .header {
   transition: transform 1s 0s;
 }
 @media (max-width: 1023px) {
-  .pas-hero .header {
+  .solid-header .header {
     background-color: color-mix(in srgb, var(--primary) 90%, transparent);
   }
 }
@@ -1177,7 +1177,7 @@ body:has(.loader.state-3) .header {
     transition: opacity 0.3s;
     opacity: 0;
   }
-  .home:not(.is-menu-open).pas-hero .header .logo {
+  .home:not(.is-menu-open).solid-header .header .logo {
     opacity: 1;
   }
 }
