@@ -47,18 +47,18 @@
 										<form id="contact-form">
 											<div class="form__body">
 												<div class="form__row">
-													<label class="form__label js-rich-text" data-name="label-email" for="field-email"></label>
+													<label class="form__label js-rich-text" data-name="label-email" for="user_email"></label>
 
 													<div class="form__controls">
-														<input type="email" name="field-email" id="field-email" class="js-placeholder-text" data-name="field-email" required />
+														<input type="email" name="user_email" id="user_email" class="js-placeholder-text" data-name="field-email" required />
 													</div><!-- /.form__controls -->
 												</div>
 
 												<div class="form__row">
-													<label class="form__label js-rich-text" data-name="label-subject" for="field-subject"></label>
+													<label class="form__label js-rich-text" data-name="label-subject" for="subject"></label>
 
 													<div class="form__controls">
-														<input type="text" name="field-subject" id="field-subject" class="js-placeholder-text" data-name="field-subject" required />
+														<input type="text" name="subject" id="subject" class="js-placeholder-text" data-name="field-subject" required />
 													</div><!-- /.form__controls -->
 												</div><!-- /.form__row -->
 
@@ -92,14 +92,14 @@
 	{{> scripts }}
 	<script type="text/javascript" src="/assets/vendor/email.min.js"> </script>
 	<script>
-		emailjs.init("oWlHiOZwr4Bv9NraU"); // Заменяш с твоето ID
+		emailjs.init("HczeVh7OpKOT02HUF"); // Заменяш с твоето ID
 		const $form = $('#contact-form');
 
 		$form.on('submit', function (e) {
 			e.preventDefault();
 			const formElement = document.getElementById('contact-form');
 
-			emailjs.sendForm('service_o3tf51t', 'template_a91xx0l', formElement).then(
+			emailjs.sendForm('service_12s6xyq', 'template_clstfhq', formElement).then(
 				function (response) {
 					console.log('SUCCESS!', response.status, response.text);
 					// alert('Съобщението е изпратено успешно!');
