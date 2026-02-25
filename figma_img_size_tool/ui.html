@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    window.onmessage = async (event) => {
+      try {
+        const {
+          bytes,
+          viewWidth, viewHeight,
+          origWidth, origHeight,
+          transform,
+          isFrameChild,
+          offsetX = 0, offsetY = 0,
+          nodeWidth, nodeHeight
+        } = event.data.pluginMessage;
+
+        console.log("🎨 UI получи данни. Започва кропване...");
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          throw new Error('Canvas context is not available');
+        }
+
+        const blob = new Blob([bytes]);
+        const img = await createImageBitmap(blob);
+
+        const scaleX = transform[0][0];
+        const scaleY = transform[1][1];
+        const tx     = transform[0][2];
+        const ty     = transform[1][2];
+
+        let cropX, cropY, cropW, cropH;
+
+        if (isFrameChild) {
+          // ── Frame child: новата математика ──────────────────────────────────
+          const visibleW = origWidth  / scaleX;
+          const visibleH = origHeight / scaleY;
+          const visibleX = -(tx / scaleX) * origWidth;
+          const visibleY = -(ty / scaleY) * origHeight;
+
+          cropX = visibleX + (offsetX / nodeWidth)  * visibleW;
+          cropY = visibleY + (offsetY / nodeHeight) * visibleH;
+          cropW = (viewWidth  / nodeWidth)  * visibleW;
+          cropH = (viewHeight / nodeHeight) * visibleH;
+        } else {
+          // ── Fill (оригиналната логика — непроменена) ─────────────────────
+          cropX = tx * origWidth;
+          cropY = ty * origHeight;
+          cropW = scaleX * origWidth;
+          cropH = scaleY * origHeight;
+        }
+
+        // Retina 2x изход
+        const targetWidth  = Math.round(viewWidth  * 2);
+        const targetHeight = Math.round(viewHeight * 2);
+
+        canvas.width  = targetWidth;
+        canvas.height = targetHeight;
+
+        ctx.drawImage(img, cropX, cropY, cropW, cropH, 0, 0, targetWidth, targetHeight);
+
+        canvas.toBlob(async (blob) => {
+          if (!blob) {
+            window.parent.postMessage({ pluginMessage: { error: 'Неуспешно генериране на изображение.' } }, '*');
+            return;
+          }
+
+          const arrayBuffer = await blob.arrayBuffer();
+          const newBytes = new Uint8Array(arrayBuffer);
+          console.log("📤 Кропът е готов. Пращам към Figma...");
+          window.parent.postMessage({ pluginMessage: { newBytes } }, '*');
+        }, 'image/png');
+
+      } catch (err) {
+        window.parent.postMessage({ pluginMessage: { error: err.message } }, '*');
+      }
+    };
+  </script>
+</body>
+</html>
