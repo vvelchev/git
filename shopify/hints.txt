@@ -1,0 +1,13 @@
+Shopify Partner Login 
+shopify auth login
+
+Сваляна на тема 
+shopify theme pull --store името-на-твоя-магазин.myshopify.com
+
+локален сървър с Live Reload
+shopify theme dev --store името-на-твоя-магазин.myshopify.com
+shopify theme dev --store v-velchev.myshopify.com
+
+pull 
+shopify theme pull 
+shopify theme pull --theme "Development"

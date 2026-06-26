@@ -1,0 +1,33 @@
+# === Shopify Специфични файлове ===
+# Конфигурационни файлове, съдържащи API ключове и пароли (КРИТИЧНО!)
+config.json
+.env
+.env.*
+!.env.example
+
+# Локални CLI конфигурации
+.shopify/
+.shopify-cli/
+shopify.theme.toml
+
+# Автоматично генерирани файлове от Shopify CLI при локално разработване
+.theme-check.json
+
+# === Системни файлове и Кеш ===
+.DS_Store
+Thumbs.db
+.sass-cache/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.cache/
+
+# === Зависимости (ако ползваш Build Tools като Webpack, Vite, Mix, Tailwind) ===
+node_modules/
+bower_components/
+
+# === Компилирани файлове (само ако ползваш фреймуърк/bundler) ===
+# Ако разработваш чиста тема, не изключвай /assets, освен ако не се генерират автоматично!
+# dist/
+# build/
