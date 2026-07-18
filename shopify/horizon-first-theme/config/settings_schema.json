@@ -14,8 +14,9 @@
 				"type": "color_palette",
 				"id": "color_palette",
 				"default": {
-					"background": "#ffffff",
-					"foreground": "#000000"
+					"background": "#fdfaf5",
+					"foreground": "#111111",
+					"accent": "#E4A84A"
 				}
 			}
 		]
@@ -1412,56 +1413,11 @@
 				"alpha": true
 			},
 			{
-				"type": "range",
-				"id": "primary_button_border_width",
-				"min": 0,
-				"max": 4,
-				"step": 1,
-				"unit": "px",
-				"label": "t:settings.border_width",
-				"default": 0
-			},
-			{
-				"type": "range",
-				"id": "button_border_radius_primary",
-				"min": 0,
-				"max": 100,
-				"step": 1,
-				"unit": "px",
-				"label": "t:settings.border_radius",
-				"default": 100
-			},
-			{
-				"type": "select",
-				"id": "type_font_button_primary",
-				"label": "t:settings.font",
-				"options": [
-					{
-						"value": "body",
-						"label": "t:options.body"
-					},
-					{
-						"value": "accent",
-						"label": "t:options.accent"
-					}
-				],
-				"default": "body"
-			},
-			{
-				"type": "select",
-				"id": "button_text_case_primary",
-				"label": "t:settings.button_text_case",
-				"options": [
-					{
-						"value": "default",
-						"label": "t:options.default"
-					},
-					{
-						"value": "uppercase",
-						"label": "t:options.uppercase"
-					}
-				],
-				"default": "default"
+				"type": "color",
+				"id": "palette_primary_button_hover",
+				"label": "Hover",
+				"default": "{{ settings.color_palette.accent }}",
+				"alpha": true
 			},
 			{
 				"type": "header",
@@ -1489,56 +1445,11 @@
 				"alpha": true
 			},
 			{
-				"type": "range",
-				"id": "secondary_button_border_width",
-				"min": 0,
-				"max": 4,
-				"step": 1,
-				"unit": "px",
-				"label": "t:settings.border_width",
-				"default": 1
-			},
-			{
-				"type": "range",
-				"id": "button_border_radius_secondary",
-				"min": 0,
-				"max": 100,
-				"step": 1,
-				"unit": "px",
-				"label": "t:settings.border_radius",
-				"default": 100
-			},
-			{
-				"type": "select",
-				"id": "type_font_button_secondary",
-				"label": "t:settings.font",
-				"options": [
-					{
-						"value": "body",
-						"label": "t:options.body"
-					},
-					{
-						"value": "accent",
-						"label": "t:options.accent"
-					}
-				],
-				"default": "body"
-			},
-			{
-				"type": "select",
-				"id": "button_text_case_secondary",
-				"label": "t:settings.button_text_case",
-				"options": [
-					{
-						"value": "default",
-						"label": "t:options.default"
-					},
-					{
-						"value": "uppercase",
-						"label": "t:options.uppercase"
-					}
-				],
-				"default": "default"
+				"type": "color",
+				"id": "palette_secondary_button_hover",
+				"label": "Hover",
+				"default": "{{ settings.color_palette.accent }}",
+				"alpha": true
 			},
 			{
 				"type": "header",

@@ -1301,13 +1301,15 @@ results-list[initialized] {
 button.shopify-payment-button__button--unbranded {
   --text-align: center;
 
-  display: grid;
+  display: flex;
   align-content: center;
+  align-items: center;
+  gap: 12px;
   text-decoration: none;
   text-align: var(--text-align);
   color: var(--button-color);
-  appearance: none;
   background-color: var(--button-background-color);
+  appearance: none;
   border: none;
   font-family: var(--font-paragraph--family);
   font-style: var(--font-paragraph--style);
@@ -1401,6 +1403,11 @@ button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
   --button-color: var(--color-secondary-button-hover-text);
   --button-background-color: var(--color-secondary-button-hover-background);
   --button-border-color: var(--color-secondary-button-hover-border);
+}
+
+.button--outline {
+	--button-color: var(--button-border-color);
+	--button-background-color: transparent;
 }
 
 .button-custom {
@@ -4253,4 +4260,20 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   .sticky-content {
     margin-top: calc(var(--header-height) * var(--transparent-header-offset-boolean) * -1);
   }
+}
+
+
+/* ------------------------------------------------------------ *\
+    Mask image
+\* ------------------------------------------------------------ */
+
+.mask-img {
+	mask-image: var(--url);
+	mask-size: 100% 100%;
+	background-color: currentColor;
+
+	&:after {
+		content: var(--url);
+		opacity: 0;
+	}
 }
