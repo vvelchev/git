@@ -23,6 +23,11 @@
   assign open_column_span = false
   assign column_count = 0
   assign links_before_wrap = 10
+
+  # parent_link = текущият родителски линк от главното меню.
+  # Тук изграждаме структурата на мегаменюто въз основа на неговите children.
+  # menu_content_type определя дали да показваме само текст, изображения на колекции,
+  # featured продукти или featured колекции.
   assign max_menu_columns = grid_columns_count | default: 6
   assign max_menu_columns_tablet = grid_columns_count_tablet | default: 4
 
@@ -268,6 +273,10 @@
   }
 {% endstyle %}
 
+{% comment %}
+  Ако типът на менюто е featured_products или featured_collections, показваме допълнително съдържание
+  до колоните с линкове. Това съдържание използва resource-card компонент за продукти или колекции.
+{% endcomment %}
 {% case menu_content_type %}
   {% when 'featured_products' %}
     {%- capture image_sizes -%}

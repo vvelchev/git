@@ -9,6 +9,11 @@
   @param {string} [more-button-attributes] - The attributes that are applied directly on the more button element.
 {%- enddoc -%}
 
+{% comment %}
+  overflow-list е помощен компонент, който организира навигацията в редове.
+  Той показва първите видими елементи и поставя останалите в overflow slot.
+  children се подават като HTML съдържание от родителя.
+{% endcomment %}
 <overflow-list
   {% if ref %}
     ref="{{ ref }}"

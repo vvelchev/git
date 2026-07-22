@@ -16,6 +16,11 @@
   assign max_featured_items = 4
   assign image_border_radius = block_settings.image_border_radius
 
+  # block_settings = настройките на текущия блок от редактора на темата.
+  # linklist = менюто, което се предава на snippet-a (често от block_settings.menu или section.settings.menu).
+  # image_border_radius = радиусът на ъглите за изображения в менюто.
+  # ratio = съотношение на изображенията за featured_collections/featured_products.
+
   if block_settings.menu_style == 'featured_collections'
     assign ratio = block_settings.featured_collections_aspect_ratio
   elsif block_settings.menu_style == 'featured_products'
@@ -36,6 +41,11 @@
     assign eager_loading = true
   endif
 
+  # eager_loading = true означава, че шаблонът се рендерира през API-то на секцията,
+  # което позволява да заредим допълнително съдържание като продукти или колекции.
+
+  # Ако блокът има собствен фон или текстов цвят, използваме contrast-override,
+  # за да зададем правилни цветови класове и контраст за съдържанието на менюто.
   if block_settings.background_color != blank or block_settings.text_color != blank
     render 'contrast-override', background_color: block_settings.background_color, text_color: block_settings.text_color, section_id: block.id
   endif
@@ -104,6 +114,10 @@
           {%- comment -%}
             Handle menus with fewer than 3 levels of links
           {%- endcomment -%}
+          {% comment %}
+            Ако менюто има по-малко от 3 нива, рендерираме го в прост списък.
+            Това означава, че може да се използва accordion или плосък списък в drawer менюто.
+          {% endcomment %}
           {% if linklist.levels < 3 %}
             {% assign first_accordion_open = false %}
             {% assign animation_index = 0 %}
@@ -583,6 +597,10 @@
         class="menu-drawer__utility-links menu-drawer__animated-element"
         style="--menu-drawer-animation-index: {{ linklist.links.size }};"
       >
+        {% comment %}
+          Тук се показват помощни връзки за локализация (език/държава) само в мобилния drawer.
+          show_language и show_country идват от настройки на секцията и от наличните данни в localization обекта.
+        {% endcomment %}
         {% liquid
           assign show_language = section.settings.show_language
           if localization.available_languages.size <= 1
@@ -709,6 +727,11 @@
         {%- endif -%}
       </div>
 
+      {% comment %}
+        Този блок подготвя featured съдържание, което се показва най-долу в drawer менюто.
+        featured_collections и featured_products се зареждат само когато eager_loading е разрешено,
+        за да не забавим първичния рендер на страницата.
+      {% endcomment %}
       {% liquid
         if block_settings.menu_style == 'featured_collections'
           assign top_level_featured_collections = linklist.links | where: 'type', 'collection_link'
