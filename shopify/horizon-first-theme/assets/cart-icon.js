@@ -16,6 +16,11 @@ import { StandardEvents, CartLinesUpdateEvent } from '@shopify/events';
 class CartIcon extends Component {
   requiredRefs = ['cartBubble', 'cartBubbleText', 'cartBubbleCount'];
 
+  // Custom element refs:
+  // - cartBubble: the bubble wrapper around the counter
+  // - cartBubbleText: the visible text container
+  // - cartBubbleCount: the numeric count element
+
   /** @type {number} */
   get currentCartCount() {
     return parseInt(this.refs.cartBubbleCount.textContent ?? '0', 10);
@@ -72,11 +77,13 @@ class CartIcon extends Component {
    * @param {boolean} [animate=true] - Whether to animate the bubble.
    */
   renderCartBubble = async (itemCount, animate = true) => {
+    // Hide the bubble when count is zero, otherwise show it.
     this.refs.cartBubbleCount.classList.toggle('hidden', itemCount === 0);
     this.refs.cartBubble.classList.toggle('visually-hidden', itemCount === 0);
 
     this.currentCartCount = itemCount;
 
+    // Add a modifier class when the cart has items, so CSS can style the icon differently.
     this.classList.toggle('header-actions__cart-icon--has-cart', itemCount > 0);
 
     sessionStorage.setItem(
