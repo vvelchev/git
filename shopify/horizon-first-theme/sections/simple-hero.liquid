@@ -1,82 +1,330 @@
-<div class="simple-hero" style="background-image: url('{{ section.settings.image | image_url: width: 1800 }}');">
-	<div class="simple-hero__overlay">
-		<div class="page-width">
-			<h1 class="simple-hero__title">
-				{{ section.settings.title }}
-			</h1>
-		</div>
-	</div>
+{% liquid
+  assign has_mobile_media = false
+  if section.settings.mobile_media_type == 'mobile_video' and section.settings.video_mobile != blank
+    assign has_mobile_media = true
+  elsif section.settings.mobile_media_type == 'mobile_image' and section.settings.image_mobile != blank
+    assign has_mobile_media = true
+  endif
+%}
+
+<div
+  class="
+    hero-simple
+    hero-simple--{{ section.settings.section_height }}
+  "
+>
+  <div class="shell">
+    <div
+      class="hero__inner"
+      style="
+        justify-content: {{ section.settings.horizontal_alignment }};
+        align-items: {{ section.settings.vertical_alignment }};
+      "
+    >
+      <div class="hero__bg">
+        <div class="hero__bg-desktop">
+          {% if section.settings.desktop_media_type == 'desktop_video' and section.settings.video_desktop != blank %}
+            {{
+              section.settings.video_desktop
+              | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'hero__media'
+            }}
+          {% elsif section.settings.desktop_media_type == 'desktop_image' and section.settings.image_desktop != blank %}
+            {{
+              section.settings.image_desktop
+              | image_url: width: 1600
+              | image_tag: alt: section.settings.image_desktop.alt, class: 'hero__media'
+            }}
+          {% else %}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media' }}
+          {% endif %}
+        </div>
+
+        {% if has_mobile_media %}
+          <div class="hero__bg-mobile">
+            {% if section.settings.mobile_media_type == 'mobile_video' and section.settings.video_mobile != blank %}
+              {{
+                section.settings.video_mobile
+                | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'hero__media'
+              }}
+            {% elsif section.settings.mobile_media_type == 'mobile_image' and section.settings.image_mobile != blank %}
+              {{
+                section.settings.image_mobile
+                | image_url: width: 800
+                | image_tag: alt: section.settings.image_mobile.alt, class: 'hero__media'
+              }}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      <!-- /.hero__bg -->
+
+      <div
+        class="hero__content"
+        style="
+          text-align: {{ section.settings.text_align }};
+          --text-align: {{ section.settings.text_align }};
+          {% if section.settings.custom_width %}
+            --content-width: {{ section.settings.custom_width_value }}%;
+          {% endif %}
+        "
+      >
+        {% content_for 'blocks' %}
+      </div>
+      <!-- /.hero__content -->
+    </div>
+    <!-- /.hero__inner -->
+  </div>
+  <!-- /.shell -->
 </div>
+<!-- /.hero-simple -->
 
 <style>
-	.simple-hero {
-		position: relative;
-		min-height: 500px;
-		/* Височина на секцията */
-		background-position: center;
-		background-size: cover;
-		background-repeat: no-repeat;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+  .hero-simple {
+  	position: relative;
 
-	/* Тъмен слой над снимката, за да се чете текста по-лесно */
-	.simple-hero__overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.4);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+  	.shell {
+  		max-width: 1600px;
+  		margin: 0 auto;
+  		padding: 0 var(--page-margin);
+  	}
 
-	.simple-hero__title {
-		color: #ffffff;
-		font-size: 3.5rem;
-		text-align: center;
-		margin: 0;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-	}
+  	.hero__inner {
+  		padding: 40px 0;
+  		min-height: var(--min-height);
+  display:flex;
+  	}
 
-	/* Адаптивност за мобилни устройства */
-	@media screen and (max-width: 749px) {
-		.simple-hero {
-			min-height: 350px;
-		}
+  	.hero__bg {
+  		position: absolute;
+  		left: 0;
+  		top: 0;
+  		width: 100%;
+  		height: 100%;
+  		overflow: hidden;
 
-		.simple-hero__title {
-			font-size: 2.2rem;
-		}
-	}
+  		img {
+  			position: absolute;
+  			left: 0;
+  			top: 0;
+  			width: 100%;
+  			height: 100%;
+  			object-fit: cover;
+  		}
+
+  		.hero__bg-mobile {
+  			display: none;
+  		}
+
+  		@media (max-width: 767px) {
+  			.hero__bg-desktop:not(:last-child) {
+  				display: none;
+  			}
+
+  			.hero__bg-mobile {
+  				display: block;
+  			}
+  		}
+  	}
+
+  	.hero__content {
+  		position: relative;
+  		z-index: 2;
+  		display: flex;
+  		flex-direction: column;
+  		gap: 16px;
+  		width: var(--content-width, 100%);
+  	}
+  }
+
+  .hero-simple--native {
+  	--min-height: auto;
+  }
+
+  .hero-simple--compact {
+  	--min-height: 500px;
+  }
+
+  .hero-simple--medium {
+  	--min-height: 600px;
+  }
+
+  .hero-simple--large {
+  	--min-height: 800px;
+  }
+
+  .hero-simple--viewport {
+  	--min-height: calc(100svh - var(--header-group-height, var(--header-height)));
+  }
+
+  .hero-simple--custom {
+  	--min-height: {{section.settings.section_height_custom}}px;
+  }
 </style>
 
 {% schema %}
 {
-"name": "Simple Hero",
-"tag": "section",
-"class": "section",
-"settings": [
-{
-"type": "image_picker",
-"id": "image",
-"label": "Фоново изображение"
-},
-{
-"type": "inline_richtext",
-"id": "title",
-"default": "Заглавие на вашата кампания",
-"label": "Заглавие (H1)"
-}
-],
-"presets": [
-{
-"name": "Simple Hero"
-}
-]
+  "name": "Simple Hero",
+  "tag": "section",
+  "class": "hero-simple-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Media"
+    },
+    {
+      "type": "select",
+      "id": "desktop_media_type",
+      "label": "Media Type Desktop",
+      "options": [
+        { "value": "desktop_image", "label": "Image" },
+        { "value": "desktop_video", "label": "Video" }
+      ],
+      "default": "desktop_image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Image",
+      "visible_if": "{{ section.settings.desktop_media_type == 'desktop_image' }}"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "Video",
+      "visible_if": "{{ section.settings.desktop_media_type == 'desktop_video' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_media_type",
+      "label": "Media Type  Mobile",
+      "options": [
+        { "value": "mobile_image", "label": "Image" },
+        { "value": "mobile_video", "label": "Video" }
+      ],
+      "default": "mobile_image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image",
+      "visible_if": "{{ section.settings.mobile_media_type == 'mobile_image' }}"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Video",
+      "visible_if": "{{ section.settings.mobile_media_type == 'mobile_video' }}"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Height",
+      "options": [
+        { "value": "native", "label": "Native" },
+        { "value": "compact", "label": "Compact" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" },
+        { "value": "viewport", "label": "Viewport" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "native"
+    },
+    {
+      "type": "range",
+      "id": "section_height_custom",
+      "label": "Height",
+      "min": 0,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 600,
+      "visible_if": "{{ section.settings.section_height == 'custom' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text align",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "flex-start",
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_width",
+      "label": "Custom width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom_width_value",
+      "label": "Width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100,
+      "visible_if": "{{ section.settings.custom_width }}"
+    },
+	{
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Horizontal alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "flex-start",
+      "visible_if": "{{ section.settings.custom_width }}"
+    }
+  ],
+  "blocks": [{ "type": "text" }, { "type": "button" }],
+  "presets": [
+    {
+      "name": "Simple Hero",
+      "blocks": {
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "text": "<h1>Heading</h1>",
+            "type_preset": "h1"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, esse in. Sed possimus similique molestiae officia blanditiis quos provident unde ab. Sequi consectetur, repellat excepturi fuga modi ? Repellendus delectus quo libero, asperiores corrupti facere recusandae porro ratione expedita enim laudantium. Reiciendis dolore maiores perspiciatis iure quisquam laboriosam cupiil dignissimos ullam labore adipisci tenetur quasi neque amet suscipit exercitationem id explicabo dicta velit eaque! Recusandae aliquam laboriosam maxime, sed veniam delectus nostrum quod quos, laborum amet deserunt dicta itaque, sequi necessitatibus dolorem quis. Aliquam iste fuga assumenda?</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "label": "Btn Text",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": ["text_1", "text_2", "button"]
+    }
+  ]
 }
 {% endschema %}
