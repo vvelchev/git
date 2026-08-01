@@ -4277,3 +4277,8 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 		opacity: 0;
 	}
 }
+
+
+a,input,button {
+	cursor: pointer;
+}

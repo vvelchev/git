@@ -1,0 +1,8 @@
+{
+  "emmet.includeLanguages": {
+    "liquid": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.showAbbreviationSuggestions": true
+}

@@ -102,6 +102,74 @@
         "horizontal_alignment": "flex-start"
       }
     },
+    "slider_media_and_text_Xrc9L6": {
+      "type": "slider-media-and-text",
+      "blocks": {
+        "slide_N3jDVA": {
+          "type": "slide",
+          "name": "Slide",
+          "settings": {
+            "desktop_media_type": "image",
+            "image_desktop": "shopify://shop_images/two-people-surfing-in-blue-choppy-water.jpg",
+            "mobile_media_type": "image",
+            "rich_content": "<h6>Slide 1</h6><h4>Share information about your brand With your customers.</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
+            "label": "Learn more",
+            "link": "#",
+            "open_in_new_tab": false,
+            "style_class": "button-secondary",
+            "style_outline": "",
+            "icon_position": "start",
+            "custom_button_background": "{{ settings.color_palette.foreground }}",
+            "custom_button_text": "{{ settings.color_palette.background }}",
+            "custom_button_border": "{{ settings.color_palette.background }}",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          }
+        },
+        "slide_MyRraG": {
+          "type": "slide",
+          "name": "Slide",
+          "settings": {
+            "desktop_media_type": "video",
+            "image_desktop": "shopify://shop_images/two-people-surfing-in-blue-choppy-water.jpg",
+            "video_desktop": "shopify://files/videos/coverr-a-guy-crosses-a-road-in-a-city-1246-1080p.mp4",
+            "mobile_media_type": "image",
+            "rich_content": "<h6>Slide 2</h6><h4>Share information .</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
+            "label": "Learn more",
+            "link": "",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "style_outline": "",
+            "icon_position": "start",
+            "custom_button_background": "{{ settings.color_palette.foreground }}",
+            "custom_button_text": "{{ settings.color_palette.background }}",
+            "custom_button_border": "{{ settings.color_palette.background }}",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          }
+        }
+      },
+      "block_order": [
+        "slide_N3jDVA",
+        "slide_MyRraG"
+      ],
+      "name": "Slider Media And Text",
+      "settings": {
+        "slider_autoplay": false,
+        "slider_autoplay_duration": 3000,
+        "row_direction_desktop": false,
+        "row_direction_mobile": false,
+        "media_asp": "equal",
+        "content_bg_color": "#000000",
+        "content_txt_color": "#FFFFFF"
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -304,6 +372,7 @@
   },
   "order": [
     "simple_hero_3bgCxA",
+    "slider_media_and_text_Xrc9L6",
     "product_list_fa6P9H"
   ]
 }
