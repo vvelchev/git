@@ -4282,3 +4282,35 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 a,input,button {
 	cursor: pointer;
 }
+
+
+.grid-alt {
+	--grid-cols: 1;
+	--grid-gutter-x: 2rem;
+	--grid-gutter-y: 2rem;
+
+	display: grid;
+	grid-template-columns: repeat(var(--grid-cols), 1fr);
+	gap: var(--grid-gutter-y) var(--grid-gutter-x);
+}
+
+.grid-alt--size-1of2 {
+	--grid-cols: 2;
+}
+
+.grid-alt--size-1of3 {
+	--grid-cols: 3;
+}
+
+.grid-alt--size-1of4 {
+	--grid-cols: 4;
+}
+
+.grid-alt--size-1of5 {
+	--grid-cols: 5;
+}
+
+.grid-alt--size-1of6 {
+	--grid-cols: 6;
+}
+
