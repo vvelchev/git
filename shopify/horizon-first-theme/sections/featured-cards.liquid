@@ -1,77 +1,100 @@
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
 <div class="section-featured-cards">
   <div class="shell">
     <div class="section__inner">
-      <div
-        class="section__head"
-      >
-        {% if section.settings.heading %}
-          <h1>{{ section.settings.heading }}</h1>
-        {% endif %}
-        {% if section.settings.content %}
-          <p>{{ section.settings.content }}</p>
-        {% endif %}
-      </div>
-      <!-- /.section__head -->
-
-      <div class="section__body">
+      {% if section.settings.heading != blank or section.settings.content != blank %}
         <div
-          class="grid-alt"
-          data-layout="{{ section.settings.card_layout }}"
-          data-mobile-slider="{{ section.settings.grid_slider_mobile }}"
-          data-slides-desktop="{{ section.settings.count_desktop }}"
-          data-slides-mobile="{{ section.settings.count_mobile }}"
+          class="section__head"
+          style="--text-align: {{ section.settings.text_align }}"
         >
-          <div class="swiper">
-            <div class="swiper-wrapper">
-              {% for block in section.blocks %}
-                <div class="swiper-slide">
-                  <div class="card" {{ block.shopify_attributes }}>
-                    {% if block.settings.image %}
-                      <div class="card__image">
-                        {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+          {% if section.settings.heading != blank %}
+            <h3 class="h2">{{ section.settings.heading | escape }}</h3>
+          {% endif %}
+          {% if section.settings.content != blank %}
+            <p>{{ section.settings.content }}</p>
+          {% endif %}
+        </div>
+        <!-- /.section__head -->
+      {% endif %}
+      {% if section.blocks.size > 0 %}
+        <div class="section__body">
+          <div
+            class="grid-alt"
+            style="
+              --grid-cols: {{ section.settings.count_desktop }};
+              {%- if section.settings.count_mobile %}--grid-cols-mobile: {{ section.settings.count_mobile }};{% endif -%}
+            "
+            data-layout="{{ section.settings.card_layout }}"
+            data-mobile-slider="{{ section.settings.grid_slider_mobile }}"
+          >
+            <slider-cards
+              class="swiper"
+              data-slides-desktop="{{ section.settings.count_desktop }}"
+              data-slides-mobile="{{ section.settings.count_mobile }}"
+            >
+              <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                  <div class="swiper-slide">
+                    <div
+                      class="card"
+                      {{ block.shopify_attributes }}
+                      style="
+                        --aspect-ratio: {{ section.settings.media_asp }};
+                        --card-text-align: {{ section.settings.card_text_align }}
+                      "
+                    >
+                      <div class="card__image {% if block.settings.image == blank %} card__image--placeholder{% endif %}">
+                        {% if block.settings.image != blank %}
+                          {{
+                            block.settings.image
+                            | image_url: width: 800
+                            | image_tag: loading: 'lazy', alt: block.settings.heading | escape
+                          }}
+                        {% else %}
+                          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
                       </div>
-                    {% else %}
-                      <div class="card__image card__image--placeholder">
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      <div class="card__content">
+                        {% if block.settings.subheading != blank %}
+                          <h6>{{ block.settings.subheading | escape }}</h6>
+                        {% endif %}
+                        {% if block.settings.heading != blank %}
+                          <h4>{{ block.settings.heading | escape }}</h4>
+                        {% endif %}
+                        {% if block.settings.text != blank %}
+                          <div class="card__entry">
+                            {{ block.settings.text }}
+                          </div>
+                          <!-- /.card__entry -->
+                        {% endif %}
+                        {% if block.settings.button_link != blank %}
+                          <a
+                            {% if block.settings.button_link != blank -%}
+                              href="{{ block.settings.button_link }}"
+                            {%- else -%}
+                              role="link" aria-disabled="true"
+                            {%- endif %}
+                            class="button"
+                          >
+                            {{- block.settings.button_label | escape -}}
+                          </a>
+                        {% endif %}
                       </div>
-                    {% endif %}
-
-                    <div class="card__content">
-                      {% if block.settings.subheading %}
-                        <h6>{{ block.settings.subheading }}</h6>
-                      {% endif %}
-                      {% if block.settings.heading %}
-                        <h3>{{ block.settings.heading }}</h3>
-                      {% endif %}
-                      {% if block.settings.text %}{{ block.settings.text }}{% endif %}
-
-                      {% if block.settings.button_link %}
-                        <a
-                          {% if block.settings.button_link != blank -%}
-                            href="{{ block.settings.button_link }}"
-                          {%- else -%}
-                            role="link" aria-disabled="true"
-                          {%- endif %}
-                          class="button"
-                        >
-                          {{ block.settings.button_label }}
-                        </a>
-                      {% endif %}
+                      <!-- /.card__content -->
                     </div>
-                    <!-- /.card__content -->
                   </div>
-                </div>
-                <!-- /.swiper-slide -->
-              {% endfor %}
-            </div>
+                  <!-- /.swiper-slide -->
+                {% endfor %}
+              </div>
+            </slider-cards>
           </div>
         </div>
-      </div>
+      {% endif %}
     </div>
   </div>
 </div>
-
-<style>
+{% stylesheet %}
   .section-featured-cards {
     padding: 40px 0;
     .shell {
@@ -81,76 +104,162 @@
     }
 
     .section__head {
-      --text-align: {{ section.settings.text_align }};
-        text-align: {{ section.settings.text_align }};
-        margin-bottom: 40px;
-    }
-
-    .section__body {
+      text-align: var(--text-align);
+      margin-bottom: 40px;
     }
 
     .grid-alt {
-     --grid-cols: {{section.settings.count_desktop}};
-     {% if  section.settings.count_mobile %}
-       @media (max-width: 767px) {
-        --grid-cols: {{  section.settings.count_mobile}};
-      {% endif %}
-      }
-
+      --grid-gutter-x: 2rem;
     }
 
-    .grid-alt[data-layout="grid"] {
-      .swiper, .swiper-wrapper {
-        display:contents;
+    .grid-alt[data-layout='grid'] {
+      gap: var(--grid-gutter-x);
+
+      .swiper,
+      .swiper-wrapper {
+        display: contents;
       }
     }
-    .grid-alt[data-layout="slider"] {
+    .grid-alt[data-layout='slider'] {
       display: contents;
+
+      slider-cards {
+        display: block;
+      }
     }
-    .grid-alt[data-mobile-slider="true"] {
+    .grid-alt[data-mobile-slider='true'] {
       @media (max-width: 767px) {
         & {
           display: contents;
         }
-        .swiper, .swiper-wrapper {
-          display:flex;
+        .swiper,
+        .swiper-wrapper {
+          display: flex;
         }
       }
     }
   }
 
   .card {
-    --text-align: {{ section.settings.card_text_align }};
-    text-align: {{ section.settings.card_text_align }};
+    text-align: var(--card-text-align);
     .card__image {
       position: relative;
-      aspect-ratio: {{section.settings.media_asp}};
+      aspect-ratio: var(--aspect-ratio);
       margin-bottom: 20px;
       border-radius: 10px;
-      overflow:hidden;
+      overflow: hidden;
 
-      img,svg {
+      img,
+      svg {
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        object-fit:cover;
+        object-fit: cover;
       }
     }
     .card__content {
       all: revert;
 
-      h6,h3,p{
+      h6,
+      h3,
+      p {
         margin: 0 0 15px;
       }
 
       .button {
-        display:inline-flex;
+        display: inline-flex;
       }
     }
   }
-</style>
+{% endstylesheet %}
+
+<script>
+  (() => {
+    if (customElements.get('slider-cards')) {
+      return;
+    }
+
+    class SliderCards extends HTMLElement {
+      constructor() {
+        super();
+        this.instance = null;
+        this.handleResize = this.update.bind(this);
+      }
+
+      connectedCallback() {
+        if (typeof Swiper === 'undefined') {
+          document.addEventListener('DOMContentLoaded', () => this.connectedCallback(), { once: true });
+          return;
+        }
+
+        this.gridEl = this.closest('.grid-alt');
+        this.layout = this.gridEl?.dataset.layout;
+        this.mobileSliderEnabled = this.gridEl?.dataset.mobileSlider === 'true';
+        this.slidesDesktop = parseInt(this.dataset.slidesDesktop, 10) || 4;
+        this.slidesMobile = parseInt(this.dataset.slidesMobile, 10) || 2;
+        this.mediaQuery = window.matchMedia('(max-width: 767px)');
+
+        this.update();
+        this.mediaQuery.addEventListener('change', this.handleResize);
+        window.addEventListener('resize', this.handleResize);
+      }
+
+      disconnectedCallback() {
+        this.mediaQuery?.removeEventListener('change', this.handleResize);
+        window.removeEventListener('resize', this.handleResize);
+        this.destroy();
+      }
+
+      shouldBeSlider() {
+        if (this.layout === 'slider') return true;
+        if (this.layout === 'grid' && this.mobileSliderEnabled && this.mediaQuery.matches) return true;
+        return false;
+      }
+
+      getGutter() {
+        const raw = getComputedStyle(this.gridEl || this)
+          .getPropertyValue('--grid-gutter-x')
+          .trim();
+        if (!raw) return 16;
+
+        // rem -> px conversion, otherwise parse as-is (px, unitless, etc.)
+        if (raw.endsWith('rem')) {
+          const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+          return parseFloat(raw) * rootFontSize;
+        }
+
+        return parseFloat(raw) || 16;
+      }
+
+      init() {
+        if (this.instance) return;
+        this.instance = new Swiper(this, {
+          slidesPerView: this.slidesMobile,
+          spaceBetween: this.getGutter(),
+          breakpoints: {
+            768: { slidesPerView: this.slidesDesktop },
+          },
+        });
+        this.gridEl?.classList.add('is-swiper-active');
+      }
+
+      destroy() {
+        if (!this.instance) return;
+        this.instance.destroy(true, true);
+        this.instance = null;
+        this.gridEl?.classList.remove('is-swiper-active');
+      }
+
+      update() {
+        this.shouldBeSlider() ? this.init() : this.destroy();
+      }
+    }
+
+    customElements.define('slider-cards', SliderCards);
+  })();
+</script>
 
 {% schema %}
 {
@@ -283,50 +392,3 @@
   ]
 }
 {% endschema %}
-{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.grid-alt').forEach((gridEl) => {
-      const layout = gridEl.dataset.layout;
-      const mobileSliderEnabled = gridEl.dataset.mobileSlider === 'true';
-      const slidesDesktop = parseInt(gridEl.dataset.slidesDesktop, 10) || 4;
-      const slidesMobile = parseInt(gridEl.dataset.slidesMobile, 10) || 2;
-      const swiperEl = gridEl.querySelector('.swiper');
-      let instance = null;
-
-      function shouldBeSlider() {
-        if (layout === 'slider') return true;
-        if (layout === 'grid' && mobileSliderEnabled && window.matchMedia('(max-width: 767px)').matches) return true;
-        return false;
-      }
-
-      function init() {
-        if (instance) return;
-        instance = new Swiper(swiperEl, {
-          slidesPerView: slidesMobile,
-          spaceBetween: 16,
-          breakpoints: {
-            768: { slidesPerView: slidesDesktop },
-          },
-        });
-        gridEl.classList.add('is-swiper-active');
-      }
-
-      function destroy() {
-        if (!instance) return;
-        instance.destroy(true, true);
-        instance = null;
-        gridEl.classList.remove('is-swiper-active');
-      }
-
-      function update() {
-        shouldBeSlider() ? init() : destroy();
-      }
-
-      update();
-      window.addEventListener('resize', update);
-    });
-  });
-</script>
