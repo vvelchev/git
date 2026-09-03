@@ -3,24 +3,17 @@
   assign video = section.settings.video_desktop
   assign image_mobile = section.settings.image_mobile | default: section.settings.image_desktop
   assign video_mobile = section.settings.video_mobile | default: section.settings.video_desktop
-
   assign desktop_type = section.settings.media_type
   assign mobile_type = section.settings.media_type_mobile
-
   assign both_images = false
   if desktop_type == 'desktop_image' and mobile_type == 'mobile_image'
     assign both_images = true
   endif
 -%}
-
 <div
-  class="
-    hero-simple
-    hero-simple--{{ section.settings.height }}
-  "
+  class="hero-simple hero-simple--{{ section.settings.height }}"
   style="
-    {% if section.settings.height == 'custom' %}
-      --min-height: {{section.settings.height_custom}}px;
+    {% if section.settings.height == 'custom' %} --min-height: {{ section.settings.height_custom }}px;
     {% endif %}
   "
 >
@@ -29,7 +22,7 @@
       class="hero__inner"
       style="
         justify-content: {{ section.settings.horizontal_alignment }};
-        align-items: {{ section.settings.vertical_alignment }};
+        align-items: {{ section.settings.vertical_alignment }}
       "
     >
       <div class="hero__bg">
@@ -46,14 +39,16 @@
         {% elsif desktop_type == 'desktop_image' and image != blank %}
           <picture class="hero__media hero__media--desktop">
             {% if mobile_type == 'mobile_image' and image_mobile != blank %}
-              <source media="(max-width: 767px)" srcset="{{ image_mobile | image_url: width: 800 }}">
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ image_mobile | image_url: width: 800 }}"
+              >
             {% endif %}
             {{ image | image_url: width: 1600 | image_tag: alt: image.alt }}
           </picture>
         {% else %}
           {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media hero__media--desktop' }}
         {% endif %}
-
         {% if mobile_type == 'mobile_video' and video_mobile != blank %}
           {{
             video_mobile
@@ -72,15 +67,13 @@
           }}
         {% endif %}
       </div>
-
       {% if section.blocks.size > 0 %}
         <div
           class="hero__content"
           style="
             text-align: {{ section.settings.text_align }};
             --text-align: {{ section.settings.text_align }};
-            {% if section.settings.custom_width %}
-              --content-width: {{ section.settings.custom_width_value }}%;
+            {% if section.settings.custom_width %} --content-width: {{ section.settings.custom_width_value }}%;
             {% endif %}
           "
         >
@@ -90,7 +83,6 @@
     </div>
   </div>
 </div>
-
 {% stylesheet %}
   .hero-simple {
     position: relative;
@@ -167,7 +159,6 @@
     --min-height: calc(100svh - var(--header-group-height, var(--header-height)));
   }
 {% endstylesheet %}
-
 {% schema %}
 {
   "name": "Simple Hero",
