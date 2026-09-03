@@ -1,8 +1,9 @@
+{% comment %} !! XXXX_mobile с default така напрактика няма мобилно но проверката не работи ако иска десктоп такова  {% endcomment %}
 {%- liquid
   assign image = section.settings.image_desktop
   assign video = section.settings.video_desktop
-  assign image_mobile = section.settings.image_mobile | default: section.settings.image_desktop
-  assign video_mobile = section.settings.video_mobile | default: section.settings.video_desktop
+  assign image_mobile = section.settings.image_mobile
+  assign video_mobile = section.settings.video_mobile
 
   assign desktop_type = section.settings.media_type
   assign mobile_type = section.settings.media_type_mobile
@@ -33,62 +34,60 @@
       "
     >
       <div class="hero__bg">
-        {% if both_images and image != blank %}
-          <picture class="hero__media">
-            {% if image_mobile != blank and image_mobile != image %}
+        {% if desktop_type == 'desktop_video' and video != blank %}
+          {{
+            video
+            | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              class: 'hero__media hero__media--desktop'
+          }}
+        {% elsif desktop_type == 'desktop_image' and image != blank %}
+          <picture class="hero__media hero__media--desktop">
+            {% if mobile_type == 'mobile_image' and image_mobile != blank %}
               <source media="(max-width: 767px)" srcset="{{ image_mobile | image_url: width: 800 }}">
             {% endif %}
             {{ image | image_url: width: 1600 | image_tag: alt: image.alt }}
           </picture>
         {% else %}
-          {% if desktop_type == 'desktop_video' and video != blank %}
-            {{
-              video
-              | video_tag:
-                autoplay: true,
-                loop: true,
-                muted: true,
-                controls: false,
-                class: 'hero__media hero__media--desktop'
-            }}
-          {% elsif desktop_type == 'desktop_image' and image != blank %}
-            {{ image | image_url: width: 1600 | image_tag: alt: image.alt, class: 'hero__media hero__media--desktop' }}
-          {% else %}
-            {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media hero__media--desktop' }}
-          {% endif %}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'hero__media hero__media--desktop' }}
+        {% endif %}
 
-          {% if mobile_type == 'mobile_video' and video_mobile != blank %}
-            {{
-              video_mobile
-              | video_tag:
-                autoplay: true,
-                loop: true,
-                muted: true,
-                controls: false,
-                class: 'hero__media hero__media--mobile'
-            }}
-          {% elsif mobile_type == 'mobile_image' and image_mobile != blank %}
-            {{
-              image_mobile
-              | image_url: width: 800
-              | image_tag: alt: image_mobile.alt, class: 'hero__media hero__media--mobile'
-            }}
-          {% endif %}
+        {% if mobile_type == 'mobile_video' and video_mobile != blank %}
+          {{
+            video_mobile
+            | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              class: 'hero__media hero__media--mobile'
+          }}
+        {% elsif mobile_type == 'mobile_image' and image_mobile != blank and desktop_type != 'desktop_image' %}
+          {{
+            image_mobile
+            | image_url: width: 800
+            | image_tag: alt: image_mobile.alt, class: 'hero__media hero__media--mobile'
+          }}
         {% endif %}
       </div>
 
-      <div
-        class="hero__content"
-        style="
-          text-align: {{ section.settings.text_align }};
-          --text-align: {{ section.settings.text_align }};
-          {% if section.settings.custom_width %}
-            --content-width: {{ section.settings.custom_width_value }}%;
-          {% endif %}
-        "
-      >
-        {% content_for 'blocks' %}
-      </div>
+      {% if section.blocks.size > 0 %}
+        <div
+          class="hero__content"
+          style="
+            text-align: {{ section.settings.text_align }};
+            --text-align: {{ section.settings.text_align }};
+            {% if section.settings.custom_width %}
+              --content-width: {{ section.settings.custom_width_value }}%;
+            {% endif %}
+          "
+        >
+          {% content_for 'blocks' %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
