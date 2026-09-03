@@ -1,9 +1,8 @@
-{% comment %} !! XXXX_mobile с default така напрактика няма мобилно но проверката не работи ако иска десктоп такова  {% endcomment %}
 {%- liquid
   assign image = section.settings.image_desktop
   assign video = section.settings.video_desktop
-  assign image_mobile = section.settings.image_mobile
-  assign video_mobile = section.settings.video_mobile
+  assign image_mobile = section.settings.image_mobile | default: section.settings.image_desktop
+  assign video_mobile = section.settings.video_mobile | default: section.settings.video_desktop
 
   assign desktop_type = section.settings.media_type
   assign mobile_type = section.settings.media_type_mobile
