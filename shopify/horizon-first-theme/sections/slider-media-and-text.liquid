@@ -1,93 +1,78 @@
-{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
-
-{% assign media_slides_html = '' %}
-{% assign content_slides_html = '' %}
-
-{% for block in section.blocks %}
-  {% capture media_slide %}
-    <div class="swiper-slide" {{ block.shopify_attributes }}>
-      <div class="slider__media-desktop">
-        {% if block.settings.desktop_media_type == 'video' and block.settings.video_desktop != blank %}
-          {{ block.settings.video_desktop | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: '' }}
-        {% elsif block.settings.desktop_media_type == 'image' and block.settings.image_desktop != blank %}
-          {{ block.settings.image_desktop | image_url: width: 1600 | image_tag: alt: block.settings.image_desktop.alt, class: '' }}
-        {% else %}
-          {{ 'hero-apparel-1' | placeholder_svg_tag: '' }}
-        {% endif %}
-      </div>
-
-      {% if block.settings.mobile_media_type == 'video' and block.settings.video_mobile != blank or block.settings.mobile_media_type == 'image' and block.settings.image_mobile != blank %}
-        <div class="slider__media-mobile">
-          {% if block.settings.mobile_media_type == 'video' %}
-            {{ block.settings.video_mobile | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: '' }}
-          {% else %}
-            {{ block.settings.image_mobile | image_url: width: 800 | image_tag: alt: block.settings.image_mobile.alt, class: '' }}
+{% if section.blocks.size > 0 %}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+  {% assign media_slides_html = '' %}
+  {% assign content_slides_html = '' %}
+  {% for block in section.blocks %}
+    {% if block.settings.rich_content != blank or block.settings.link != blank %}
+      {% capture media_slide %}
+        <div class="swiper-slide" {{ block.shopify_attributes }}>
+          <div class="slider__media-desktop">
+            {% if block.settings.desktop_media_type == 'video' and block.settings.video_desktop != blank %}
+              {{ block.settings.video_desktop | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: '' }}
+            {% elsif block.settings.desktop_media_type == 'image' and block.settings.image_desktop != blank %}
+              {{ block.settings.image_desktop | image_url: width: 1600 | image_tag: alt: block.settings.image_desktop.alt, class: '' }}
+            {% else %}
+              {{ 'hero-apparel-1' | placeholder_svg_tag: '' }}
+            {% endif %}
+          </div>
+          {% if block.settings.mobile_media_type == 'video' and block.settings.video_mobile != blank or block.settings.mobile_media_type == 'image' and block.settings.image_mobile != blank %}
+            <div class="slider__media-mobile">
+              {% if block.settings.mobile_media_type == 'video' %}
+                {{ block.settings.video_mobile | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: '' }}
+              {% else %}
+                {{ block.settings.image_mobile | image_url: width: 800 | image_tag: alt: block.settings.image_mobile.alt, class: '' }}
+              {% endif %}
+            </div>
           {% endif %}
         </div>
-      {% endif %}
-    </div>
-  {% endcapture %}
-  {% assign media_slides_html = media_slides_html | append: media_slide %}
-
-  {% capture content_slide %}
-    <div class="swiper-slide" {{ block.shopify_attributes }}>
-      {% if block.settings.rich_content != blank %}
-        {{ block.settings.rich_content }}
-      {% endif %}
-
-      {% if block.settings.link != blank %}
-        {% render 'button', block: block, link: block.settings.link %}
-      {% endif %}
-    </div>
-  {% endcapture %}
-  {% assign content_slides_html = content_slides_html | append: content_slide %}
-{% endfor %}
-
-{% if section.blocks.size > 0 %}
+      {% endcapture %}
+      {% assign media_slides_html = media_slides_html | append: media_slide %}
+      {% capture content_slide %}
+        <div class="swiper-slide"
+             data-block-id="{{ block.id }}"
+             {{ block.shopify_attributes }}>
+          {% if block.settings.rich_content != blank %}
+            {{ block.settings.rich_content }}
+          {% endif %}
+          {% if block.settings.link != blank %}
+            {% render 'button', block: block, link: block.settings.link %}
+          {% endif %}
+        </div>
+      {% endcapture %}
+      {% assign content_slides_html = content_slides_html | append: content_slide %}
+    {% endif %}
+  {% endfor %}
   <div class="section-text-media-slider">
     <div class="shell">
       <div class="section_inner">
         <slider-media-text
-          class="
-            slider-text-and-media
-            {%- if section.settings.row_direction_desktop %} swap-desktop{% endif -%}
-            {%- if section.settings.row_direction_mobile %} swap-mobile{% endif -%}
-          "
-          style="
-            {%- if section.settings.content_bg_color -%}
-              --bg-color:{{ section.settings.content_bg_color }};
-            {%- endif -%}
-            {%- if section.settings.content_txt_color -%}
-              --color:{{ section.settings.content_txt_color }};
-            {%- endif -%}
-          "
-          data-autoplay-duration="
-            {%- if section.settings.slider_autoplay -%}
-              {{ section.settings.slider_autoplay_duration }}
-            {%- endif -%}
-          "
+          class="slider-text-and-media {%- if section.settings.row_direction_desktop %} swap-desktop{% endif -%} {%- if section.settings.row_direction_mobile %} swap-mobile{% endif -%}"
+          style="{%- if section.settings.content_bg_color -%} --bg-color:{{ section.settings.content_bg_color }}; {%- endif -%} {%- if section.settings.content_txt_color -%} --color:{{ section.settings.content_txt_color }}; {%- endif -%}"
+          {%- if section.settings.slider_autoplay -%}
+            data-autoplay-duration="{{ section.settings.slider_autoplay_duration }}"
+          {%- endif -%}
         >
-          <div class="slider__media slider__media--{{ section.settings.media_asp }} swiper">
+          <div class="slider__media slider__media--{{ section.settings.media_asp }} swiper js-slider__media">
             <div class="swiper-wrapper">{{ media_slides_html }}</div>
           </div>
           <!-- /.slider__media -->
-
           <div class="slider__main">
-            <div class="slider__content swiper">
+            <div class="slider__content swiper js-slider__content">
               <div class="swiper-wrapper">{{ content_slides_html }}</div>
             </div>
-
             {% if section.blocks.size > 1 %}
               <div class="swiper-actions">
-                <div class="swiper__button swiper__button--prev">
+                <div class="swiper__button swiper__button--prev js-swiper__button--prev">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z"/>
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z" />
                   </svg>
                 </div>
-                <div class="swiper__button swiper__button--next">
+                <div class="swiper__button swiper__button--next js-swiper__button--next">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/>
+                    <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z" />
                   </svg>
                 </div>
               </div>
@@ -102,11 +87,10 @@
   </div>
   <!-- /.section-simple -->
 {% endif %}
-
 {% stylesheet %}
   .slider-media-and-text {
     position: relative;
-    padding: 4rem 0;
+    user-select: none;
 
     .shell {
       max-width: 1600px;
@@ -120,6 +104,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 4rem;
+    padding: 4rem 0;
 
     @media (max-width: 767px) {
       flex-direction: column;
@@ -228,31 +213,23 @@
     }
   }
 {% endstylesheet %}
-
-<script>
+<script
+  type="module"
+>
   (() => {
-    console.log(customElements.get('slider-media-text'));
     if (customElements.get('slider-media-text')) {
       return;
     }
 
     class SliderMediaText extends HTMLElement {
-      constructor() {
-        super();
-        this.selectors = {
-          media: '.slider__media',
-          content: '.slider__content',
-          prev: '.swiper__button--prev',
-          next: '.swiper__button--next',
-        };
-      }
+      selectors = {
+        media: '.js-slider__media',
+        content: '.js-slider__content',
+        prev: '.js-swiper__button--prev',
+        next: '.js-swiper__button--next',
+      };
 
       connectedCallback() {
-        if (typeof Swiper === 'undefined') {
-          document.addEventListener('DOMContentLoaded', () => this.connectedCallback(), { once: true });
-          return;
-        }
-
         this.media = this.querySelector(this.selectors.media);
         this.content = this.querySelector(this.selectors.content);
 
@@ -262,6 +239,7 @@
         }
 
         this.initSlider();
+        this.bindEditorEvents();
       }
 
       disconnectedCallback() {
@@ -284,9 +262,7 @@
           effect: 'fade',
           loop: true,
           autoplay: autoplayConfig,
-          fadeEffect: {
-            crossFade: true,
-          },
+          fadeEffect: { crossFade: true },
           speed: 500,
           navigation: {
             nextEl: this.querySelector(this.selectors.next),
@@ -298,12 +274,38 @@
           this.mediaSwiper.slideTo(this.contentSwiper.realIndex);
         });
       }
-    }
 
+      bindEditorEvents() {
+        if (!Shopify?.designMode) return;
+
+        this.onBlockSelect = (event) => {
+          const blockId = event.detail?.blockId;
+          if (!blockId) return;
+
+          const slideEl = this.querySelector(`[data-block-id="${blockId}"]`);
+          if (!slideEl) return;
+
+          const index = [...slideEl.parentElement.children].indexOf(slideEl);
+          if (index === -1) return;
+
+          this.contentSwiper.autoplay?.stop();
+
+          this.contentSwiper.slideToLoop(index, 500);
+        };
+
+        this.onBlockDeselect = () => {
+          if (this.autoplayConfig) {
+            this.contentSwiper.autoplay?.start();
+          }
+        };
+
+        this.addEventListener('shopify:block:select', this.onBlockSelect);
+        this.addEventListener('shopify:block:deselect', this.onBlockDeselect);
+      }
+    }
     customElements.define('slider-media-text', SliderMediaText);
   })();
 </script>
-
 {% schema %}
 {
   "name": "Slider Media And text",
