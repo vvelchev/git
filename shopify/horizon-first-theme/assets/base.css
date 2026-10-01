@@ -4275,6 +4275,10 @@ button {
 	display: grid;
 	grid-template-columns: repeat(var(--grid-cols), 1fr);
 	gap: var(--grid-gutter-y) var(--grid-gutter-x);
+	
+	@media (max-width: 767px) {
+		grid-template-columns: repeat(var(--grid-cols-mobile, var(--grid-cols)), 1fr);
+	}
 }
 
 .grid-alt--size-1of2 {
