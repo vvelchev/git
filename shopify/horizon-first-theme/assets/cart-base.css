@@ -1,0 +1,269 @@
+/* ------------------------------------------------------------ *\
+    Cart Base
+\* ------------------------------------------------------------ */
+
+.btn-cart-base {
+  position: relative;
+  background-color: transparent;
+  border: none;
+
+  & svg {
+    width: 21px;
+    height: auto;
+  }
+
+  span {
+    position: absolute;
+    top: 10%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    min-width: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+  }
+}
+
+
+/* ------------------------------------------------------------ *\
+    Cart Base
+\* ------------------------------------------------------------ */
+
+.cart-base {
+  --page-margin: 20px;
+
+  /* opacity: 1; */
+  /* display: block; */
+  border: none;
+  outline: none;
+  height: 100%;
+  margin: 0 0 0 auto;
+  max-width: 500px;
+  padding: 0;
+
+  &:-internal-popover-in-top-layer::backdrop {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+
+  .cart__scroll {
+    overflow-y: auto;
+  }
+
+  .cart__inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  .cart__head {
+    position: relative;
+    padding: 10px 30px 10px 0;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .cart__head h3 {
+    margin: 0;
+  }
+
+  .cart__head button {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(50%, -50%);
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .cart__main {
+    display: flex;
+    flex-direction: column;
+    height: 10%;
+    flex-grow: 1;
+  }
+
+  .cart__body {
+    height: 10%;
+    flex-grow: 1;
+  }
+
+  /* докато JS чака отговор от Shopify */
+  &.is-loading .cart__body {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  .cart__error {
+    margin: 10px 0 0;
+    padding: 8px 12px;
+    background-color: #fdecea;
+    color: #b3261e;
+    font-size: 14px;
+  }
+
+  .cart__body>ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  .cart__body>ul>li+li {
+    margin-top: 5px;
+    border-top: 1px solid #00000020;
+    padding-top: 5px;
+  }
+
+  .cart__foot {
+    padding: 10px 0;
+    border-top: 1px solid currentColor;
+  }
+
+  .cart__foot .button {
+    margin-top: 10px;
+    width: 100%;
+    text-transform: uppercase;
+    justify-content: center;
+  }
+}
+
+.total {
+  margin-top: 10px;
+
+  h5 {
+    margin-bottom: 20px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+.note {
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    resize: none;
+  }
+}
+
+
+/* ------------------------------------------------------------ *\
+    Product Small
+\* ------------------------------------------------------------ */
+
+.product-small {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+
+  .product__media {
+    margin: 0;
+    width: 130px;
+  }
+
+  .product__content {
+    width: 10%;
+    flex-grow: 1;
+  }
+
+  .product__content h6 {
+    margin: 0;
+  }
+
+  .product__content p {
+    margin: 0;
+  }
+
+  .product__content .quantity {
+    margin-top: 6px;
+  }
+
+  .product__content .item-error {
+    margin-top: 8px;
+  }
+
+  /* ------------------------------------------------------------ *\
+      Item Error
+  \* ------------------------------------------------------------ */
+
+  .item-error {
+    font-size: 11px;;
+  }
+
+  /* ------------------------------------------------------------ *\
+    Quantity
+\* ------------------------------------------------------------ */
+
+  .quantity {
+    border: 1px solid #00000020;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 5px;
+
+    .quantity__btn {
+      position: relative;
+      width: 20px;
+      aspect-ratio: 1;
+      border: none;
+      background-color: transparent;
+
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: 70%;
+        aspect-ratio: 7/1;
+        background-color: currentColor;
+      }
+    }
+
+    .quantity__btn--plus:after {
+      rotate: 90deg;
+    }
+
+    /* „+“ е неактивен, когато бройката стигне наличността */
+    .quantity__btn:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+
+    .quantity__field {
+      width: 10%;
+      flex-grow: 1;
+      border: none;
+      outline: none;
+      text-align: center;
+      taxt-align-last: canter;
+      -moz-appearance: textfield !important;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .quantity__field::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }

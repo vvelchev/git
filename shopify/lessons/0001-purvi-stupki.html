@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 · Първи стъпки в Shopify</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="crumbs"><a href="../index.html">Shopify курс</a><span>Урок 01</span><a href="0002-danni-promenlivi-filtri.html">Урок 02 →</a><a href="../reference/liquid-spravochnik.html">Справочник Liquid</a></div>
+<header class="hero">
+  <div class="eyebrow">Урок 01 · Shopify theme development</div>
+  <h1>Първи стъпки като Shopify developer <span class="lq">{{ hello }}</span></h1>
+  <p class="lead">От празен компютър до собствена секция, която се редактира от Theme Editor-а. Минаваш през инструментите, структурата на темата, Liquid и работния процес, който пази live магазина от грешки.</p>
+  <div class="meta"><span>Ниво: <b>начинаещ</b></span><span>Време: <b>~2 часа</b></span><span>Трябва ти: <b>Windows/Mac, интернет</b></span></div>
+</header>
+
+<div class="wrap">
+  <aside class="side">
+    <nav aria-label="Стъпки">
+      <div class="progress"><div class="bar"><i id="pbar"></i></div><small id="ptext">0 от 7 стъпки</small></div>
+      <a href="#map" data-step="map"><span class="n"><span>0</span></span>Картата</a>
+      <a href="#setup" data-step="setup"><span class="n"><span>1</span></span>Среда</a>
+      <a href="#store" data-step="store"><span class="n"><span>2</span></span>Dev магазин</a>
+      <a href="#theme" data-step="theme"><span class="n"><span>3</span></span>Първа тема</a>
+      <a href="#anatomy" data-step="anatomy"><span class="n"><span>4</span></span>Анатомия</a>
+      <a href="#liquid" data-step="liquid"><span class="n"><span>5</span></span>Liquid</a>
+      <a href="#section" data-step="section"><span class="n"><span>6</span></span>Твоя секция</a>
+      <a href="#workflow" data-step="workflow"><span class="n"><span>7</span></span>Работен процес</a>
+      <a href="#quiz"><span class="n">?</span>Тест</a>
+      <a href="#next"><span class="n">→</span>Накъде след това</a>
+      <a href="0002-danni-promenlivi-filtri.html"><span class="n">02</span>Следващ урок</a>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- 0 -->
+    <section class="step" id="map">
+      <div class="step-head"><span class="num">00</span><h2>Картата: какво всъщност прави един Shopify developer</h2></div>
+      <div class="prose">
+        <p>Shopify е платформа за онлайн магазини. Хостингът, плащанията, базата данни и админ панелът са на Shopify. Ти пишеш кода, който определя как изглежда магазинът и какво още може. Има три основни посоки:</p>
+      </div>
+      <div class="paths">
+        <div class="path on"><span class="tag">Започваме тук</span><small>Themes</small><b>Теми</b><p>Визията на магазина. Liquid + HTML + CSS + JS. Най-бързият път до видим резултат.</p></div>
+        <div class="path"><small>Apps</small><b>Приложения</b><p>Нова функционалност: интеграции, автоматизации, админ екрани. React + GraphQL Admin API.</p></div>
+        <div class="path"><small>Headless</small><b>Hydrogen</b><p>Изцяло собствен frontend върху Storefront API. За големи проекти с нужда от пълен контрол.</p></div>
+      </div>
+      <div class="prose" style="margin-top:18px">
+        <p>Този урок е за <b>темите</b>. Там е повечето клиентска работа и там се учи Liquid, който ще ти трябва и в другите две посоки.</p>
+      </div>
+      <div class="done-row"><button class="done-btn" data-done="map" aria-pressed="false"><span class="box"></span>Прочетох</button></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="step" id="setup">
+      <div class="step-head"><span class="num">01</span><h2>Подготви средата</h2></div>
+      <div class="prose">
+        <p>Трябват ти четири неща:</p>
+        <ol>
+          <li><b>Node.js</b> (LTS версия, 20 или по-нова) от <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>. Shopify CLI работи върху него.</li>
+          <li><b>Git</b> от <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>. Ще пазиш историята на темата си.</li>
+          <li><b>VS Code</b> с разширението <b>Shopify Liquid</b>. Дава оцветяване, автодовършване и проверка на грешки в реално време.</li>
+          <li><b>Shopify CLI</b>, главният инструмент. Инсталира се с npm:</li>
+        </ol>
+      </div>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh"># инсталира Shopify CLI глобално
+npm install -g @shopify/cli@latest
+
+# проверка, че всичко е наред
+node -v
+shopify version</code></pre></div>
+      <div class="note"><b>Windows:</b> ако PowerShell откаже да пусне <code>shopify</code> заради execution policy, използвай Git Bash или терминала във VS Code.</div>
+      <div class="done-row"><button class="done-btn" data-done="setup" aria-pressed="false"><span class="box"></span>Инсталирах всичко</button></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" id="store">
+      <div class="step-head"><span class="num">02</span><h2>Направи си development магазин</h2></div>
+      <div class="prose">
+        <p>Никога не експериментирай върху истински магазин. За целта Shopify дава безплатни <b>development stores</b>: пълноценни магазини без месечна такса, които не приемат реални плащания.</p>
+        <ol>
+          <li>Регистрирай безплатен <b>Partner</b> акаунт на <a href="https://www.shopify.com/partners" target="_blank" rel="noopener">shopify.com/partners</a>.</li>
+          <li>От dashboard-а избери <b>Stores → Create development store</b>.</li>
+          <li>Отметни опцията за <b>тестови данни</b> (sample data), за да имаш продукти и колекции веднага.</li>
+          <li>Запиши адреса. Той изглежда така: <code>moyat-test.myshopify.com</code>.</li>
+        </ol>
+        <p>Dev магазините са защитени с парола. Ще я намериш в админа под <b>Online Store → Preferences</b>. CLI-ят може да я поиска при първото пускане.</p>
+      </div>
+      <div class="note"><b>Тестови поръчки:</b> в dev магазин включи <i>Bogus Gateway</i> или Shopify Payments в тестов режим и пробвай целия checkout без реални пари.</div>
+      <div class="done-row"><button class="done-btn" data-done="store" aria-pressed="false"><span class="box"></span>Имам dev магазин</button></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" id="theme">
+      <div class="step-head"><span class="num">03</span><h2>Първата ти тема на локален сървър</h2></div>
+      <div class="prose">
+        <p><code>shopify theme init</code> създава нова тема от официален стартов шаблон. <code>shopify theme dev</code> я качва като скрита development тема и пуска локален preview, който се обновява при всяко запазване на файл.</p>
+      </div>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh"># създава папка moyata-tema със стартова тема
+shopify theme init moyata-tema
+cd moyata-tema
+
+# пуска live preview срещу твоя dev магазин
+shopify theme dev --store moyat-test</code></pre></div>
+      <div class="prose">
+        <p>Първия път CLI-ят ще отвори браузъра за вход в Shopify. След това в терминала ще видиш:</p>
+      </div>
+      <div class="code"><div class="label">Какво ще видиш</div><pre><code class="out">Preview your theme
+  • http://127.0.0.1:9292
+
+Customize your theme at the theme editor
+  • https://moyat-test.myshopify.com/admin/themes/.../editor
+
+Share your theme preview
+  • https://moyat-test.myshopify.com/?preview_theme_id=...</code></pre></div>
+      <div class="prose">
+        <p>Отвори <code>http://127.0.0.1:9292</code>, промени някакъв текст в кода, запази и гледай как страницата се обновява сама. Това е основният ти работен цикъл.</p>
+      </div>
+      <div class="note"><b>Кой шаблон?</b> Новите версии на CLI по подразбиране вземат минималния <i>Skeleton theme</i>: малко код, лесен за разбиране. Ако искаш да разгледаш пълна, production тема, клонирай Dawn: <code>shopify theme init uchebna --clone-url https://github.com/Shopify/dawn</code></div>
+      <div class="done-row"><button class="done-btn" data-done="theme" aria-pressed="false"><span class="box"></span>Видях темата на 127.0.0.1:9292</button></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" id="anatomy">
+      <div class="step-head"><span class="num">04</span><h2>Анатомия на една тема</h2></div>
+      <div class="prose"><p>Всяка Online Store 2.0 тема има едни и същи папки. Shopify очаква точно тези имена, затова не ги преименувай.</p></div>
+      <div class="tree" style="margin-top:16px">
+        <div class="p">layout/</div><div class="d"><code>theme.liquid</code> е рамката на всяка страница: <code>&lt;head&gt;</code>, header, footer. Съдържанието се вмъква чрез <code>{{ content_for_layout }}</code>.</div>
+        <div class="p">templates/</div><div class="d">По един файл за всеки тип страница: <code>index.json</code>, <code>product.json</code>, <code>collection.json</code>… JSON файлът изрежда кои секции и в какъв ред.</div>
+        <div class="p">sections/</div><div class="d">Големите, преместваеми блокове на страницата. Всяка секция има <code>{% schema %}</code> с настройки за Theme Editor-а.</div>
+        <div class="p">blocks/</div><div class="d">Theme blocks: по-малки парчета, които търговецът добавя вътре в секциите.</div>
+        <div class="p">snippets/</div><div class="d">Преизползваем код без настройки. Включва се с <code>{% render 'ime' %}</code>.</div>
+        <div class="p">assets/</div><div class="d">CSS, JS, картинки, шрифтове. Линк към тях с филтъра <code>asset_url</code>.</div>
+        <div class="p">config/</div><div class="d"><code>settings_schema.json</code> описва глобалните настройки (цветове, шрифтове). <code>settings_data.json</code> пази избраните стойности.</div>
+        <div class="p">locales/</div><div class="d">Преводи. <code>bg.json</code> + <code>{{ 'kluch' | t }}</code> = текстове на български.</div>
+      </div>
+      <div class="code" style="margin-top:18px"><div class="label">templates/index.json (опростен)</div><pre><code class="lq">{
+  "sections": {
+    "hero":     { "type": "image-banner" },
+    "featured": { "type": "featured-collection" }
+  },
+  "order": ["hero", "featured"]
+}</code></pre></div>
+      <div class="prose"><p>Когато търговецът мести секции в редактора, Shopify пренаписва точно този JSON. Ти пишеш секциите, търговецът ги подрежда.</p></div>
+      <div class="done-row"><button class="done-btn" data-done="anatomy" aria-pressed="false"><span class="box"></span>Разбрах структурата</button></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="step" id="liquid">
+      <div class="step-head"><span class="num">05</span><h2>Liquid за 10 минути</h2></div>
+      <div class="prose"><p>Liquid е шаблонният език на Shopify. Сървърът го изпълнява и браузърът получава чист HTML. Има само три вида синтаксис:</p></div>
+      <div class="syn" style="margin-top:16px">
+        <div><code class="big">{{ }}</code><p><b>Output.</b> Извежда стойност: <code>{{ product.title }}</code></p></div>
+        <div><code class="big">{% %}</code><p><b>Tag.</b> Логика: if, for, render, schema. Сам по себе си не извежда нищо.</p></div>
+        <div><code class="big">|</code><p><b>Filter.</b> Преобразува стойност: <code>{{ product.price | money }}</code></p></div>
+      </div>
+      <h3>Обекти</h3>
+      <div class="prose"><p>Данните идват от глобални обекти. Най-честите: <code>shop</code>, <code>product</code>, <code>collection</code>, <code>cart</code>, <code>customer</code>, <code>settings</code>, <code>request</code>. Кои са налични зависи от страницата: <code>product</code> съществува на продуктова страница, <code>cart</code> навсякъде.</p></div>
+      <h3>Пример: първите 4 продукта от колекция</h3>
+      <div class="code"><div class="label">sections/collection-grid.liquid</div><pre><code class="lq">&lt;ul class="grid"&gt;
+  {% for product in collection.products limit: 4 %}
+    &lt;li&gt;
+      &lt;a href="{{ product.url }}"&gt;
+        {{ product.featured_image | image_url: width: 400 | image_tag }}
+        &lt;h3&gt;{{ product.title | escape }}&lt;/h3&gt;
+        &lt;p&gt;{{ product.price | money }}&lt;/p&gt;
+      &lt;/a&gt;
+      {% unless product.available %}
+        &lt;span class="badge"&gt;Изчерпан&lt;/span&gt;
+      {% endunless %}
+    &lt;/li&gt;
+  {% else %}
+    &lt;li&gt;Няма продукти в тази колекция.&lt;/li&gt;
+  {% endfor %}
+&lt;/ul&gt;</code></pre></div>
+      <h3>Два непознати тага в примера</h3>
+      <div class="prose">
+        <p><b><code>{% else %}</code> вътре във <code>for</code>.</b> Тук няма <code>if</code>. Liquid позволява <code>else</code> директно в цикъла и то се изпълнява само ако колекцията е празна, т.е. цикълът не е минал нито веднъж. Същото с <code>if</code> би изглеждало така:</p>
+      </div>
+      <div class="code"><div class="label">Еквивалент с if</div><pre><code class="lq">{% if collection.products.size &gt; 0 %}
+  {% for product in collection.products limit: 4 %}
+    …
+  {% endfor %}
+{% else %}
+  &lt;li&gt;Няма продукти в тази колекция.&lt;/li&gt;
+{% endif %}</code></pre></div>
+      <div class="prose">
+        <p><b><code>{% unless %}</code></b> е обратното на <code>if</code> и означава „ако <i>не</i>“. <code>{% unless product.available %}</code> е същото като <code>{% if product.available == false %}</code>. Баджът „Изчерпан“ се показва, когато продуктът не е наличен.</p>
+      </div>
+      <div class="note"><b>Цените са в центове.</b> <code>product.price</code> връща <code>4999</code> за 49,99 €. Затова винаги минавай през <code>| money</code>, който форматира по валутата на магазина.</div>
+      <div class="done-row"><button class="done-btn" data-done="liquid" aria-pressed="false"><span class="box"></span>Пробвах Liquid</button></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="step" id="section">
+      <div class="step-head"><span class="num">06</span><h2>Направи своя първа секция</h2></div>
+      <div class="prose"><p>Тук всичко се събира: HTML + Liquid + schema, която дава на търговеца бутони в Theme Editor-а. Създай файл <code>sections/hello-banner.liquid</code>:</p></div>
+      <div class="code"><div class="label">sections/hello-banner.liquid</div><pre><code class="lq">&lt;section class="hello-banner" style="background: {{ section.settings.bg }};"&gt;
+  &lt;h2&gt;{{ section.settings.heading | escape }}&lt;/h2&gt;
+
+  {% if section.settings.show_count %}
+    &lt;p&gt;В магазина има {{ collections.all.products_count }} продукта.&lt;/p&gt;
+  {% endif %}
+&lt;/section&gt;
+
+{% stylesheet %}
+  .hello-banner { padding: 48px 24px; text-align: center; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hello банер",
+  "settings": [
+    { "type": "text",     "id": "heading",    "label": "Заглавие", "default": "Здравей, Shopify!" },
+    { "type": "color",    "id": "bg",         "label": "Фон",      "default": "#eef3ee" },
+    { "type": "checkbox", "id": "show_count", "label": "Покажи броя продукти", "default": true }
+  ],
+  "presets": [{ "name": "Hello банер" }]
+}
+{% endschema %}</code></pre></div>
+      <div class="prose">
+        <ol>
+          <li>Запази файла, докато <code>shopify theme dev</code> работи.</li>
+          <li>Отвори линка за <b>theme editor</b> от терминала.</li>
+          <li>Натисни <b>Add section</b> и избери „Hello банер“.</li>
+          <li>Смени заглавието и цвета отдясно. Това са твоите <code>settings</code>.</li>
+        </ol>
+        <p><code>section.settings.heading</code> чете стойността, която търговецът е въвел. <code>presets</code> е причината секцията да се появи в списъка <b>Add section</b>. Без него няма да я намериш там.</p>
+      </div>
+      <div class="note"><b>Предизвикателство:</b> добави настройка <code>"type": "collection"</code> и покажи 3 продукта от избраната колекция с цикъла от стъпка 5.</div>
+      <div class="done-row"><button class="done-btn" data-done="section" aria-pressed="false"><span class="box"></span>Секцията ми е в редактора</button></div>
+    </section>
+
+    <!-- 7 -->
+    <section class="step" id="workflow">
+      <div class="step-head"><span class="num">07</span><h2>Работен процес, който не чупи live магазина</h2></div>
+      <div class="prose">
+        <p>В един магазин има една <b>live</b> тема, която клиентите виждат, и много <b>unpublished</b> теми. Правилото е просто: работиш локално и качваш в unpublished тема. Публикуваш едва след преглед.</p>
+      </div>
+      <div class="code"><div class="label">Командите, които ще ползваш всеки ден</div><pre><code class="sh"># списък на темите в магазина с техните ID-та
+shopify theme list --store moyat-test
+
+# сваля тема от магазина (напр. промени от редактора)
+shopify theme pull --theme 123456789
+
+# проверява кода за грешки и лоши практики
+shopify theme check
+
+# качва като НОВА скрита тема, live не се пипа
+shopify theme push --unpublished
+
+# качва в конкретна тема и дава preview линк за клиента
+shopify theme push --theme 123456789
+shopify theme share
+
+# публикува, само когато си сигурен
+shopify theme publish --theme 123456789</code></pre></div>
+      <h3>Git от първия ден</h3>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh">git init
+git add .
+git commit -m "Първоначална тема"</code></pre></div>
+      <div class="prose">
+        <p>След това можеш да свържеш GitHub repo директно с магазина: <b>Online Store → Themes → Add theme → Connect from GitHub</b>. Всеки push в клона обновява свързаната тема автоматично.</p>
+      </div>
+      <div class="note"><b>Внимание:</b> търговецът също променя темата през редактора и тези промени отиват в <code>templates/*.json</code> и <code>config/settings_data.json</code>. Преди <code>push</code> направи <code>pull</code>, иначе ще изтриеш неговата работа.</div>
+      <div class="done-row"><button class="done-btn" data-done="workflow" aria-pressed="false"><span class="box"></span>Качих тема с push --unpublished</button></div>
+    </section>
+
+    <!-- quiz -->
+    <section class="step" id="quiz">
+      <div class="step-head"><span class="num">??</span><h2>Провери се</h2></div>
+      <div class="quiz" id="quiz1"></div>
+    </section>
+
+    <!-- next -->
+    <section class="step" id="next">
+      <div class="step-head"><span class="num">→</span><h2>Накъде след това</h2></div>
+      <div class="prose">
+        <ol>
+          <li><b>Разгледай Dawn файл по файл.</b> Отвори <code>sections/main-product.liquid</code> и проследи как работят вариантите и формата за количка.</li>
+          <li><b>Научи Section Rendering и AJAX Cart API.</b> С тях количката се обновява без презареждане.</li>
+          <li><b>Metafields.</b> Собствени полета към продукти (размери, материал, гаранция), които показваш в темата.</li>
+          <li><b>Първо приложение.</b> <code>shopify app init</code> създава шаблон с GraphQL Admin API и theme app extensions.</li>
+        </ol>
+      </div>
+      <div class="links" style="margin-top:18px">
+        <a href="https://shopify.dev/docs/storefronts/themes" target="_blank" rel="noopener"><b>Theme документация</b><span>shopify.dev/docs/storefronts/themes</span></a>
+        <a href="https://shopify.dev/docs/api/liquid" target="_blank" rel="noopener"><b>Liquid reference</b><span>shopify.dev/docs/api/liquid</span></a>
+        <a href="https://shopify.dev/docs/api/shopify-cli/theme" target="_blank" rel="noopener"><b>CLI команди за теми</b><span>shopify.dev/docs/api/shopify-cli/theme</span></a>
+        <a href="https://github.com/Shopify/dawn" target="_blank" rel="noopener"><b>Dawn в GitHub</b><span>github.com/Shopify/dawn</span></a>
+      </div>
+      <div class="primary" style="margin-top:20px"><span class="eyebrow">Продължение</span><a href="0002-danni-promenlivi-filtri.html">Урок 02: Откъде идват данните в Liquid →</a><p>Обекти, променливи, филтри и задача в твоята тема.</p></div>
+      <p class="ask">Нещо не е ясно? Питай Claude в чата. Той е твоят учител по този курс и може да обясни всяка стъпка по друг начин.</p>
+    </section>
+  </main>
+</div>
+
+
+<script>
+window.QUIZ = [
+  { q: "Коя команда пуска локален preview, който се обновява при всяко запазване?",
+    o: ["<code>shopify theme push</code>", "<code>shopify theme dev</code>", "<code>shopify theme share</code>"], a: 1,
+    w: "theme dev качва скрита development тема и сервира preview на 127.0.0.1:9292 с hot reload." },
+  { q: "Имаш HTML за карта на продукт, който ползваш на 5 места. Къде го слагаш?",
+    o: ["В папка snippets/", "В папка templates/", "В папка config/"], a: 0,
+    w: "Snippets са преизползваем код без собствени настройки. Включват се с {% render %}." },
+  { q: "product.price връща 2590. Как го показваш правилно на клиента?",
+    o: ["<code>{{ product.price | money }}</code>", "<code>{{ product.price | round }}</code>", "<code>{{ product.price | price }}</code>"], a: 0,
+    w: "Цените са в центове. money ги форматира според настройките за валута на магазина." },
+  { q: "Секцията ти не се появява в „Add section“ в редактора. Най-вероятната причина?",
+    o: ["Липсва presets в schema", "Липсва файл в assets", "Липсва theme check run"], a: 0,
+    w: "Без presets секцията съществува, но редакторът не я предлага за добавяне." },
+  { q: "Клиентът иска да види промените, преди да станат live. Какво правиш?",
+    o: ["Push в live темата", "Push в unpublished тема", "Pull от live темата"], a: 1,
+    w: "Live темата не се пипа, докато промените не са одобрени." },
+  { q: "Кой файл се променя, когато търговецът пренареди секциите на началната страница?",
+    o: ["<code>layout/theme.liquid</code>", "<code>templates/index.json</code>", "<code>sections/header.liquid</code>"], a: 1,
+    w: "JSON шаблоните пазят кои секции има и в какъв ред. Затова прави pull преди push." }
+];
+</script>
+<script src="../assets/course.js"></script>
+</body>
+</html>

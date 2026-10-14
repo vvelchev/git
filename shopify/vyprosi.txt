@@ -1,0 +1,3 @@
+в liquid файлове немога да подкарам smartGrow selection
+
+в liquid файлове не ми работят голяма част от autocomplete за css 

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Продукт: админ → Liquid</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="crumbs"><a href="../index.html">Shopify курс</a><span>Справочник</span><a href="../lessons/0003-produktat.html">Урок 03</a><a href="liquid-spravochnik.html">Справочник Liquid</a></div>
+<div class="ref">
+  <header class="hero" style="padding-block:28px 22px;margin-bottom:28px">
+    <div class="eyebrow">Справочник · проверено 12.10.2026 срещу shopify.dev и help.shopify.com</div>
+    <h1 style="font-size:clamp(28px,4.5vw,42px)">Продукт: админ → Liquid</h1>
+  </header>
+  <div class="ref-grid">
+    <section>
+      <h2>Модел</h2>
+      <dl class="kv">
+        <dt>product</dt><dd>листът в каталога: име, описание, снимки, марка, тагове, опции</dd>
+        <dt>variant</dt><dd>това, което се купува: <b>цена, стара цена, SKU, наличност, тегло</b></dd>
+        <dt>без опции</dt><dd>пак има 1 вариант; <code>product.has_only_default_variant</code> = true</dd>
+        <dt>кой вариант?</dt><dd><code>product.selected_or_first_available_variant</code></dd>
+        <dt>всички</dt><dd><code>{% for v in product.variants %}</code> (до 250)</dd>
+      </dl>
+      <h3>Обобщения на ниво продукт</h3>
+      <dl class="kv">
+        <dt>product.price</dt><dd>= <code>price_min</code>, най-ниската цена на вариант</dd>
+        <dt>product.price_max</dt><dd>най-високата цена на вариант</dd>
+        <dt>product.price_varies</dt><dd>true, ако цените на вариантите са различни</dd>
+        <dt>product.compare_at_price</dt><dd>= <code>compare_at_price_min</code>, най-ниската стара цена</dd>
+        <dt>product.compare_at_price_max</dt><dd>най-високата стара цена</dd>
+        <dt>product.available</dt><dd>true, ако поне един вариант е наличен</dd>
+      </dl>
+    </section>
+    <section>
+      <h2>Админ → Liquid</h2>
+      <dl class="kv">
+        <dt>Title</dt><dd><code>product.title</code></dd>
+        <dt>Description</dt><dd><code>product.description</code> (HTML)</dd>
+        <dt>Media</dt><dd><code>product.featured_image</code>, <code>product.media</code></dd>
+        <dt>Price</dt><dd><code>variant.price</code></dd>
+        <dt>Compare-at price</dt><dd><code>variant.compare_at_price</code>; празно = <code>nil</code></dd>
+        <dt>Cost per item</dt><dd><b>няма</b> в Liquid</dd>
+        <dt>SKU / Barcode</dt><dd><code>variant.sku</code> / <code>variant.barcode</code></dd>
+        <dt>Quantity</dt><dd><code>variant.inventory_quantity</code></dd>
+        <dt>Track / Continue selling</dt><dd>определят <code>variant.available</code></dd>
+        <dt>Weight</dt><dd><code>variant.weight | weight_with_unit</code></dd>
+        <dt>Options</dt><dd><code>product.options_with_values</code></dd>
+        <dt>Variant</dt><dd><code>variant.title</code> = „S / Бял“; <code>variant.option1</code></dd>
+        <dt>Type / Vendor</dt><dd><code>product.type</code> / <code>product.vendor</code></dd>
+        <dt>Collections</dt><dd><code>product.collections</code></dd>
+        <dt>Tags</dt><dd><code>product.tags</code> (по азбучен ред)</dd>
+        <dt>URL handle</dt><dd><code>product.handle</code>, <code>product.url</code></dd>
+        <dt>Theme template</dt><dd><code>product.template_suffix</code></dd>
+        <dt>Metafields</dt><dd><code>product.metafields.namespace.key</code></dd>
+      </dl>
+    </section>
+    <section>
+      <h2>Compare-at price</h2>
+      <dl class="kv">
+        <dt>какво е</dt><dd>старата цена, показва се задраскана</dd>
+        <dt>къде</dt><dd>Products → продукт (→ вариант) → Price → <b>Compare at</b></dd>
+        <dt>правило</dt><dd>трябва да е по-висока от Price</dd>
+        <dt>няма намаление</dt><dd>полето е празно, не 0,00</dd>
+        <dt>checkout</dt><dd>показва само Price</dd>
+      </dl>
+      <h3>Шаблон, който винаги работи</h3>
+<pre><code class="lq">{%- assign v = product.selected_or_first_available_variant -%}
+{%- if v.compare_at_price > v.price -%}
+  {%- assign off = v.compare_at_price | minus: v.price
+      | times: 100 | divided_by: v.compare_at_price -%}
+  &lt;span&gt;-{{ off }}%&lt;/span&gt;
+  &lt;s&gt;{{ v.compare_at_price | money }}&lt;/s&gt;
+{%- endif -%}
+{{ v.price | money }}</code></pre>
+    </section>
+    <section>
+      <h2>Капани</h2>
+      <dl class="kv">
+        <dt>без if</dt><dd>nil в <code>divided_by</code> → „Liquid error: divided by 0“</dd>
+        <dt>product.*</dt><dd>price и compare_at_price може да са от различни варианти → грешен %</dd>
+        <dt>цени</dt><dd>в центове: 4999 = 49,99 €; винаги <code>| money</code></dd>
+        <dt>variants</dt><dd>различни стари цени по варианти → колекцията може да не покаже намаление</dd>
+      </dl>
+      <h3>Източници</h3>
+      <dl class="kv">
+        <dt>product</dt><dd><a href="https://shopify.dev/docs/api/liquid/objects/product">shopify.dev/…/objects/product</a></dd>
+        <dt>variant</dt><dd><a href="https://shopify.dev/docs/api/liquid/objects/variant">shopify.dev/…/objects/variant</a></dd>
+        <dt>sale pricing</dt><dd><a href="https://help.shopify.com/en/manual/products/details/product-pricing/sale-pricing">help.shopify.com/…/sale-pricing</a></dd>
+      </dl>
+    </section>
+  </div>
+</div>
+</body>
+</html>

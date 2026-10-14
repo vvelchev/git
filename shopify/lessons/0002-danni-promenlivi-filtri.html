@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 · Данни, променливи и филтри в Liquid</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="crumbs"><a href="../index.html">Shopify курс</a><a href="0001-purvi-stupki.html">← Урок 01</a><span>Урок 02</span><a href="0003-produktat.html">Урок 03 →</a><a href="../reference/liquid-spravochnik.html">Справочник Liquid</a></div>
+
+<header class="hero">
+  <div class="eyebrow">Урок 02 · Liquid</div>
+  <h1>Откъде идват данните в Liquid <span class="lq">{{ ? }}</span></h1>
+  <p class="lead">Всяка стойност в един Liquid файл идва от едно от четири места. Щом ги разпознаваш, можеш да прочетеш всеки ред в Horizon и да знаеш какво да промениш. След това идват типовете данни, променливите и филтрите.</p>
+  <div class="meta"><span>Ниво: <b>след урок 01</b></span><span>Време: <b>~60 мин + задача</b></span><span>Упражнения: <b>6, проверяват се сами</b></span></div>
+  <div class="goal"><b>Резултат от урока:</b> секция „На промоция“ в твоята <code>horizon-first-theme</code>, с отделен snippet за процента отстъпка. Става проект за портфолиото ти.</div>
+</header>
+
+<div class="wrap">
+  <aside class="side">
+    <nav aria-label="Части на урока">
+      <div class="progress"><div class="bar"><i id="pbar"></i></div><small id="ptext">0 от 6 стъпки</small></div>
+      <a href="#warmup"><span class="n">↺</span>Загрявка</a>
+      <a href="#sources" data-step="sources"><span class="n"><span>1</span></span>Четирите източника</a>
+      <a href="#types" data-step="types"><span class="n"><span>2</span></span>Кое е „празно“</a>
+      <a href="#vars" data-step="vars"><span class="n"><span>3</span></span>Променливи</a>
+      <a href="#filters" data-step="filters"><span class="n"><span>4</span></span>Филтри</a>
+      <a href="#practice" data-step="practice"><span class="n"><span>5</span></span>Упражнения</a>
+      <a href="#task" data-step="task"><span class="n"><span>6</span></span>Задача в темата</a>
+      <a href="#quiz"><span class="n">?</span>Тест</a>
+      <a href="#read"><span class="n">→</span>Чети нататък</a>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- загрявка -->
+    <section class="step" id="warmup">
+      <div class="step-head"><span class="num">↺</span><h2>Загрявка от урок 01</h2></div>
+      <div class="prose"><p>Отговори по памет, без да поглеждаш назад. Опитът да си спомниш е това, което затвърждава наученото.</p></div>
+      <div class="quiz" id="warm" data-quiz="WARMUP" style="margin-top:16px"></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="step" id="sources">
+      <div class="step-head"><span class="num">01</span><h2>Четирите източника на данни</h2></div>
+      <div class="prose">
+        <p>Когато видиш <code>{{ нещо }}</code> в Liquid файл, първият въпрос е <b>откъде идва „нещо“</b>. Отговорът винаги е един от тези четири:</p>
+      </div>
+      <div class="sources" style="margin-top:16px">
+        <div class="src"><b>Глобални обекти</b><p>Достъпни във всеки Liquid файл.</p><code>shop</code><code>cart</code><code>customer</code><code>settings</code><code>request</code><code>collections</code></div>
+        <div class="src"><b>Обекти на шаблона</b><p>Само в своя шаблон и в секциите/блоковете му.</p><code>product</code><code>collection</code><code>article</code><code>page</code><code>search</code></div>
+        <div class="src"><b>Секция и блок</b><p>Стойностите от настройките в Theme Editor-а.</p><code>section.settings</code><code>block.settings</code><code>section.blocks</code></div>
+        <div class="src"><b>Твои променливи</b><p>Създаваш ги сам с assign, capture или for.</p><code>assign</code><code>capture</code><code>for x in</code></div>
+      </div>
+
+      <h3>1. Глобални обекти</h3>
+      <div class="prose">
+        <p>Работят навсякъде, освен в Liquid asset файлове.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects" target="_blank" rel="noopener">[1]</a></sup> Тези ще ползваш най-често:</p>
+      </div>
+      <div class="tree" style="margin-top:10px">
+        <div class="p">shop</div><div class="d">Магазинът: <code>shop.name</code>, <code>shop.currency</code>, <code>shop.url</code></div>
+        <div class="p">settings</div><div class="d">Глобалните настройки на темата от <code>config/settings_schema.json</code>: цветове, шрифтове, лого. Не ги бъркай с <code>section.settings</code>.</div>
+        <div class="p">cart</div><div class="d">Количката: <code>cart.item_count</code>, <code>cart.total_price</code>, <code>cart.items</code></div>
+        <div class="p">customer</div><div class="d">Влезлият клиент. <b>Ако никой не е влязъл, е <code>nil</code>.</b><sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/customer" target="_blank" rel="noopener">[2]</a></sup></div>
+        <div class="p">request</div><div class="d">Текущата заявка: <code>request.page_type</code>, <code>request.locale.iso_code</code>, <code>request.design_mode</code> (true в редактора)</div>
+        <div class="p">collections</div><div class="d">Всички колекции по handle: <code>collections['lyato'].products</code></div>
+        <div class="p">all_products</div><div class="d">Продукт по handle: <code>all_products['lenena-riza'].title</code></div>
+        <div class="p">pages, linklists</div><div class="d">Страници и менюта: <code>pages['za-nas'].content</code>, <code>linklists['main-menu'].links</code></div>
+        <div class="p">routes</div><div class="d">Правилните URL-и: <code>routes.cart_url</code>, <code>routes.search_url</code>. Не пиши <code>/cart</code> на ръка, защото при друг език пътят се сменя.</div>
+      </div>
+      <div class="note" style="margin-top:14px"><b>Квадратни скоби или точка?</b> Точката е за свойства с фиксирано име (<code>product.title</code>). Квадратните скоби с кавички са за handle-и, особено с тире: <code>collections['lyato-2026']</code>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/basics" target="_blank" rel="noopener">[3]</a></sup></div>
+
+      <h3>2. Обекти на шаблона</h3>
+      <div class="prose"><p>Някои обекти съществуват само когато си на съответната страница.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects" target="_blank" rel="noopener">[1]</a></sup> Затова секция, която ползва <code>product</code>, работи на продуктова страница, но на началната е празна.</p></div>
+      <div class="tbl" style="margin-top:10px"><table>
+        <thead><tr><th>Обект</th><th>Шаблон, в който съществува</th></tr></thead>
+        <tbody>
+          <tr><td><code>product</code></td><td><code>templates/product.json</code></td></tr>
+          <tr><td><code>collection</code></td><td><code>templates/collection.json</code></td></tr>
+          <tr><td><code>article</code></td><td><code>templates/article.json</code></td></tr>
+          <tr><td><code>blog</code></td><td><code>blog.json</code> и <code>article.json</code></td></tr>
+          <tr><td><code>page</code></td><td><code>templates/page.json</code> (и <code>page.contact.json</code>)</td></tr>
+          <tr><td><code>search</code></td><td><code>templates/search.json</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="prose" style="margin-top:12px"><p>Ако ти трябва продукт или колекция на <b>друга</b> страница, не разчиташ на шаблона. Даваш на търговеца настройка в schema (<code>"type": "product"</code> или <code>"type": "collection"</code>) и четеш избора му през <code>section.settings</code>. Точно това ще направиш в задачата.</p></div>
+
+      <h3>3. Секция и блок</h3>
+      <div class="prose"><p>Ти вече го ползваш. Ето първия ред от твоя <code>sections/simple-hero.liquid</code>:</p></div>
+      <div class="code"><div class="label">horizon-first-theme / sections/simple-hero.liquid</div><pre><code class="lq">{%- liquid
+  assign image = section.settings.image_desktop
+  assign image_mobile = section.settings.image_mobile | default: section.settings.image_desktop
+-%}</code></pre></div>
+      <div class="prose"><p><code>section.settings.image_desktop</code> е картинката, която търговецът е избрал в редактора. <code>id</code>-то в schema става името след точката. Вътре в блок същото правиш с <code>block.settings.*</code>. Списъкът с блоковете на секцията е <code>section.blocks</code>.</p></div>
+
+      <h3>4. Твои променливи</h3>
+      <div class="prose"><p>В същия пример <code>image</code> и <code>image_mobile</code> са твои променливи, създадени с <code>assign</code>. На тях е посветена част 3.</p></div>
+
+      <div class="note" style="margin-top:14px"><b>Трик за разследване:</b> не знаеш какво има в обект? Временно сложи <code>&lt;script&gt;console.log({{ product | json }})&lt;/script&gt;</code> и отвори конзолата в браузъра.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/filters/json" target="_blank" rel="noopener">[4]</a></sup> Махни го преди commit.</div>
+      <div class="done-row"><button class="done-btn" data-done="sources" aria-pressed="false"><span class="box"></span>Разпознавам четирите източника</button></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" id="types">
+      <div class="step-head"><span class="num">02</span><h2>Типове данни и кое е „празно“</h2></div>
+      <div class="prose">
+        <p>Liquid има шест типа: <b>string</b> (текст), <b>number</b>, <b>boolean</b> (true/false), <b>nil</b> (липсваща стойност), <b>array</b> (списък) и <b>empty</b>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/basics" target="_blank" rel="noopener">[3]</a></sup> Масив не можеш да създадеш директно. Получаваш го от обект (<code>product.tags</code>) или със <code>split</code>.</p>
+        <p>Най-важното правило в целия урок: <b>само <code>nil</code> и <code>false</code> са „лъжа“.</b> Всичко останало е „истина“, включително <code>0</code> и празният текст <code>""</code>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/basics" target="_blank" rel="noopener">[3]</a></sup></p>
+      </div>
+      <div class="tbl" style="margin-top:14px"><table>
+        <thead><tr><th>Стойност</th><th>Кога я срещаш</th><th><code>{% if x %}</code></th><th>Как да провериш правилно</th></tr></thead>
+        <tbody>
+          <tr><td><code>nil</code></td><td><code>customer</code> за гост, неизбрана картинка</td><td class="no">не влиза</td><td><code>{% if x %}</code> е достатъчно</td></tr>
+          <tr><td><code>false</code></td><td>изключен checkbox в настройките</td><td class="no">не влиза</td><td><code>{% if x %}</code> е достатъчно</td></tr>
+          <tr><td><code>""</code></td><td>текстово поле, оставено празно</td><td class="yes">влиза!</td><td><code>{% if x != blank %}</code></td></tr>
+          <tr><td><code>0</code></td><td>наличност 0, брой 0</td><td class="yes">влиза!</td><td><code>{% if x > 0 %}</code></td></tr>
+          <tr><td><code>[]</code></td><td>колекция без продукти</td><td class="yes">влиза!</td><td><code>{% if x.size > 0 %}</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="prose" style="margin-top:14px">
+        <p>Затова в твоя <code>simple-hero</code> правилно пишеш <code>image != blank</code>. <code>blank</code> хваща и <code>nil</code>, и празния текст. Ако не си сигурен, ползвай <code>!= blank</code>.</p>
+      </div>
+      <h3>Оператори</h3>
+      <div class="prose">
+        <p>Сравнения: <code>==</code> <code>!=</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>. Логика: <code>and</code>, <code>or</code>. Плюс <code>contains</code> за текст в текст или текст в масив: <code>{% if product.tags contains 'лято' %}</code>.</p>
+        <p>Две изненади за човек, който идва от JavaScript:<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/basics" target="_blank" rel="noopener">[3]</a></sup></p>
+        <ul>
+          <li><b>Скоби не се позволяват.</b> <code>{% if (a or b) and c %}</code> е грешка.</li>
+          <li><b>Изчислява се отдясно наляво.</b> <code>a or b and c</code> означава <code>a or (b and c)</code>. При сложно условие го раздели на вложени <code>if</code>.</li>
+        </ul>
+      </div>
+      <div class="done-row"><button class="done-btn" data-done="types" aria-pressed="false"><span class="box"></span>Разбирам nil, blank и truthy</button></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" id="vars">
+      <div class="step-head"><span class="num">03</span><h2>Променливи</h2></div>
+      <div class="tree">
+        <div class="p">assign</div><div class="d">Една стойност, по желание с филтри: <code>{% assign title = product.title | upcase %}</code></div>
+        <div class="p">capture</div><div class="d">Всичко между отварящия и затварящия таг става текст в променлива. За сглобяване на низове с логика вътре.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/tags/capture" target="_blank" rel="noopener">[5]</a></sup></div>
+        <div class="p">for … in</div><div class="d">Създава променлива за всеки елемент плюс обекта <code>forloop</code>.</div>
+        <div class="p">increment</div><div class="d">Брояч със собствено пространство, отделно от assign. Рядко ти трябва. Брои с <code>assign n = n | plus: 1</code>.</div>
+      </div>
+
+      <h3>capture</h3>
+      <div class="code"><div class="label">Пример</div><pre><code class="lq">{%- capture card_label -%}
+  {{ product.title }}
+  {%- if product.compare_at_price > product.price %} · намаление{% endif -%}
+{%- endcapture -%}
+
+&lt;a href="{{ product.url }}" aria-label="{{ card_label | escape }}"&gt;…&lt;/a&gt;</code></pre></div>
+      <div class="prose"><p>Тиретата в <code>{%-</code> и <code>-%}</code> махат празните редове около тага.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/basics" target="_blank" rel="noopener">[3]</a></sup> Без тях в променливата влизат и нови редове.</p></div>
+
+      <h3>Тагът <code>{% liquid %}</code></h3>
+      <div class="prose"><p>Ти вече го ползваш в <code>simple-hero</code>. Пишеш много тагове един под друг без <code>{% %}</code> на всеки ред.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/tags/liquid" target="_blank" rel="noopener">[6]</a></sup> Ако трябва да изведеш нещо вътре в него, ползваш <code>echo</code> вместо <code>{{ }}</code>:</p></div>
+      <div class="code"><div class="label">Пример</div><pre><code class="lq">{%- liquid
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+  if on_sale
+    echo 'Промоция'
+  endif
+-%}</code></pre></div>
+      <div class="note"><b>Защо не <code>assign on_sale = a &gt; b</code>?</b> <code>assign</code> не изчислява сравнения. Резултат true/false получаваш само през <code>if</code>, както е горе.</div>
+
+      <h3>forloop</h3>
+      <div class="prose"><p>Във всеки <code>for</code> имаш <code>forloop.index</code> (от 1), <code>forloop.index0</code> (от 0), <code>forloop.first</code>, <code>forloop.last</code> и <code>forloop.length</code>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/forloop" target="_blank" rel="noopener">[7]</a></sup> Полезно е за запетаи между елементи или за специален стил на първата карта.</p></div>
+
+      <h3>Най-честата грешка: snippet-ът не вижда твоята променлива</h3>
+      <div class="prose">
+        <p>Snippet, включен с <code>render</code>, <b>не вижда</b> променливите, създадени извън него.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/tags/render" target="_blank" rel="noopener">[8]</a></sup> Вижда глобалните обекти и обектите на шаблона, но не и твоите <code>assign</code>. Подаваш ги изрично:</p>
+      </div>
+      <div class="code"><div class="label">Секция → snippet</div><pre><code class="lq">{% assign accent = section.settings.badge_color %}
+
+{% render 'sale-badge' %}                                   ← accent е празно вътре
+{% render 'sale-badge', product: product, accent: accent %} ← работи
+
+{% render 'product-card' for sale_products as product %}    ← веднъж за всеки елемент</code></pre></div>
+      <div class="note"><b>Не кръщавай свои променливи <code>product</code>, <code>collection</code> или <code>cart</code>.</b> Ще закриеш глобалния обект със същото име.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/tags/capture" target="_blank" rel="noopener">[5]</a></sup> Пиши <code>sale_collection</code>, <code>featured_product</code> и т.н.</div>
+      <div class="done-row"><button class="done-btn" data-done="vars" aria-pressed="false"><span class="box"></span>Знам кога assign, capture и render</button></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" id="filters">
+      <div class="step-head"><span class="num">04</span><h2>Филтри</h2></div>
+      <div class="prose">
+        <p>Филтърът взима стойността отляво и връща нова. Може да има параметри и се навързва отляво надясно:<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/filters" target="_blank" rel="noopener">[9]</a></sup></p>
+      </div>
+      <div class="code"><div class="label">Анатомия</div><pre><code class="lq">{{ product.featured_image | image_url: width: 600 | image_tag: alt: product.title, loading: 'lazy' }}
+   └── стойност ─────────┘   └ филтър ┘ └ параметър ┘   └ филтър ┘ └── именувани параметри ──────┘</code></pre></div>
+      <div class="prose"><p>Shopify има над 150 филтъра в 20 категории. Не ги учиш наизуст. Учиш категориите и знаеш къде да търсиш. Тези ще ползваш почти всеки ден:</p></div>
+      <div class="tbl" style="margin-top:10px"><table>
+        <thead><tr><th>Категория</th><th>Най-честите</th><th>За какво</th></tr></thead>
+        <tbody>
+          <tr><td>string</td><td><code>upcase</code> <code>append</code> <code>replace</code> <code>split</code> <code>truncate</code> <code>escape</code> <code>strip_html</code> <code>handleize</code></td><td>текст</td></tr>
+          <tr><td>math</td><td><code>plus</code> <code>minus</code> <code>times</code> <code>divided_by</code> <code>round</code> <code>at_least</code> <code>at_most</code></td><td>числа, проценти</td></tr>
+          <tr><td>array</td><td><code>size</code> <code>first</code> <code>join</code> <code>map</code> <code>where</code> <code>sort</code> <code>uniq</code> <code>sum</code></td><td>списъци</td></tr>
+          <tr><td>money</td><td><code>money</code> <code>money_with_currency</code> <code>money_without_trailing_zeros</code></td><td>цени</td></tr>
+          <tr><td>media</td><td><code>image_url</code> <code>image_tag</code> <code>video_tag</code> <code>media_tag</code></td><td>картинки, видео</td></tr>
+          <tr><td>hosted_file</td><td><code>asset_url</code> <code>file_url</code></td><td>файлове от assets/</td></tr>
+          <tr><td>html</td><td><code>stylesheet_tag</code> <code>script_tag</code> <code>link_to</code> <code>placeholder_svg_tag</code></td><td>готови HTML тагове</td></tr>
+          <tr><td>localization</td><td><code>t</code> (translate) <code>format_address</code></td><td>преводи от locales/</td></tr>
+          <tr><td>default</td><td><code>default</code></td><td>резервна стойност</td></tr>
+          <tr><td>date, format</td><td><code>date</code> <code>json</code></td><td>дати, debug</td></tr>
+        </tbody>
+      </table></div>
+      <div class="prose" style="margin-top:10px"><p>Останалите категории (color, font, metafield, payment, customer, cart, collection, tag) са в <a href="../reference/liquid-spravochnik.html">справочника</a>.</p></div>
+
+      <h3>Пет капана</h3>
+      <div class="tree">
+        <div class="p">divided_by</div><div class="d">Резултатът е от типа на делителя. <code>{{ 7 | divided_by: 2 }}</code> дава <b>3</b>, а не 3.5. За десетична дроб дели на <code>2.0</code>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/filters/divided_by" target="_blank" rel="noopener">[10]</a></sup></div>
+        <div class="p">money</div><div class="d">Форматът (символ, запетая, интервал) идва от настройките за валута на магазина, не от кода.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/filters/money" target="_blank" rel="noopener">[11]</a></sup> Затова не добавяй „€“ на ръка.</div>
+        <div class="p">pluralize</div><div class="d">Работи само с английски правила.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/filters/pluralize" target="_blank" rel="noopener">[12]</a></sup> За „1 продукт / 3 продукта“ ползвай <code>{{ 'cart.items' | t: count: cart.item_count }}</code> с ключове <code>one</code>/<code>other</code> в <code>locales/bg.json</code>.</div>
+        <div class="p">default</div><div class="d">Сменя <code>nil</code>, <code>false</code> и празно. Ако <code>false</code> е валиден отговор, добави <code>allow_false: true</code>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/filters/default" target="_blank" rel="noopener">[13]</a></sup></div>
+        <div class="p">escape</div><div class="d">Текст, който търговецът пише в настройките, минава през <code>| escape</code>, преди да влезе в HTML атрибут или заглавие. Една кавичка в заглавието иначе чупи разметката.</div>
+      </div>
+      <div class="done-row"><button class="done-btn" data-done="filters" aria-pressed="false"><span class="box"></span>Знам категориите и капаните</button></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="step" id="practice">
+      <div class="step-head"><span class="num">05</span><h2>Упражнения</h2></div>
+      <div class="prose">
+        <p>Пиши Liquid в тъмното поле. Резултатът се обновява докато пишеш, а рамката става зелена, когато съвпадне с очакваното. Данните са от измислен магазин „Горска сянка“ на продуктова страница.</p>
+        <p>Първо опитай без подсказка. Ако запецнеш над минута, отвори подсказката. Решението е последна възможност.</p>
+      </div>
+      <details style="max-width:76ch;margin-top:12px"><summary style="cursor:pointer;font-weight:500">Какви данни има в пясъчника</summary><pre id="mockdata" style="margin-top:8px;max-height:340px;overflow:auto"></pre></details>
+      <div class="note" style="margin-top:12px"><b>Важно:</b> това е LiquidJS с имитация на Shopify филтрите, а не истински магазин. <code>image_url</code> връща примерен адрес, а <code>t</code> чете само няколко демо превода. Истинският тест е в задачата в темата.</div>
+
+      <div class="stack" style="margin-top:18px">
+        <div class="lp" data-id="ex1">
+          <p class="lp-task"><span class="n">5.1 · string</span>Покажи марката с главни букви, тире и името на продукта.</p>
+          <script type="text/plain" data-role="start">{{ product.vendor }} — {{ product.title }}</script>
+          <script type="text/plain" data-role="expected">ГОРСКА СЯНКА — Ленена риза</script>
+          <script type="text/plain" data-role="hint">Трябва ти само един филтър от категория string и той е само на марката.</script>
+          <script type="text/plain" data-role="solution">{{ product.vendor | upcase }} — {{ product.title }}</script>
+        </div>
+
+        <div class="lp" data-id="ex2">
+          <p class="lp-task"><span class="n">5.2 · money + math</span>Покажи цена, стара цена и процента отстъпка, закръглен надолу.</p>
+          <script type="text/plain" data-role="start">{{ product.price }}</script>
+          <script type="text/plain" data-role="expected">49,99 € (беше 65,00 €, -23%)</script>
+          <script type="text/plain" data-role="hint">Процентът е (стара − нова) × 100 ÷ стара. Пресметни го с assign и три филтъра в този ред: minus, times, divided_by. Цените минават през money.</script>
+          <script type="text/plain" data-role="solution">{%- assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+{{ product.price | money }} (беше {{ product.compare_at_price | money }}, -{{ discount }}%)</script>
+        </div>
+
+        <div class="lp" data-id="ex3">
+          <p class="lp-task"><span class="n">5.3 · nil + default</span>Поздрави клиента по малко име. Ако не е влязъл, напиши „гост“.</p>
+          <script type="text/plain" data-role="start">Здравей, {{ customer.first_name }}!</script>
+          <script type="text/plain" data-role="expected">Здравей, гост!</script>
+          <script type="text/plain" data-role="hint">customer е nil за гост, значи и customer.first_name е nil. Кой филтър заменя nil?</script>
+          <script type="text/plain" data-role="solution">Здравей, {{ customer.first_name | default: 'гост' }}!</script>
+        </div>
+
+        <div class="lp" data-id="ex4">
+          <p class="lp-task"><span class="n">5.4 · array</span>Колко от вариантите на продукта са налични?</p>
+          <script type="text/plain" data-role="start">{{ product.variants.size }} размера</script>
+          <script type="text/plain" data-role="expected">3 от 4 размера са налични</script>
+          <script type="text/plain" data-role="hint">Филтърът where с едно име на свойство оставя само елементите, при които то е true. Запиши резултата с assign, после ползвай .size.</script>
+          <script type="text/plain" data-role="solution">{%- assign in_stock = product.variants | where: 'available' -%}
+{{ in_stock.size }} от {{ product.variants.size }} размера са налични</script>
+        </div>
+
+        <div class="lp" data-id="ex5">
+          <p class="lp-task"><span class="n">5.5 · for + forloop</span>Номериран списък с първите 3 продукта от колекцията, разделени със запетая. След последния не трябва да има запетая.</p>
+          <script type="text/plain" data-role="start">{% for p in collection.products %}{{ p.title }}{% endfor %}</script>
+          <script type="text/plain" data-role="expected">1. Ленена риза, 2. Сламена шапка, 3. Платнена чанта</script>
+          <script type="text/plain" data-role="hint">for има параметър limit. Номерът е в forloop.index. За запетаята: unless forloop.last.</script>
+          <script type="text/plain" data-role="solution">{% for p in collection.products limit: 3 %}{{ forloop.index }}. {{ p.title }}{% unless forloop.last %}, {% endunless %}{% endfor %}</script>
+        </div>
+
+        <div class="lp" data-id="ex6">
+          <p class="lp-task"><span class="n">5.6 · where + map + join</span>Имената на наличните продукти от колекцията, разделени с „ + “. Опитай без for.</p>
+          <script type="text/plain" data-role="start">{{ collection.products.size }}</script>
+          <script type="text/plain" data-role="expected">Ленена риза + Сламена шапка + Сандали от кожа</script>
+          <script type="text/plain" data-role="hint">Три филтъра един след друг: where (както в 5.4) → map: 'title' (взима само имената) → join: ' + '.</script>
+          <script type="text/plain" data-role="solution">{{ collection.products | where: 'available' | map: 'title' | join: ' + ' }}</script>
+        </div>
+
+        <div class="lp" data-id="sandbox">
+          <p class="lp-task"><span class="n">Пясъчник</span>Свободна игра без проверка. Пробвай <code>date</code>, <code>truncatewords</code>, <code>t</code>, <code>split</code>…</p>
+          <script type="text/plain" data-role="start">{{ product.published_at | date: '%d.%m.%Y' }}
+{{ product.description | strip_html | truncatewords: 4 }}
+{{ 'cart.items' | t: count: cart.item_count }}
+{{ 'S,M,L' | split: ',' | last }}</script>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:14px"><p id="ex-count" style="font-family:var(--f-mono);color:var(--accent)">0 от 6 упражнения решени</p></div>
+      <div class="done-row"><button class="done-btn" data-done="practice" aria-pressed="false"><span class="box"></span>Реших упражненията</button></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="step" id="task">
+      <div class="step-head"><span class="num">06</span><h2>Задача: секция „На промоция“</h2></div>
+      <div class="prose">
+        <p>Работиш в <code>D:\vvelchev_github\shopify\horizon-first-theme</code> с пуснат <code>shopify theme dev</code>. Ще направиш нещо, което клиентите често искат: секция с продукти на намаление от избрана колекция и баджове с процент.</p>
+      </div>
+      <h3>Изисквания</h3>
+      <div class="prose">
+        <ol>
+          <li><b><code>snippets/sale-badge.liquid</code></b> приема <code>product</code> и показва <code>-23%</code>, само ако <code>compare_at_price &gt; price</code>. Документирай параметъра с <code>{% doc %}</code>.<sup class="cite"><a href="https://shopify.dev/docs/storefronts/themes/tools/liquid-doc" target="_blank" rel="noopener">[14]</a></sup></li>
+          <li><b><code>sections/sale-products.liquid</code></b> има три настройки: <code>heading</code> (text), <code>collection</code> (collection) и <code>products_to_show</code> (range от 2 до 8).<sup class="cite"><a href="https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings" target="_blank" rel="noopener">[15]</a></sup> Добави и <code>presets</code>.</li>
+          <li>Секцията показва <b>само</b> продукти с намаление и спира при <code>products_to_show</code>.</li>
+          <li>Всяка карта има картинка (<code>image_url</code> + <code>image_tag</code>), бадж (<code>render</code>), име (<code>escape</code>), нова цена и задраскана стара (<code>money</code>).</li>
+          <li><b>Празни състояния:</b> ако няма избрана колекция, показва съобщение за търговеца. Ако в колекцията няма намаления, казва това.</li>
+          <li>Добави секцията на началната страница от редактора. В dev магазина сложи <i>Compare-at price</i> на 2–3 продукта, за да има какво да се покаже.</li>
+        </ol>
+      </div>
+      <div class="note" style="margin-top:12px"><b>Не знаеш какво е compare_at_price и откъде идва?</b> Мини първо през <a href="0003-produktat.html">урок 03: Продуктът</a>.</div>
+      <div class="note" style="margin-top:8px"><b>Насоки:</b> не кръщавай променливата <code>collection</code> (част 3). Брой показаните с <code>assign shown = shown | plus: 1</code> и излез от цикъла с <code>{% break %}</code>. Без paginate <code>collection.products</code> връща най-много 50 продукта.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/collection" target="_blank" rel="noopener">[16]</a></sup></div>
+
+      <h3>Провери се</h3>
+      <div class="prose">
+        <ul>
+          <li><code>shopify theme check</code> минава без грешки за двата нови файла.</li>
+          <li>Смяната на <code>products_to_show</code> в редактора сменя броя на картите.</li>
+          <li>Колекция без намаления показва съобщението, а не празна мрежа.</li>
+          <li>Заглавие с кавички (напр. <code>Само „днес“</code>) не чупи HTML-а.</li>
+        </ul>
+      </div>
+
+      <details style="max-width:76ch;margin-top:16px"><summary style="cursor:pointer;font-weight:500">Примерно решение (отвори едва след като опиташ)</summary>
+        <div class="stack" style="margin-top:12px">
+          <div class="code"><div class="label">snippets/sale-badge.liquid</div><pre><code class="lq">{% doc %}
+  Показва процента отстъпка, ако продуктът е намален.
+
+  @param {product} product - Продуктът, за който се показва баджът.
+{% enddoc %}
+{%- if product.compare_at_price > product.price -%}
+  {%- assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+  &lt;span class="sale-badge"&gt;-{{ discount }}%&lt;/span&gt;
+{%- endif -%}</code></pre></div>
+          <div class="code"><div class="label">sections/sale-products.liquid</div><pre><code class="lq">{%- assign sale_collection = section.settings.collection -%}
+
+&lt;section class="sale-products"&gt;
+  &lt;h2&gt;{{ section.settings.heading | escape }}&lt;/h2&gt;
+
+  {%- if sale_collection == blank -%}
+    &lt;p&gt;Избери колекция от настройките на секцията.&lt;/p&gt;
+  {%- else -%}
+    {%- assign shown = 0 -%}
+    &lt;ul class="sale-products__grid"&gt;
+      {%- for product in sale_collection.products -%}
+        {%- if product.compare_at_price > product.price -%}
+          &lt;li class="sale-products__card"&gt;
+            &lt;a href="{{ product.url }}"&gt;
+              {{ product.featured_image | image_url: width: 600 | image_tag: alt: product.featured_image.alt, loading: 'lazy' }}
+              {% render 'sale-badge', product: product %}
+              &lt;h3&gt;{{ product.title | escape }}&lt;/h3&gt;
+              &lt;p&gt;{{ product.price | money }} &lt;s&gt;{{ product.compare_at_price | money }}&lt;/s&gt;&lt;/p&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          {%- assign shown = shown | plus: 1 -%}
+          {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    &lt;/ul&gt;
+    {%- if shown == 0 -%}
+      &lt;p&gt;В тази колекция няма продукти с намаление.&lt;/p&gt;
+    {%- endif -%}
+  {%- endif -%}
+&lt;/section&gt;
+
+{% stylesheet %}
+  .sale-products { padding: 48px 16px; max-width: 1200px; margin: 0 auto; }
+  .sale-products__grid { list-style: none; padding: 0; display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .sale-products__card a { position: relative; display: block; color: inherit; text-decoration: none; }
+  .sale-products__card img { width: 100%; height: auto; display: block; }
+  .sale-badge { position: absolute; top: 8px; left: 8px; background: #b23a2e; color: #fff;
+    font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "На промоция",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Заглавие", "default": "На промоция" },
+    { "type": "collection", "id": "collection", "label": "Колекция" },
+    { "type": "range", "id": "products_to_show", "label": "Брой продукти",
+      "min": 2, "max": 8, "step": 1, "default": 4 }
+  ],
+  "presets": [{ "name": "На промоция" }]
+}
+{% endschema %}</code></pre></div>
+        </div>
+      </details>
+
+      <h3>Когато си готов</h3>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh">shopify theme check
+git add sections/sale-products.liquid snippets/sale-badge.liquid
+git commit -m "feat(sale-products): секция с продукти на промоция"</code></pre></div>
+      <div class="prose"><p>След това напиши в чата <b>„прегледай sale-products“</b>. Ще прегледам кода ти така, както би го прегледал senior developer в агенция.</p></div>
+      <div class="done-row"><button class="done-btn" data-done="task" aria-pressed="false"><span class="box"></span>Секцията работи в темата ми</button></div>
+    </section>
+
+    <!-- тест -->
+    <section class="step" id="quiz">
+      <div class="step-head"><span class="num">??</span><h2>Провери се</h2></div>
+      <div class="prose"><p>Направи го по памет. Най-полезно е да го повториш след 2–3 дни.</p></div>
+      <div class="quiz" id="final" data-quiz="QUIZ" style="margin-top:16px"></div>
+    </section>
+
+    <!-- четене -->
+    <section class="step" id="read">
+      <div class="step-head"><span class="num">→</span><h2>Чети нататък</h2></div>
+      <div class="primary"><span class="eyebrow">Основен източник</span><a href="https://shopify.dev/docs/api/liquid/basics" target="_blank" rel="noopener">Liquid basics — shopify.dev</a><p>Официалната страница за типове, truthy/falsy, оператори и whitespace control. Кратка е и всичко от части 2 и 3 идва оттам. Прочети я цялата, после разгледай лявото меню „Filters“, за да видиш всички категории.</p></div>
+      <div class="links" style="margin-top:12px">
+        <a href="../reference/liquid-spravochnik.html"><b>Справочник Liquid</b><span>обекти, тагове, филтри на една страница</span></a>
+        <a href="https://shopify.dev/docs/api/liquid/objects" target="_blank" rel="noopener"><b>Всички обекти</b><span>shopify.dev/docs/api/liquid/objects</span></a>
+        <a href="https://shopify.dev/docs/api/liquid/filters" target="_blank" rel="noopener"><b>Всички филтри</b><span>shopify.dev/docs/api/liquid/filters</span></a>
+        <a href="https://community.shopify.dev" target="_blank" rel="noopener"><b>Shopify Developer Community</b><span>community.shopify.dev, форум за въпроси</span></a>
+      </div>
+      <p class="ask">Нещо не е ясно, или упражнение не тръгва? Питай Claude в чата. Той е твоят учител по този курс и може да обясни всяка част по друг начин или да даде още упражнения.</p>
+      <ol style="max-width:76ch;font-size:13px;color:var(--muted);margin-top:24px;padding-left:1.4em;overflow-wrap:anywhere">
+        <li>shopify.dev/docs/api/liquid/objects</li><li>…/objects/customer</li><li>…/liquid/basics</li><li>…/filters/json</li><li>…/tags/capture</li><li>…/tags/liquid</li><li>…/objects/forloop</li><li>…/tags/render</li><li>…/liquid/filters</li><li>…/filters/divided_by</li><li>…/filters/money</li><li>…/filters/pluralize</li><li>…/filters/default</li><li>shopify.dev/docs/storefronts/themes/tools/liquid-doc</li><li>…/themes/architecture/settings/input-settings</li><li>…/objects/collection</li>
+      </ol>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/liquidjs@10.19.0/dist/liquid.browser.umd.js"></script>
+<script src="../assets/mock-store.js"></script>
+<script src="../assets/liquid-playground.js"></script>
+<script>
+document.getElementById("mockdata").textContent = JSON.stringify(window.MOCK_STORE, null, 2);
+
+// брояч на решените упражнения
+(function () {
+  const ok = new Set();
+  const out = document.getElementById("ex-count");
+  document.addEventListener("lp:checked", e => {
+    e.detail.ok ? ok.add(e.detail.id) : ok.delete(e.detail.id);
+    out.textContent = ok.size + " от 6 упражнения решени" + (ok.size === 6 ? ". Браво!" : "");
+  });
+})();
+
+window.WARMUP = [
+  { q: "Какво е <code>{% for %}</code> в Liquid?", from: "урок 01",
+    o: ["Tag за логика", "Output на стойност", "Filter за промяна"], a: 0,
+    w: "<code>{% %}</code> е tag. Той изпълнява логика и сам не извежда нищо." },
+  { q: "Какво връща <code>product.price</code> за продукт за 49,99 €?", from: "урок 01",
+    o: ["<code>49.99</code>", "<code>4999</code>", "<code>49,99 €</code>"], a: 1,
+    w: "Цените са в центове. Форматира ги филтърът <code>money</code>." }
+];
+
+window.QUIZ = [
+  { q: "Гост отваря магазина. Какво става с <code>{% if customer %}</code>?",
+    o: ["Условието е false", "Условието е true", "Liquid дава грешка"], a: 0,
+    w: "За гост <code>customer</code> е <code>nil</code>, а nil е едно от двете falsy неща." },
+  { q: "Какво извежда <code>{{ 7 | divided_by: 2 }}</code>?",
+    o: ["<code>3.5</code>", "<code>3</code>", "<code>4</code>"], a: 1,
+    w: "Делителят е цяло число, затова и резултатът е цяло число, закръглено надолу." },
+  { q: "Търговецът е оставил текстово поле празно. Как го проверяваш?",
+    o: ["<code>x != false</code>", "<code>x != nil</code>", "<code>x != blank</code>"], a: 2,
+    w: "Празният текст е truthy и не е nil. <code>blank</code> хваща и nil, и празния текст." },
+  { q: "В секцията имаш <code>assign accent</code>, но в <code>render 'badge'</code> то е празно. Защо?",
+    o: ["Render изолира външните променливи", "Assign работи само в layout", "Snippet-ите не поддържат assign"], a: 0,
+    w: "Подай го изрично: <code>{% render 'badge', accent: accent %}</code>." },
+  { q: "Как показваш „1 продукт“ / „3 продукта“ правилно на български?",
+    o: ["Филтър pluralize с текстове", "Филтър t с count", "Филтър append с число"], a: 1,
+    w: "<code>pluralize</code> следва английски правила. Ползвай преводи с one/other в <code>locales/bg.json</code>." },
+  { q: "В кои файлове е достъпен обектът <code>product</code> без настройка?",
+    o: ["Във всеки Liquid файл", "Само в layout файловете", "В продуктовия шаблон само"], a: 2,
+    w: "<code>product</code> е обект на шаблона. Другаде го взимаш през настройка <code>\"type\": \"product\"</code>." },
+  { q: "Откъде идва <code>settings.accent_color</code>?", from: "интерливинг с урок 01",
+    o: ["<code>config/settings_schema.json</code>", "<code>templates/index.json</code>", "<code>sections/header.liquid</code>"], a: 0,
+    w: "<code>settings</code> са глобалните настройки на темата. <code>section.settings</code> са от schema на секцията." }
+];
+</script>
+<script src="../assets/course.js"></script>
+</body>
+</html>

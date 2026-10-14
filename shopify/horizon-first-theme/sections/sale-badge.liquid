@@ -1,0 +1,142 @@
+<section class="section-sale-badge" style="background: {{ section.settings.bg }};">
+  <div class="shell">
+    <div class="section__head">
+      <h1>{{ section.settings.heading }}</h1>
+    </div>
+    <!-- /.section__head -->
+
+    <div class="section__body">
+      {% for col in collections %}
+        {% if col.all_products_count == 0 %}
+          {% continue %}
+        {% endif %}
+        <h2>
+          Колекция: <a href="{{ col.url }}">{{ col.title }}</a>
+        </h2>
+        <div class="grid-alt" style="--grid-cols: {{section.settings.products_to_show}};">
+          {%- assign keys = '' -%}
+          {%- for p in col.products -%}
+            {%- assign v = p.selected_or_first_available_variant -%}
+            {%- if v.compare_at_price > v.price -%}
+              {%- assign d = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price -%}
+              {%- assign key = d | prepend: '00' | slice: -3, 3 | append: '|' | append: forloop.index0 -%}
+              {%- assign keys = keys | append: key | append: ',' -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- assign sorted = keys | split: ',' | sort | reverse -%}
+          {%- for key in sorted limit: section.settings.products_to_show -%}
+            {%- assign parts = key | split: '|' -%}
+            {%- assign d = parts[0] | plus: 0 -%}
+            {%- assign i = parts[1] | plus: 0 -%}
+            {%- assign p = col.products[i] -%}
+            {%- assign parts = key | split: '|' -%}
+
+            <article class="article">
+              <figure class="artile__media">
+                <!-- /.artile__media -->
+                {{
+                  p.featured_image
+                  | image_url: width: 1600
+                  | image_tag:
+                    width: p.featured_image.width,
+                    widths: mobile_widths,
+                    height: p.featured_image.height,
+                    alt: '',
+                    sizes: sizes_mobile
+                }}
+
+                <figcaption>{{ d }}</figcaption>
+              </figure>
+
+              <div class="article__content">
+                {{ p.title }}
+
+                {% assign discount = p.compare_at_price
+                  | times: 1.0
+                  | minus: p.price
+                  | divided_by: p.compare_at_price
+                  | times: 100
+                  | round: 1
+                %}
+
+                <h6>
+                  {{ p.price | money }}
+                  <small
+                    ><s>{{ p.compare_at_price | money }}</s></small
+                  >
+                  <i style="display:block;"
+                    ><small>discount: {{ discount }}%</small></i
+                  >
+                </h6>
+              </div>
+              <!-- /.article__content -->
+
+              <div class="article__foot">
+                {%- assign v = p.selected_or_first_available_variant -%}
+
+                {% form 'product', p %}
+                  <input type="hidden" name="id" value="{{ v.id }}">
+
+                  <button
+                    type="submit"
+                    {% unless v.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {%- if v.available -%}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {%- else -%}
+                      {{ 'products.product.sold_out' | t }}
+                    {%- endif -%}
+                  </button>
+                {% endform %}
+              </div>
+              <!-- /.article__foot -->
+            </article>
+          {%- endfor -%}
+        </div>
+      {% endfor %}
+    </div>
+    <!-- /.section__body -->
+  </div>
+  <!-- /.shell -->
+</section>
+
+{% stylesheet %}
+  .section-sale-badge {
+    padding: 40px 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Sale Badge",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Заглавие",
+      "default": "най-големи отстъпки"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Фон",
+      "default": "#eef3ee"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Брой продукти",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "unit": "бр",
+      "default": 4,
+      "info": "Колко продукта на промоция да се покажат"
+    }
+  ],
+  "presets": [{ "name": "Sale Badge" }]
+}
+{% endschema %}

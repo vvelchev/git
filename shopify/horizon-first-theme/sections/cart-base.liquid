@@ -1,0 +1,231 @@
+<div class="cart-base" id="cart-base" popover>
+  <div class="cart__scroll">
+    <div class="shell">
+      <div class="cart__inner">
+        <div class="cart__head">
+          <h3>Твоята количка</h3>
+
+          <button type="button" popovertarget="cart-base" popovertargetaction="hide">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.66797 1.66663L18.3346 18.3333M18.3346 1.66663L1.66797 18.3333" stroke="black" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <!-- /.btn -->
+        </div>
+        <!-- /.cart__head -->
+
+        <div class="cart__main">
+          <span hidden data-cart-total-count>{{ cart.item_count }}</span>
+
+          <div class="cart__body">
+            <ul>
+              {% for item in cart.items %}
+                <li data-line-key="{{ item.key }}">
+                  <div class="product-small">
+                    {% if item.image != blank %}
+                      <figure class="product__media">
+                        {{ item.image | image_url: width: 230 | image_tag: alt: item.title, loading: 'lazy' }}
+                      </figure>
+                      <!-- /.product__media -->
+                    {% endif %}
+
+                    <div class="product__content">
+                      <h6>{{ item.title }}</h6>
+
+                      <p>{{ item.final_line_price | money }}</p>
+
+                      <div class="quantity">
+                        {%- liquid
+                          assign max = ''
+                          if item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny'
+                            assign max = item.variant.inventory_quantity
+                          endif
+                        -%}
+                        <button
+                          type="button"
+                          class="quantity__btn quantity__btn--minus js-quantity-btn"
+                        ></button>
+                        <!-- /.quantity__btn -->
+                        <input
+                          type="number"
+                          class="quantity__field js-quantity-field"
+                          data-key="{{ item.key }}"
+                          value="{{ item.quantity }}"
+                          min="0"
+                          {% if max != '' %}
+                            max="{{ max }}"
+                          {% endif %}
+                        >
+                        <button
+                          type="button"
+                          class="quantity__btn quantity__btn--plus js-quantity-btn"
+                          {% if max != '' and item.quantity >= max %}
+                            disabled
+                          {% endif %}
+                        ></button>
+                        <!-- /.quantity__btn -->
+                      </div>
+                      <!-- /.quantity -->
+
+                      <p class="item-error" data-item-error role="alert" hidden></p>
+                      <!-- /.item-error -->
+                    </div>
+                    <!-- /.product__content -->
+                  </div>
+
+                  <!-- /.product-small -->
+                </li>
+              {% else %}
+                <li>Количката е празна.</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <form action="{{ routes.cart_url }}" method="post" class="cart__foot">
+            <div class="note">
+              <label for="note">Добави бележка към поръчката</label>
+
+              <textarea id="note" name="note" rows="5" cols="33">{{ cart.note }}</textarea>
+            </div>
+
+            <div class="total">
+              <h5>
+                <span>Междинна Сума</span>
+                <span>{{ cart.total_price | money }}</span>
+              </h5>
+
+              <p>Данъкът е включен, а доставката се изчислява при плащане</p>
+            </div>
+            <button type="submit" name="checkout" class="button">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 10V5.75C8 4.75544 8.39509 3.80161 9.09835 3.09835C9.80161 2.39509 10.7554 2 11.75 2H12.25C13.2446 2 14.1984 2.39509 14.9017 3.09835C15.6049 3.80161 16 4.75544 16 5.75V9.875M3.5 11.5C3.5 11.1022 3.65804 10.7206 3.93934 10.4393C4.22064 10.158 4.60218 10 5 10H19C19.3978 10 19.7794 10.158 20.0607 10.4393C20.342 10.7206 20.5 11.1022 20.5 11.5V19C20.5 19.3978 20.342 19.7794 20.0607 20.0607C19.7794 20.342 19.3978 20.5 19 20.5H5C4.60218 20.5 4.22064 20.342 3.93934 20.0607C3.65804 19.7794 3.5 19.3978 3.5 19V11.5Z" stroke="currentcolor" stroke-width="1.5"/>
+                <path d="M9.25 15.25H14.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+
+              плащане
+            </button>
+            <!-- /.btn -->
+          </form>
+        </div>
+
+        <!-- /.cart__foot -->
+      </div>
+      <!-- /.popup__inner -->
+    </div>
+    <!-- /.cart__scroll -->
+  </div>
+  <!-- /.shell -->
+</div>
+
+{{ 'cart-base.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% javascript %}
+  (() => {
+    const $cartBase = document.querySelector('#cart-base');
+
+    // Корен на магазина: "/" или "/en/" при друг език.
+    const root = window.Shopify?.routes?.root || '/';
+
+    // Заменя само частите, които се променят. Бележката (textarea) не се пипа.
+    const updateCartContent = (sectionHtml) => {
+      const $fresh = new DOMParser().parseFromString(sectionHtml, 'text/html');
+
+      ['.cart__body', '.total', '[data-cart-total-count]'].forEach((selector) => {
+        $cartBase.querySelector(selector).replaceWith($fresh.querySelector(selector));
+      });
+
+      updateCartCount();
+    };
+
+    const updateCartCount = () => {
+      const $cartCount = document.querySelector('[data-cart-count]');
+      if (!$cartCount) return;
+
+      const count = Number($cartBase.querySelector('[data-cart-total-count]').textContent);
+      $cartCount.textContent = count > 0 ? count : '';
+    };
+
+    const showItemError = (key, message) => {
+      const $errorBox = $cartBase.querySelector(`[data-line-key="${key}"] [data-item-error]`);
+      if (!$errorBox) return;
+
+      $errorBox.textContent = message;
+      $errorBox.hidden = false;
+    };
+
+    const refreshCart = async () => {
+      const res = await fetch(root + '?sections=cart-base');
+      const data = await res.json();
+      updateCartContent(data['cart-base']);
+    };
+
+    async function changeQuantity(key, quantity, notice = '') {
+      $cartBase.classList.add('is-loading');
+
+      try {
+        const res = await fetch(root + 'cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: key,
+            quantity: quantity,
+            sections: ['cart-base'],
+          }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          updateCartContent(data.sections['cart-base']);
+        } else {
+          notice = data.description || data.message || 'Нещо се обърка. Опитай пак.';
+          await refreshCart();
+        }
+      } catch (error) {
+        notice = 'Няма връзка със сървъра. Опитай пак.';
+      } finally {
+        $cartBase.classList.remove('is-loading');
+      }
+
+      if (notice) showItemError(key, notice);
+    }
+
+    $cartBase.addEventListener('click', (e) => {
+      const $btn = e.target.closest('.js-quantity-btn');
+      if (!$btn) return;
+
+      const $input = $btn.closest('.quantity').querySelector('.js-quantity-field');
+
+      if ($btn.matches('.quantity__btn--minus')) {
+        $input.stepDown();
+      } else {
+        $input.stepUp();
+      }
+      $input.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    $cartBase.addEventListener('change', (e) => {
+      const $input = e.target.closest('.js-quantity-field');
+      if (!$input) return;
+
+      let quantity = Number($input.value);
+      let notice = '';
+
+      if ($input.max && quantity > Number($input.max)) {
+        quantity = Number($input.max);
+        notice = `Налични са само ${$input.max} бр. Добавихме максималното количество.`;
+      }
+
+      changeQuantity($input.dataset.key, quantity, notice);
+    });
+
+    document.addEventListener('shopify:cart:lines-update', (e) => {
+      e.promise?.then(() => refreshCart());
+    });
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Cart Base"
+}
+{% endschema %}

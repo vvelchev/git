@@ -1,0 +1,23 @@
+<section class="hello-banner" style="background: {{ section.settings.bg }};">
+  <h2>{{ section.settings.heading | escape }}</h2>
+
+  {% if section.settings.show_count %}
+    <p>В магазина има {{ collections.all.products_count }} продукта.</p>
+  {% endif %}
+</section>
+
+{% stylesheet %}
+  .hello-banner { padding: 48px 24px; text-align: center; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hello банер",
+  "settings": [
+    { "type": "text",     "id": "heading",    "label": "Заглавие", "default": "Здравей, Shopify!" },
+    { "type": "color",    "id": "bg",         "label": "Фон",      "default": "#eef3ee" },
+    { "type": "checkbox", "id": "show_count", "label": "Покажи броя продукти", "default": true }
+  ],
+  "presets": [{ "name": "Hello банер" }]
+}
+{% endschema %}

@@ -49,7 +49,8 @@
                           {{
                             block.settings.image
                             | image_url: width: 800
-                            | image_tag: loading: 'lazy', alt: block.settings.heading | escape
+                            | image_tag: loading: 'lazy', alt: block.settings.heading
+                            | escape
                           }}
                         {% else %}
                           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -189,11 +190,6 @@
       }
 
       connectedCallback() {
-        if (typeof Swiper === 'undefined') {
-          document.addEventListener('DOMContentLoaded', () => this.connectedCallback(), { once: true });
-          return;
-        }
-
         this.gridEl = this.closest('.grid-alt');
         this.layout = this.gridEl?.dataset.layout;
         this.mobileSliderEnabled = this.gridEl?.dataset.mobileSlider === 'true';
@@ -337,6 +333,24 @@
         { "value": "slider", "label": "Slider" }
       ],
       "default": "slider"
+    },
+    {
+      "type": "range",
+      "id": "grid_gutter",
+      "label": "Grid Gutter",
+      "min": 15,
+      "max": 45,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grid_gutter_mobile",
+      "label": "Grid Gutter Mobile",
+      "min": 15,
+      "max": 45,
+      "step": 5,
+      "default": 20
     },
     {
       "type": "range",

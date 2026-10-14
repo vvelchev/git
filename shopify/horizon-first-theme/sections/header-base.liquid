@@ -1,0 +1,93 @@
+<header
+  class="header-base"
+  style="--padding-top: {{ section.settings.spacing_top }}px; --padding-bottom: {{ section.settings.spacing_bottom }}px"
+>
+  <div class="shell">
+    <div class="header__inner">
+      {% content_for 'blocks' %}
+      {% comment %} logo menu search cart account link spacer {% endcomment %}
+    </div>
+    <!-- /.header__inner -->
+  </div>
+  <!-- /.shell -->
+</header>
+<!-- /.header-base -->
+{% stylesheet %}
+  .header-base {
+    position: relative;
+    z-index: 13;
+    padding: var(--padding-top) 0 var(--padding-bottom);
+    & .header__inner {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    & .search-btn {
+      margin-left: auto;
+      order: 95;
+    }
+
+    & .btn-cart-base {
+      order: 96;
+    }
+  }
+{% endstylesheet %}
+
+{% comment %}: "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },{% endcomment %}
+{% comment %} { "type": "color_scheme", "id": "menu_color_scheme", "label": "Menu color scheme", "default": "scheme-1" }, {% endcomment %}
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "header-base-wrapper",
+  "settings": [
+    { "type": "header", "content": "General Settings" },
+    { "type": "checkbox", "id": "sticky_header", "label": "Sticky header", "default": true },
+    { "type": "checkbox", "id": "transparent_home", "label": "Transparent on home page", "default": false },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing bottom",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between items",
+      "default": 20
+    },
+    { "type": "checkbox", "id": "show_border", "label": "Show bottom border", "default": false },
+    { "type": "header", "content": "Selectors" },
+    { "type": "checkbox", "id": "enable_country", "label": "Enable country selector", "default": false },
+    { "type": "checkbox", "id": "enable_language", "label": "Enable language selector", "default": false }
+  ],
+  "blocks": [{ "type": "_logo-base" }, { "type": "_nav-base" }, { "type": "_search-base" }, { "type": "_btn-cart-base" }],
+  "presets": [
+    {
+      "name": "Header base",
+      "category": "Header",
+      "blocks": [{ "type": "_logo-base" }, { "type": "_nav-base" }, { "type": "_search-base" }, { "type": "_btn-cart-base" }]
+    }
+  ]
+}
+{% endschema %}

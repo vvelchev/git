@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 · Продуктът: от админа до Liquid</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="crumbs"><a href="../index.html">Shopify курс</a><a href="0002-danni-promenlivi-filtri.html">← Урок 02</a><span>Урок 03</span><a href="../reference/produkt-admin-liquid.html">Справочник: продукт</a></div>
+
+<header class="hero">
+  <div class="eyebrow">Урок 03 · Продуктът</div>
+  <h1>Продуктът: от админа до Liquid</h1>
+  <p class="lead">Преди да пишеш код за цена, трябва да знаеш откъде идва тя. Този урок започва в админа на Shopify, където търговецът въвежда данните, и завършва в Liquid. По-бавен е и има по-малко нови неща от урок 02.</p>
+  <div class="meta"><span>Време: <b>~40 мин</b></span><span>Нужно: <b>dev магазинът ти и <code>horizon-first-theme</code></b></span></div>
+  <div class="goal"><b>Резултат от урока:</b> въвел си стара цена (compare-at price) на продукти в dev магазина. Твоят <code>sections/sale-badge.liquid</code> показва правилен процент и не се чупи при продукти без намаление.</div>
+</header>
+
+<div class="wrap">
+  <aside class="side">
+    <nav aria-label="Части на урока">
+      <div class="progress"><div class="bar"><i id="pbar"></i></div><small id="ptext">0 от 5 стъпки</small></div>
+      <a href="#warmup"><span class="n">↺</span>Загрявка</a>
+      <a href="#model" data-step="model"><span class="n"><span>1</span></span>Продукт и варианти</a>
+      <a href="#admin" data-step="admin"><span class="n"><span>2</span></span>Админът → Liquid</a>
+      <a href="#compare" data-step="compare"><span class="n"><span>3</span></span>compare_at_price</a>
+      <a href="#practice" data-step="practice"><span class="n"><span>4</span></span>Упражнения</a>
+      <a href="#task" data-step="task"><span class="n"><span>5</span></span>Твоят sale-badge</a>
+      <a href="#quiz"><span class="n">?</span>Тест</a>
+      <a href="#read"><span class="n">→</span>Чети нататък</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="step" id="warmup">
+      <div class="step-head"><span class="num">↺</span><h2>Загрявка от урок 02</h2></div>
+      <div class="prose"><p>Два въпроса по памет. Ще ти трябват точно в този урок.</p></div>
+      <div class="quiz" id="warm" data-quiz="WARMUP" style="margin-top:16px"></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="step" id="model">
+      <div class="step-head"><span class="num">01</span><h2>Продукт и варианти</h2></div>
+      <div class="prose">
+        <p>Най-важното в целия урок: в Shopify <b>продуктът</b> и <b>вариантът</b> са две различни неща.</p>
+        <ul>
+          <li><b>Продуктът</b> е „листът“ в каталога: име, описание, снимки, марка, тагове.</li>
+          <li><b>Вариантът</b> е конкретното нещо, което клиентът купува: „Ленена риза, размер M, бяла“. <b>Цената, старата цена, SKU-то и наличността са на варианта</b>, не на продукта.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/variant" target="_blank" rel="noopener">[1]</a></sup></li>
+        </ul>
+        <p>Дори продукт без размери и цветове има <b>един</b> скрит вариант. В Liquid това се разпознава с <code>product.has_only_default_variant</code>, който е <code>true</code>.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/product" target="_blank" rel="noopener">[2]</a></sup></p>
+      </div>
+      <div class="model" style="margin-top:16px">
+        <div class="box">
+          <span class="eyebrow">product</span>
+          <b>Ленена риза</b>
+          <ul>
+            <li>title, description</li>
+            <li>снимки (media)</li>
+            <li>vendor, type, tags</li>
+            <li>collections</li>
+            <li>options: Размер, Цвят</li>
+          </ul>
+        </div>
+        <div class="vars">
+          <div class="var"><span class="t">S / Бял</span><span class="pr"><s>65,00 €</s> 49,99 €</span><span class="meta">SKU LR-S-WH · наличност 4</span></div>
+          <div class="var"><span class="t">M / Бял</span><span class="pr"><s>65,00 €</s> 49,99 €</span><span class="meta">SKU LR-M-WH · наличност 0</span></div>
+          <div class="var"><span class="t">L / Бял</span><span class="pr"><s>65,00 €</s> 49,99 €</span><span class="meta">SKU LR-L-WH · наличност 12</span></div>
+          <div class="var"><span class="t">M / Маслинен</span><span class="pr">54,99 €</span><span class="meta">SKU LR-M-OL · наличност 2 · без стара цена</span></div>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:14px">
+        <p>Тогава какво е <code>product.price</code>? То е <b>най-ниската цена сред вариантите</b>. По същия начин <code>product.compare_at_price</code> е най-ниската стара цена сред вариантите.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/product" target="_blank" rel="noopener">[2]</a></sup> Това е удобно обобщение за карта в колекция, но не е цената на конкретен вариант.</p>
+      </div>
+      <div class="done-row"><button class="done-btn" data-done="model" aria-pressed="false"><span class="box"></span>Разбирам продукт срещу вариант</button></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" id="admin">
+      <div class="step-head"><span class="num">02</span><h2>Полетата в админа и тяхното име в Liquid</h2></div>
+      <div class="prose">
+        <p>Отвори админа на dev магазина си: <b>Products</b> → кликни продукт. Страницата е разделена на карти. Ето какво въвежда търговецът във всяка и как го четеш в темата:</p>
+      </div>
+      <div class="tbl" style="margin-top:12px"><table>
+        <thead><tr><th>Карта в админа</th><th>Поле</th><th>В Liquid</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2">(горе)</td><td>Title</td><td><code>product.title</code></td></tr>
+          <tr><td>Description</td><td><code>product.description</code> (HTML)</td></tr>
+          <tr><td>Media</td><td>снимки и видео</td><td><code>product.featured_image</code>, <code>product.media</code></td></tr>
+          <tr><td rowspan="3">Price</td><td>Price</td><td><code>variant.price</code></td></tr>
+          <tr><td>Compare-at price</td><td><code>variant.compare_at_price</code></td></tr>
+          <tr><td>Cost per item</td><td><span class="no">не е достъпно</span>, вижда се само в админа</td></tr>
+          <tr><td rowspan="3">Inventory</td><td>SKU, Barcode</td><td><code>variant.sku</code>, <code>variant.barcode</code></td></tr>
+          <tr><td>Quantity</td><td><code>variant.inventory_quantity</code></td></tr>
+          <tr><td>Track quantity, Continue selling</td><td>влияят на <code>variant.available</code></td></tr>
+          <tr><td>Shipping</td><td>Weight</td><td><code>variant.weight</code> + филтър <code>weight_with_unit</code></td></tr>
+          <tr><td>Variants</td><td>опции (Размер, Цвят) и стойности</td><td><code>product.options_with_values</code>, <code>product.variants</code>, <code>variant.title</code></td></tr>
+          <tr><td rowspan="4">Product organization</td><td>Type</td><td><code>product.type</code></td></tr>
+          <tr><td>Vendor</td><td><code>product.vendor</code></td></tr>
+          <tr><td>Collections</td><td><code>product.collections</code></td></tr>
+          <tr><td>Tags</td><td><code>product.tags</code> (по азбучен ред)</td></tr>
+          <tr><td>Search engine listing</td><td>URL handle</td><td><code>product.handle</code>, <code>product.url</code></td></tr>
+          <tr><td>Theme template</td><td>кой шаблон да ползва</td><td><code>product.template_suffix</code></td></tr>
+          <tr><td>Metafields</td><td>собствени полета</td><td><code>product.metafields.namespace.key</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="prose" style="margin-top:12px">
+        <p><code>variant</code> в таблицата означава конкретен вариант. В код го взимаш така: <code>product.selected_or_first_available_variant</code> дава избрания вариант, а ако няма избран, първия наличен.<sup class="cite"><a href="https://shopify.dev/docs/api/liquid/objects/product" target="_blank" rel="noopener">[2]</a></sup> Другият начин е цикъл: <code>{% for v in product.variants %}</code>.</p>
+      </div>
+      <div class="note" style="margin-top:12px"><b>Пробвай сега:</b> в продукт с варианти кликни един вариант в картата <b>Variants</b>. Отваря се отделна страница със свои Price, Compare-at price, SKU и наличност. Това е доказателството, че тези полета са на варианта.</div>
+      <div class="done-row"><button class="done-btn" data-done="admin" aria-pressed="false"><span class="box"></span>Намерих полетата в админа</button></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" id="compare">
+      <div class="step-head"><span class="num">03</span><h2>Какво е compare_at_price</h2></div>
+      <div class="prose">
+        <p><b>Compare-at price е старата цена</b>, тази преди намалението. Ако ризата струваше 65 € и сега е 49,99 €, търговецът въвежда:</p>
+        <ul>
+          <li><b>Price</b>: 49,99 (това плаща клиентът)</li>
+          <li><b>Compare-at price</b>: 65,00 (това се показва задраскано)</li>
+        </ul>
+        <p>Темата показва старата цена задраскана, а може и да сложи бадж „Промоция“. <b>В checkout-а се вижда само Price.</b><sup class="cite"><a href="https://help.shopify.com/en/manual/products/details/product-pricing/sale-pricing" target="_blank" rel="noopener">[3]</a></sup></p>
+      </div>
+
+      <h3>Къде се въвежда</h3>
+      <div class="prose">
+        <ol>
+          <li>Админ → <b>Products</b> → кликни продукта.</li>
+          <li>Ако има варианти, общото поле за цена изчезва. В картата <b>Variants</b> кликни <b>името</b> на варианта, не цената му. Ако вариантите са групирани (напр. по цвят), първо разгъни групата. Горният ред е група, а не вариант.<sup class="cite"><a href="https://help.shopify.com/en/manual/products/variants/edit-variants" target="_blank" rel="noopener">[4]</a></sup></li>
+          <li>В частта <b>Price</b> натисни <b>Compare at</b>. Полето е скрито, докато не го натиснеш.</li>
+          <li>Въведи старата цена в <b>Compare-at price</b> и новата в <b>Price</b>.</li>
+          <li><b>Save</b>.<sup class="cite"><a href="https://help.shopify.com/en/manual/products/details/product-pricing/sale-pricing" target="_blank" rel="noopener">[3]</a></sup></li>
+        </ol>
+        <p>За много варианти наведнъж ползвай <b>Bulk edit</b> от списъка с продукти.</p>
+      </div>
+
+      <h3>Три правила</h3>
+      <div class="tree">
+        <div class="p">по-висока</div><div class="d">Старата цена трябва да е <b>по-висока</b> от Price, иначе намаление няма.<sup class="cite"><a href="https://help.shopify.com/en/manual/products/details/product-pricing/sale-pricing" target="_blank" rel="noopener">[3]</a></sup></div>
+        <div class="p">празно ≠ 0,00</div><div class="d">Ако няма намаление, полето се оставя <b>празно</b>. 0,00 е различно от празно. В Liquid празното поле е <code>nil</code>.</div>
+        <div class="p">по варианти</div><div class="d">Всеки вариант има своя стара цена. Ако са различни между вариантите, страницата на колекцията понякога не показва продукта като намален.<sup class="cite"><a href="https://help.shopify.com/en/manual/products/details/product-pricing/sale-pricing" target="_blank" rel="noopener">[3]</a></sup></div>
+      </div>
+
+      <h3>Пробвай: какво вижда Liquid</h3>
+      <div class="prose"><p>Вляво са полетата от админа. Смени числата или натисни бутоните и гледай средната колона (стойностите, които получава Liquid) и дясната (какво вижда клиентът).</p></div>
+      <div class="price-sim" data-id="sim1" style="margin-top:12px"></div>
+      <div class="prose" style="margin-top:12px">
+        <p>Забележи трите случая без намаление: празно поле (<code>nil</code>), 0,00 и по-ниска стара цена. И в трите <b>една проверка</b> пази кода: <code>{% if compare_at_price &gt; price %}</code>. Сравнение с <code>nil</code> просто дава false.</p>
+      </div>
+
+      <h3>Защо твоят код се чупи</h3>
+      <div class="prose"><p>В <code>sections/sale-badge.liquid</code> смяташ процента за <b>всеки</b> продукт, без проверка. За продукт без стара цена изчислението става:</p></div>
+      <div class="code"><div class="label">Какво става с nil</div><pre><code class="lq">{{ product.compare_at_price }}          → (празно, защото е nil)
+nil | minus: 4999                      → -4999
+    | times: 100                       → -499900
+    | divided_by: nil                  → деление на 0 → Liquid error</code></pre></div>
+      <div class="prose"><p>Ако в dev магазина още не си въвел стари цени, <b>всички</b> продукти са такива. Затова не виждаш смислен резултат. Решението има две части: данни в админа (стъпка 1 от задачата) и проверка в кода (стъпка 3).</p></div>
+
+      <h3>Капанът с product.price</h3>
+      <div class="prose">
+        <p><code>product.price</code> и <code>product.compare_at_price</code> са най-ниските стойности сред вариантите. <b>Може да са от различни варианти.</b> Представи си продукт с вариант А за 40 € без стара цена и вариант Б за 60 € със стара цена 80 €. Тогава <code>product.price</code> е 40, а <code>product.compare_at_price</code> е 80. Получаваш „-50%“, а реалната отстъпка е 25%.</p>
+        <p>Затова Horizon смята цената от <b>един вариант</b>. Виж го в твоята тема:</p>
+      </div>
+      <div class="code"><div class="label">horizon-first-theme / snippets/price.liquid, редове 13–19</div><pre><code class="lq">assign selected_variant = product_resource.selected_or_first_available_variant
+assign price = selected_variant.price
+assign compare_at_price = selected_variant.compare_at_price
+
+assign show_compare_price = false
+if compare_at_price > price
+  assign show_compare_price = true
+endif</code></pre></div>
+      <div class="prose"><p>Това е моделът, който ще следваш: <b>взимаш вариант → сравняваш → чак тогава смяташ.</b></p></div>
+      <div class="done-row"><button class="done-btn" data-done="compare" aria-pressed="false"><span class="box"></span>Знам какво е compare_at_price</button></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" id="practice">
+      <div class="step-head"><span class="num">04</span><h2>Упражнения</h2></div>
+      <div class="prose"><p>Три кратки упражнения, всяко малко по-трудно от предишното. Данните са за ризата от диаграмата горе: три бели варианта с намаление и един маслинен без.</p></div>
+      <div class="stack" style="margin-top:16px">
+        <div class="lp" data-id="p1">
+          <p class="lp-task"><span class="n">4.1</span>Покажи суровите стойности и форматираните цени до тях. Така ще видиш, че Liquid пази цените в центове.</p>
+          <script type="text/plain" data-role="start">Цена: {{ product.price }}</script>
+          <script type="text/plain" data-role="expected">Цена: 4999 = 49,99 € · Стара: 6500 = 65,00 €</script>
+          <script type="text/plain" data-role="hint">Една и съща стойност два пъти: веднъж без филтър, веднъж с | money. Направи същото и за product.compare_at_price.</script>
+          <script type="text/plain" data-role="solution">Цена: {{ product.price }} = {{ product.price | money }} · Стара: {{ product.compare_at_price }} = {{ product.compare_at_price | money }}</script>
+        </div>
+
+        <div class="lp" data-id="p2">
+          <p class="lp-task"><span class="n">4.2</span>Като Horizon: вземи варианта и покажи задрасканата стара цена <b>само ако</b> е по-висока.</p>
+          <script type="text/plain" data-role="start">{%- assign selected_variant = product.selected_or_first_available_variant -%}
+{{ selected_variant.price | money }}</script>
+          <script type="text/plain" data-role="expected"><s>65,00 €</s> 49,99 €</script>
+          <script type="text/plain" data-role="hint">Преди цената добави {% if selected_variant.compare_at_price > selected_variant.price %} … {% endif %}, а вътре <s>…</s> със старата цена през money.</script>
+          <script type="text/plain" data-role="solution">{%- assign selected_variant = product.selected_or_first_available_variant -%}
+{% if selected_variant.compare_at_price > selected_variant.price %}<s>{{ selected_variant.compare_at_price | money }}</s>{% endif %}
+{{ selected_variant.price | money }}</script>
+        </div>
+
+        <div class="lp" data-id="p3">
+          <p class="lp-task"><span class="n">4.3</span>Мини всички варианти. При всеки покажи цената, а „(беше …)“ само при тези с намаление.</p>
+          <script type="text/plain" data-role="start">{% for v in product.variants %}
+{{ v.title }}: {{ v.price | money }}
+{% endfor %}</script>
+          <script type="text/plain" data-role="expected">S / Бял: 49,99 € (беше 65,00 €)
+M / Бял: 49,99 € (беше 65,00 €)
+L / Бял: 49,99 € (беше 65,00 €)
+M / Маслинен: 54,99 €</script>
+          <script type="text/plain" data-role="hint">Същото условие като в 4.2, но с v вместо selected_variant. Маслиненият вариант има compare_at_price = nil, така че условието при него е false.</script>
+          <script type="text/plain" data-role="solution">{% for v in product.variants %}
+{{ v.title }}: {{ v.price | money }}{% if v.compare_at_price > v.price %} (беше {{ v.compare_at_price | money }}){% endif %}
+{% endfor %}</script>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:14px"><p id="ex-count" style="font-family:var(--f-mono);color:var(--accent)">0 от 3 упражнения решени</p></div>
+      <div class="done-row"><button class="done-btn" data-done="practice" aria-pressed="false"><span class="box"></span>Реших упражненията</button></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="step" id="task">
+      <div class="step-head"><span class="num">05</span><h2>Оправи своя sale-badge</h2></div>
+      <div class="prose"><p>Работиш в <code>horizon-first-theme/sections/sale-badge.liquid</code> с пуснат <code>shopify theme dev</code>. Карай стъпка по стъпка и проверявай в браузъра след всяка.</p></div>
+
+      <h3>Стъпка 1 · Данни в админа</h3>
+      <div class="prose">
+        <p>В колекцията, която си избрал в секцията, сложи <b>Compare-at price</b> на 2–3 продукта (по-висока от Price). Поне един продукт остави без стара цена, за да тестваш и този случай.</p>
+      </div>
+
+      <h3>Стъпка 2 · Виж данните</h3>
+      <div class="prose">
+        <p>Твоят <code>console.log({{ product | json }})</code> вече е полезен. Отвори конзолата в браузъра (F12), разгъни един продукт и намери <code>variants</code> → <code>compare_at_price</code>. При намалените ще има число, а при другите <code>null</code>.</p>
+      </div>
+
+      <h3>Стъпка 3 · Проверка преди сметката</h3>
+      <div class="prose">
+        <p>В цикъла: (а) вземи варианта с <code>selected_or_first_available_variant</code>, (б) обвий сметката и баджа в <code>if compare_at_price &gt; price</code>, (в) смятай от варианта, не от <code>product</code>. Това е същото като упражнение 4.2.</p>
+      </div>
+
+      <h3>Стъпка 4 · Почисти</h3>
+      <div class="prose">
+        <p>Махни реда с <code>console.log</code> и <code>{{ product.compare_at_price }}</code>, който стои сам. Те бяха за разследване.</p>
+      </div>
+
+      <h3>Провери се</h3>
+      <div class="prose">
+        <ul>
+          <li>Намалените продукти показват правилен процент: 65 → 49,99 дава <code>-23%</code>.</li>
+          <li>Продуктът без стара цена не показва бадж и няма <code>Liquid error</code>.</li>
+          <li>Ако изтриеш старата цена в админа и презаредиш, баджът изчезва.</li>
+        </ul>
+      </div>
+
+      <details style="max-width:76ch;margin-top:16px"><summary style="cursor:pointer;font-weight:500">Примерно решение за цикъла (отвори едва след като опиташ)</summary>
+        <div class="code" style="margin-top:12px"><div class="label">sections/sale-badge.liquid, само цикълът</div><pre><code class="lq">{% for product in section.settings.collection.products %}
+  {%- assign selected_variant = product.selected_or_first_available_variant -%}
+  {%- if selected_variant.compare_at_price > selected_variant.price -%}
+    {%- assign discount = selected_variant.compare_at_price
+      | minus: selected_variant.price
+      | times: 100
+      | divided_by: selected_variant.compare_at_price
+    -%}
+    &lt;span class="sale-badge"&gt;-{{ discount }}%&lt;/span&gt;
+  {%- endif -%}
+{% endfor %}</code></pre></div>
+      </details>
+
+      <div class="note" style="margin-top:14px"><b>След това:</b> секцията още не ползва <code>products_to_show</code> и не проверява дали е избрана колекция. Насоките са в <a href="0002-danni-promenlivi-filtri.html#task">задачата от урок 02</a>. Когато си готов, напиши в чата <b>„прегледай sale-badge“</b>.</div>
+      <div class="done-row"><button class="done-btn" data-done="task" aria-pressed="false"><span class="box"></span>Баджът ми работи правилно</button></div>
+    </section>
+
+    <section class="step" id="quiz">
+      <div class="step-head"><span class="num">??</span><h2>Провери се</h2></div>
+      <div class="prose"><p>По памет. Върни се към теста след 2–3 дни.</p></div>
+      <div class="quiz" id="final" data-quiz="QUIZ" style="margin-top:16px"></div>
+    </section>
+
+    <section class="step" id="read">
+      <div class="step-head"><span class="num">→</span><h2>Чети нататък</h2></div>
+      <div class="primary"><span class="eyebrow">Основен източник</span><a href="https://help.shopify.com/en/manual/products/details/product-pricing/sale-pricing" target="_blank" rel="noopener">Sale pricing — Shopify Help Center</a><p>Официалното ръководство за търговци: как се въвежда compare-at price и какво трябва да знаеш. Кратко е. Чети го, за да знаеш как търговецът вижда същите полета, за които ти пишеш код.</p></div>
+      <div class="links" style="margin-top:12px">
+        <a href="../reference/produkt-admin-liquid.html"><b>Справочник: продукт</b><span>полетата в админа и техните имена в Liquid</span></a>
+        <a href="https://shopify.dev/docs/api/liquid/objects/product" target="_blank" rel="noopener"><b>Обектът product</b><span>shopify.dev/docs/api/liquid/objects/product</span></a>
+        <a href="https://shopify.dev/docs/api/liquid/objects/variant" target="_blank" rel="noopener"><b>Обектът variant</b><span>shopify.dev/docs/api/liquid/objects/variant</span></a>
+        <a href="https://community.shopify.dev" target="_blank" rel="noopener"><b>Shopify Developer Community</b><span>форум за въпроси</span></a>
+      </div>
+      <p class="ask">Нещо не е ясно или искаш още упражнения? Питай Claude в чата. Той е твоят учител по този курс. Ако темпото ти е бързо или бавно, кажи и това.</p>
+      <ol style="max-width:76ch;font-size:13px;color:var(--muted);margin-top:24px;padding-left:1.4em;overflow-wrap:anywhere">
+        <li>shopify.dev/docs/api/liquid/objects/variant</li><li>shopify.dev/docs/api/liquid/objects/product</li><li>help.shopify.com/en/manual/products/details/product-pricing/sale-pricing</li><li>help.shopify.com/en/manual/products/variants/edit-variants</li>
+      </ol>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/liquidjs@10.19.0/dist/liquid.browser.umd.js"></script>
+<script src="../assets/mock-store.js"></script>
+<script src="../assets/liquid-playground.js"></script>
+<script src="../assets/price-sim.js"></script>
+<script>
+(function () {
+  const ok = new Set(), out = document.getElementById("ex-count");
+  document.addEventListener("lp:checked", e => {
+    e.detail.ok ? ok.add(e.detail.id) : ok.delete(e.detail.id);
+    out.textContent = ok.size + " от 3 упражнения решени" + (ok.size === 3 ? ". Браво!" : "");
+  });
+})();
+
+window.WARMUP = [
+  { q: "Гост отваря магазина. Каква стойност има <code>customer</code>?", from: "урок 02",
+    o: ["<code>nil</code>", "<code>false</code>", "<code>\"\"</code>"], a: 0,
+    w: "За гост <code>customer</code> е <code>nil</code>. Празното поле compare-at price също е <code>nil</code>." },
+  { q: "Какво извежда <code>{{ 1501 | times: 100 | divided_by: 6500 }}</code>?", from: "урок 02",
+    o: ["<code>23.09</code>", "<code>23</code>", "<code>24</code>"], a: 1,
+    w: "Делиш на цяло число, затова резултатът е цяло число, закръглено надолу. Точно така се смята процентът отстъпка." }
+];
+
+window.QUIZ = [
+  { q: "Къде в Shopify се пази цената?",
+    o: ["Във всеки вариант", "Само в продукта", "Във всяка колекция"], a: 0,
+    w: "Price, Compare-at price, SKU и наличност са на варианта. <code>product.price</code> е само най-ниската сред тях." },
+  { q: "Колко варианта има продукт без опции (без размер, цвят…)?",
+    o: ["Нула варианта", "Един вариант", "Два варианта"], a: 1,
+    w: "Винаги има поне един вариант. <code>product.has_only_default_variant</code> е <code>true</code>." },
+  { q: "Compare-at price е 0,00, а Price е 49,99. Показва ли се намаление?",
+    o: ["Не, условието е false", "Да, с отстъпка 100%", "Да, но без процент"], a: 0,
+    w: "0 не е по-голямо от 4999. Ако няма намаление, полето се оставя празно." },
+  { q: "Какво връща <code>product.compare_at_price</code>?",
+    o: ["Най-високата стара цена", "Най-ниската стара цена", "Старата цена на първия"], a: 1,
+    w: "Най-ниската сред вариантите. Затова за процент отстъпка смятай от конкретен вариант." },
+  { q: "Как четеш полето Cost per item в Liquid?",
+    o: ["Чрез product.cost", "Чрез variant.cost", "Не е достъпно"], a: 2,
+    w: "Себестойността се вижда само в админа. Клиентът не бива да я вижда." },
+  { q: "Какво вижда клиентът в checkout-а при продукт с намаление?",
+    o: ["Само новата цена", "Само старата цена", "И двете цени"], a: 0,
+    w: "Старата цена е само за витрината. В checkout-а е Price." },
+  { q: "Секцията ти трябва да показва продукти от избрана колекция. Какъв тип настройка ползваш?", from: "урок 02",
+    o: ["<code>\"type\": \"collection\"</code>", "<code>\"type\": \"product\"</code>", "<code>\"type\": \"text\"</code>"], a: 0,
+    w: "Без избор стойността е <code>blank</code>, затова проверявай с <code>== blank</code>." }
+];
+</script>
+<script src="../assets/course.js"></script>
+</body>
+</html>

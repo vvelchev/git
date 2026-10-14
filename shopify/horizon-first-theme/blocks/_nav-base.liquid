@@ -1,0 +1,73 @@
+<nav class="nav-base nav-base--{{ block.id }}" {{ block.shopify_attributes }}>
+  {%- if block.settings.menu != blank -%}
+    <ul>
+      {%- for link in block.settings.menu.links -%}
+        <li class="{% if link.links != blank %}{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+
+          {%- if link.links != blank -%}
+            <ul>
+              {%- for child_link in link.links -%}
+                <li class="{% if child_link.links != blank %}{% endif %}">
+                  <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+
+                  {%- if child_link.links != blank -%}
+                    <ul>
+                      {%- for grandchild_link in child_link.links -%}
+                        <li>
+                          <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</nav>
+
+{{ 'nav-base.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .nav-base--{{ block.id }} {
+    --nav-font-size: {{ block.settings.font_size }}px;
+    --nav-gap: {{ block.settings.gap }}px;
+    --nav-text-transform: {% if block.settings.uppercase %}uppercase{% else %}none{% endif %};
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Navigation Menu",
+  "tag": null,
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 16
+    },
+    { "type": "checkbox", "id": "uppercase", "label": "Uppercase", "default": false },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between items",
+      "default": 20
+    }
+  ],
+  "presets": [{ "name": "Navigation Menu" }]
+}
+{% endschema %}

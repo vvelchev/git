@@ -1,0 +1,21 @@
+<button type="button" class="btn-cart-base" popovertarget="cart-base">
+  {{ 'icon-cart.svg' | inline_asset_content }}
+
+  <span data-cart-count>
+    {%- if cart.item_count > 0 %}{{ cart.item_count }}{% endif -%}
+  </span>
+</button>
+<!-- /.btn-cart-base -->
+
+{% schema %}
+{
+  "name": "Cart Base",
+  "tag": null,
+  "settings": [{ "type": "header", "content": "General Settings" }],
+  "presets": [
+    {
+      "name": "Cart Base"
+    }
+  ]
+}
+{% endschema %}

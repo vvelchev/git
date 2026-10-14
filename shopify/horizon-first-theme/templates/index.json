@@ -9,40 +9,34 @@
  */
 {
   "sections": {
+    "sale_badge_a4yyHh": {
+      "type": "sale-badge",
+      "name": "Sale Badge",
+      "settings": {
+        "heading": "На промоция",
+        "bg": "#eef3ee",
+        "products_to_show": 4
+      }
+    },
+    "hello_banner_XiUC4d": {
+      "type": "hello-banner",
+      "name": "Hello банер",
+      "settings": {
+        "heading": "Здравей, Shopify!",
+        "bg": "#eef3ee",
+        "show_count": true
+      }
+    },
     "simple_hero_3bgCxA": {
       "type": "simple-hero",
       "blocks": {
-        "text_PKm4fJ": {
+        "text_nrhVXK": {
           "type": "text",
+          "name": "t:names.heading",
           "settings": {
-            "text": "<h1>Heading</h1>",
+            "text": "<h2>New arrivals</h2>",
             "width": "fit-content",
             "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_TgbPTD": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, esse in. Sed possimus similique molestiae officia blanditiis quos provident unde ab. Sequi consectetur, repellat excepturi fuga modi ? Repellendus delectus quo libero, asperiores corrupti facere recusandae porro ratione expedita enim laudantium. Reiciendis dolore maiores perspiciatis iure quisquam laboriosam cupiil dignissimos ullam labore adipisci tenetur quasi neque amet suscipit exercitationem id explicabo dicta velit eaque! Recusandae aliquam laboriosam maxime, sed veniam delectus nostrum quod quos, laborum amet deserunt dicta itaque, sequi necessitatibus dolorem quis. Aliquam iste fuga assumenda?</p>",
-            "width": "fit-content",
-            "max_width": "none",
             "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
@@ -62,11 +56,38 @@
           },
           "blocks": {}
         },
-        "button_GhVRxw": {
-          "type": "button",
+        "text_BNCtmM": {
+          "type": "text",
+          "name": "t:names.text",
           "settings": {
-            "label": "Btn Text",
-            "link": "#",
+            "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_jDCrYB": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
             "open_in_new_tab": false,
             "style_class": "button",
             "style_outline": "",
@@ -84,17 +105,19 @@
         }
       },
       "block_order": [
-        "text_PKm4fJ",
-        "text_TgbPTD",
-        "button_GhVRxw"
+        "text_nrhVXK",
+        "text_BNCtmM",
+        "button_jDCrYB"
       ],
       "name": "Simple Hero",
       "settings": {
-        "desktop_media_type": "desktop_image",
-        "image_desktop": "shopify://shop_images/a22adf5f-3d6c-488c-b166-f1b8e4b701f7.jpg",
-        "mobile_media_type": "mobile_image",
-        "section_height": "medium",
-        "section_height_custom": 600,
+        "media_type": "desktop_image",
+        "image_desktop": "shopify://shop_images/a-bridge-sitting-in-thick-pink-and-purple-fog.jpg",
+        "video_desktop": "shopify://files/videos/istockphoto-1384305036-640_adpp_is.mp4",
+        "media_type_mobile": "mobile_video",
+        "image_mobile": "shopify://shop_images/two-people-surfing-in-blue-choppy-water.jpg",
+        "height": "custom",
+        "height_custom": 600,
         "text_align": "left",
         "vertical_alignment": "center",
         "custom_width": true,
@@ -105,23 +128,22 @@
     "slider_media_and_text_Xrc9L6": {
       "type": "slider-media-and-text",
       "blocks": {
-        "slide_N3jDVA": {
+        "slide_PXqVwT": {
           "type": "slide",
-          "name": "Slide",
           "settings": {
             "desktop_media_type": "image",
-            "image_desktop": "shopify://shop_images/two-people-surfing-in-blue-choppy-water.jpg",
             "mobile_media_type": "image",
-            "rich_content": "<h6>Slide 1</h6><h4>Share information about your brand With your customers.</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
-            "label": "Learn more",
+            "rich_content": "<h6>Talk about your brand</h6><h4>Share information about your brand With your customers.</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
+            "label": "",
             "link": "#",
             "open_in_new_tab": false,
-            "style_class": "button-secondary",
+            "style_class": "button",
             "style_outline": "",
-            "icon_position": "start",
-            "custom_button_background": "{{ settings.color_palette.foreground }}",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
+            "icon": "shopify://shop_images/cart.svg",
+            "icon_position": "end",
+            "custom_button_background": "",
+            "custom_button_text": "",
+            "custom_button_border": "",
             "link_text_color": "",
             "width": "fit-content",
             "custom_width": 100,
@@ -129,24 +151,66 @@
             "custom_width_mobile": 100
           }
         },
-        "slide_MyRraG": {
+        "slide_cWQkk9": {
           "type": "slide",
-          "name": "Slide",
           "settings": {
-            "desktop_media_type": "video",
-            "image_desktop": "shopify://shop_images/two-people-surfing-in-blue-choppy-water.jpg",
-            "video_desktop": "shopify://files/videos/coverr-a-guy-crosses-a-road-in-a-city-1246-1080p.mp4",
+            "desktop_media_type": "image",
+            "image_desktop": "shopify://shop_images/silver-lamp-on-a-white-table-next-to-books.jpg",
             "mobile_media_type": "image",
-            "rich_content": "<h6>Slide 2</h6><h4>Share information .</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
+            "rich_content": "",
+            "label": "test",
+            "link": "#",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "style_outline": "",
+            "icon_position": "start",
+            "custom_button_background": "",
+            "custom_button_text": "",
+            "custom_button_border": "",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          }
+        },
+        "slide_tkiaTf": {
+          "type": "slide",
+          "settings": {
+            "desktop_media_type": "image",
+            "mobile_media_type": "image",
+            "rich_content": "<h6>Slide 3</h6><h4>Share information about your brand With your customers.</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
             "label": "Learn more",
             "link": "",
             "open_in_new_tab": false,
             "style_class": "button",
             "style_outline": "",
             "icon_position": "start",
-            "custom_button_background": "{{ settings.color_palette.foreground }}",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
+            "custom_button_background": "",
+            "custom_button_text": "",
+            "custom_button_border": "",
+            "link_text_color": "",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          }
+        },
+        "slide_kbbp6V": {
+          "type": "slide",
+          "settings": {
+            "desktop_media_type": "image",
+            "mobile_media_type": "image",
+            "rich_content": "<h6>Slide 4</h6><h4>Share information about your brand With your customers.</h4><p>Describe a product. make announcements, or welcome customers to your store.</p>",
+            "label": "Learn more",
+            "link": "",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "style_outline": "",
+            "icon_position": "start",
+            "custom_button_background": "",
+            "custom_button_text": "",
+            "custom_button_border": "",
             "link_text_color": "",
             "width": "fit-content",
             "custom_width": 100,
@@ -156,13 +220,15 @@
         }
       },
       "block_order": [
-        "slide_N3jDVA",
-        "slide_MyRraG"
+        "slide_PXqVwT",
+        "slide_cWQkk9",
+        "slide_tkiaTf",
+        "slide_kbbp6V"
       ],
       "name": "Slider Media And Text",
       "settings": {
         "slider_autoplay": false,
-        "slider_autoplay_duration": 3000,
+        "slider_autoplay_duration": 2000,
         "row_direction_desktop": false,
         "row_direction_mobile": false,
         "media_asp": "equal",
@@ -226,12 +292,14 @@
       ],
       "name": "Featured cards",
       "settings": {
-        "heading": "Heading",
-        "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
+        "heading": "Title",
+        "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, voluptas velit accusantium totam dignissimos adipisci atque quasi soluta ratione, vitae unde nihil dolorum porro? Nisi placeat atque nesciunt ex quos.",
         "text_align": "center",
         "media_asp": "16/9",
         "card_text_align": "center",
         "card_layout": "grid",
+        "grid_gutter": 20,
+        "grid_gutter_mobile": 20,
         "count_desktop": 4,
         "count_mobile": 2,
         "grid_slider_mobile": true
@@ -239,6 +307,8 @@
     }
   },
   "order": [
+    "sale_badge_a4yyHh",
+    "hello_banner_XiUC4d",
     "simple_hero_3bgCxA",
     "slider_media_and_text_Xrc9L6",
     "featured_cards_XUKc3i"

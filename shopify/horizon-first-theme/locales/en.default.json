@@ -369,5 +369,12 @@
       "default_title": "Default Title",
       "sticky_add_to_cart": "Quick add to cart bar"
     }
+  },
+  "header_base": {
+    "search": {
+      "open": "Open search",
+      "input_label": "Search",
+      "placeholder": "Search"
+    }
   }
 }

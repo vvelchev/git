@@ -1,0 +1,525 @@
+<title>Първи стъпки в Shopify</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: учебник — тясна лепкава навигация по стъпките вляво, четим текст ~68ch вдясно, тъмни терминални блокове за код */
+:root{
+  --paper:#F4F6F1; --surface:#FFFFFF; --ink:#17201B; --muted:#58645D; --line:#DCE2D8;
+  --accent:#0B6B4D; --accent-soft:#E0EFE6; --liquid:#A0520A; --liquid-soft:#FBEBD8;
+  --code-bg:#1B2420; --code-fg:#E3EBE6; --code-dim:#8FA197; --code-tag:#F2A65A; --code-out:#7FD6AE;
+  --good:#1D7A47; --bad:#B23A2E;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111613; --surface:#18201C; --ink:#E5EBE7; --muted:#97A39C; --line:#2A332E;
+  --accent:#55C595; --accent-soft:#1B3328; --liquid:#F0A452; --liquid-soft:#3A2A17;
+  --code-bg:#0B0F0D; --code-fg:#DCE5DF; --code-dim:#7D8E85; --code-tag:#F2A65A; --code-out:#7FD6AE;
+  --good:#5BC98A; --bad:#EF7B6E; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#111613; --surface:#18201C; --ink:#E5EBE7; --muted:#97A39C; --line:#2A332E;
+  --accent:#55C595; --accent-soft:#1B3328; --liquid:#F0A452; --liquid-soft:#3A2A17;
+  --code-bg:#0B0F0D; --code-fg:#DCE5DF; --code-dim:#7D8E85; --code-tag:#F2A65A; --code-out:#7FD6AE;
+  --good:#5BC98A; --bad:#EF7B6E; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.65 var(--f-body);padding-inline:16px;padding-block:0 64px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code{font-family:var(--f-mono);font-size:.88em;background:var(--accent-soft);padding:.08em .35em;border-radius:4px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+
+.wrap{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr);gap:0}.side{display:none}}
+
+/* header */
+.hero{max-width:1080px;margin:0 auto;padding-block:56px 40px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-size:clamp(34px,6vw,58px);font-weight:750;margin-top:14px;letter-spacing:-.01em}
+.hero h1 .lq{color:var(--liquid);font-family:var(--f-mono);font-weight:500;font-size:.62em;vertical-align:.18em;white-space:nowrap}
+.hero .lead{max-width:62ch;margin-top:18px;font-size:18px;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:24px;font:14px var(--f-mono);color:var(--muted)}
+.meta b{color:var(--ink);font-weight:500}
+
+/* side nav */
+.side nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);display:flex;flex-direction:column;gap:2px}
+.progress{margin-bottom:18px}
+.progress .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.progress small{display:block;margin-top:8px;font:13px var(--f-mono);color:var(--muted)}
+.side a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--muted);font-size:14px;padding:6px 8px;border-radius:6px}
+.side a:hover{background:var(--accent-soft);color:var(--ink)}
+.side a .n{font:500 12px var(--f-mono);width:18px;flex:none}
+.side a.done .n{color:var(--accent)}
+.side a.done .n::before{content:"✓"}
+.side a.done .n span{display:none}
+
+/* steps */
+main{min-width:0}
+.step{padding-block:8px 48px;scroll-margin-top:24px}
+.step + .step{border-top:1px solid var(--line);padding-top:40px}
+.step-head{display:flex;gap:16px;align-items:baseline;margin-bottom:16px}
+.step-head .num{font:500 13px var(--f-mono);color:var(--accent);flex:none}
+.step h2{font-size:clamp(24px,3.4vw,32px);font-weight:750}
+.step h3{font-size:19px;font-weight:600;margin-top:28px;margin-bottom:8px}
+.prose{max-width:68ch;display:flex;flex-direction:column;gap:14px}
+.prose ul,.prose ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+
+/* paths */
+.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+@media (max-width:640px){.paths{grid-template-columns:minmax(0,1fr)}}
+.path{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.path.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.path b{font-family:var(--f-display);font-size:18px}
+.path small{font:12px var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.path p{font-size:14px;color:var(--muted)}
+.path .tag{align-self:flex-start;font:500 11px var(--f-mono);background:var(--accent);color:var(--surface);padding:3px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em}
+
+/* code */
+.code{position:relative;margin:4px 0;max-width:76ch}
+.code .label{font:500 12px var(--f-mono);color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;gap:8px}
+pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:10px;padding:16px 18px;overflow-x:auto;font:14px/1.6 var(--f-mono)}
+pre code{background:none;padding:0;font-size:inherit;color:inherit}
+pre .t{color:var(--code-tag)}
+pre .c{color:var(--code-dim)}
+pre .o{color:var(--code-out)}
+.copy{position:absolute;top:30px;right:8px;font:500 12px var(--f-mono);background:transparent;color:var(--code-dim);border:1px solid color-mix(in srgb,var(--code-dim) 45%,transparent);border-radius:6px;padding:4px 9px;cursor:pointer}
+.copy:hover{color:var(--code-fg);border-color:var(--code-fg)}
+
+/* notes */
+.note{border-left:3px solid var(--liquid);background:var(--liquid-soft);padding:12px 16px;border-radius:0 8px 8px 0;max-width:68ch;font-size:15px}
+.note b{color:var(--liquid)}
+
+/* folder tree */
+.tree{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;max-width:76ch}
+.tree div{padding:9px 14px;border-top:1px solid var(--line);font-size:14.5px}
+.tree div:nth-child(-n+2){border-top:0}
+.tree .p{font:500 14px var(--f-mono);color:var(--accent);white-space:nowrap}
+@media (max-width:520px){.tree{grid-template-columns:minmax(0,1fr)}.tree .p{border-top:1px solid var(--line)!important;padding-bottom:0}.tree .d{border-top:0;padding-top:2px}.tree div:first-child{border-top:0!important}}
+
+/* syntax table */
+.syn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:76ch}
+@media (max-width:640px){.syn{grid-template-columns:minmax(0,1fr)}}
+.syn div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.syn code{display:block;background:none;padding:0;font-size:20px;color:var(--liquid);margin-bottom:6px}
+.syn p{font-size:14px;color:var(--muted)}
+
+/* done toggle */
+.done-row{margin-top:24px}
+.done-btn{display:inline-flex;gap:10px;align-items:center;font:500 14px var(--f-body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
+.done-btn .box{width:16px;height:16px;border:1.5px solid var(--muted);border-radius:4px;display:grid;place-items:center;font-size:12px;line-height:1}
+.done-btn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.done-btn[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.done-btn[aria-pressed="true"] .box::after{content:"✓"}
+
+/* quiz */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;max-width:76ch;display:flex;flex-direction:column;gap:12px}
+.q + .q{margin-top:12px}
+.q > p{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{text-align:left;font:15px var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer}
+.opts button:hover:not(:disabled){border-color:var(--accent)}
+.opts button:disabled{cursor:default}
+.opts button.right{border-color:var(--good);color:var(--good);font-weight:600}
+.opts button.wrong{border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.why{font-size:14.5px;color:var(--muted)}
+.score{margin-top:16px;font:500 15px var(--f-mono);color:var(--accent)}
+
+/* links */
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:76ch}
+@media (max-width:560px){.links{grid-template-columns:minmax(0,1fr)}}
+.links a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.links a:hover{border-color:var(--accent)}
+.links a span{font:12.5px var(--f-mono);color:var(--muted);overflow-wrap:anywhere}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="hero">
+  <div class="eyebrow">Урок · Shopify theme development</div>
+  <h1>Първи стъпки като Shopify developer <span class="lq">{{ hello }}</span></h1>
+  <p class="lead">От празен компютър до собствена секция, която се редактира от Theme Editor-а. Минаваш през инструментите, структурата на темата, Liquid и работния процес, който пази live магазина от грешки.</p>
+  <div class="meta"><span>Ниво: <b>начинаещ</b></span><span>Време: <b>~2 часа</b></span><span>Трябва ти: <b>Windows/Mac, интернет</b></span></div>
+</header>
+
+<div class="wrap">
+  <aside class="side">
+    <nav aria-label="Стъпки">
+      <div class="progress"><div class="bar"><i id="pbar"></i></div><small id="ptext">0 от 7 стъпки</small></div>
+      <a href="#map" data-step="map"><span class="n"><span>0</span></span>Картата</a>
+      <a href="#setup" data-step="setup"><span class="n"><span>1</span></span>Среда</a>
+      <a href="#store" data-step="store"><span class="n"><span>2</span></span>Dev магазин</a>
+      <a href="#theme" data-step="theme"><span class="n"><span>3</span></span>Първа тема</a>
+      <a href="#anatomy" data-step="anatomy"><span class="n"><span>4</span></span>Анатомия</a>
+      <a href="#liquid" data-step="liquid"><span class="n"><span>5</span></span>Liquid</a>
+      <a href="#section" data-step="section"><span class="n"><span>6</span></span>Твоя секция</a>
+      <a href="#workflow" data-step="workflow"><span class="n"><span>7</span></span>Работен процес</a>
+      <a href="#quiz"><span class="n">?</span>Тест</a>
+      <a href="#next"><span class="n">→</span>Накъде след това</a>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- 0 -->
+    <section class="step" id="map">
+      <div class="step-head"><span class="num">00</span><h2>Картата: какво всъщност прави един Shopify developer</h2></div>
+      <div class="prose">
+        <p>Shopify е платформа за онлайн магазини. Хостингът, плащанията, базата данни и админ панелът са на Shopify. Ти пишеш кода, който определя как изглежда магазинът и какво още може. Има три основни посоки:</p>
+      </div>
+      <div class="paths">
+        <div class="path on"><span class="tag">Започваме тук</span><small>Themes</small><b>Теми</b><p>Визията на магазина. Liquid + HTML + CSS + JS. Най-бързият път до видим резултат.</p></div>
+        <div class="path"><small>Apps</small><b>Приложения</b><p>Нова функционалност: интеграции, автоматизации, админ екрани. React + GraphQL Admin API.</p></div>
+        <div class="path"><small>Headless</small><b>Hydrogen</b><p>Изцяло собствен frontend върху Storefront API. За големи проекти с нужда от пълен контрол.</p></div>
+      </div>
+      <div class="prose" style="margin-top:18px">
+        <p>Този урок е за <b>темите</b>. Там е повечето клиентска работа и там се учи Liquid, който ще ти трябва и в другите две посоки.</p>
+      </div>
+      <div class="done-row"><button class="done-btn" data-done="map" aria-pressed="false"><span class="box"></span>Прочетох</button></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="step" id="setup">
+      <div class="step-head"><span class="num">01</span><h2>Подготви средата</h2></div>
+      <div class="prose">
+        <p>Трябват ти четири неща:</p>
+        <ol>
+          <li><b>Node.js</b> (LTS версия, 20 или по-нова) от <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>. Shopify CLI работи върху него.</li>
+          <li><b>Git</b> от <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>. Ще пазиш историята на темата си.</li>
+          <li><b>VS Code</b> с разширението <b>Shopify Liquid</b>. Дава оцветяване, автодовършване и проверка на грешки в реално време.</li>
+          <li><b>Shopify CLI</b>, главният инструмент. Инсталира се с npm:</li>
+        </ol>
+      </div>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh"># инсталира Shopify CLI глобално
+npm install -g @shopify/cli@latest
+
+# проверка, че всичко е наред
+node -v
+shopify version</code></pre></div>
+      <div class="note"><b>Windows:</b> ако PowerShell откаже да пусне <code>shopify</code> заради execution policy, използвай Git Bash или терминала във VS Code.</div>
+      <div class="done-row"><button class="done-btn" data-done="setup" aria-pressed="false"><span class="box"></span>Инсталирах всичко</button></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" id="store">
+      <div class="step-head"><span class="num">02</span><h2>Направи си development магазин</h2></div>
+      <div class="prose">
+        <p>Никога не експериментирай върху истински магазин. За целта Shopify дава безплатни <b>development stores</b>: пълноценни магазини без месечна такса, които не приемат реални плащания.</p>
+        <ol>
+          <li>Регистрирай безплатен <b>Partner</b> акаунт на <a href="https://www.shopify.com/partners" target="_blank" rel="noopener">shopify.com/partners</a>.</li>
+          <li>От dashboard-а избери <b>Stores → Create development store</b>.</li>
+          <li>Отметни опцията за <b>тестови данни</b> (sample data), за да имаш продукти и колекции веднага.</li>
+          <li>Запиши адреса. Той изглежда така: <code>moyat-test.myshopify.com</code>.</li>
+        </ol>
+        <p>Dev магазините са защитени с парола. Ще я намериш в админа под <b>Online Store → Preferences</b>. CLI-ят може да я поиска при първото пускане.</p>
+      </div>
+      <div class="note"><b>Тестови поръчки:</b> в dev магазин включи <i>Bogus Gateway</i> или Shopify Payments в тестов режим и пробвай целия checkout без реални пари.</div>
+      <div class="done-row"><button class="done-btn" data-done="store" aria-pressed="false"><span class="box"></span>Имам dev магазин</button></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" id="theme">
+      <div class="step-head"><span class="num">03</span><h2>Първата ти тема на локален сървър</h2></div>
+      <div class="prose">
+        <p><code>shopify theme init</code> създава нова тема от официален стартов шаблон. <code>shopify theme dev</code> я качва като скрита development тема и пуска локален preview, който се обновява при всяко запазване на файл.</p>
+      </div>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh"># създава папка moyata-tema със стартова тема
+shopify theme init moyata-tema
+cd moyata-tema
+
+# пуска live preview срещу твоя dev магазин
+shopify theme dev --store moyat-test</code></pre></div>
+      <div class="prose">
+        <p>Първия път CLI-ят ще отвори браузъра за вход в Shopify. След това в терминала ще видиш:</p>
+      </div>
+      <div class="code"><div class="label">Какво ще видиш</div><pre><code class="out">Preview your theme
+  • http://127.0.0.1:9292
+
+Customize your theme at the theme editor
+  • https://moyat-test.myshopify.com/admin/themes/.../editor
+
+Share your theme preview
+  • https://moyat-test.myshopify.com/?preview_theme_id=...</code></pre></div>
+      <div class="prose">
+        <p>Отвори <code>http://127.0.0.1:9292</code>, промени някакъв текст в кода, запази и гледай как страницата се обновява сама. Това е основният ти работен цикъл.</p>
+      </div>
+      <div class="note"><b>Кой шаблон?</b> Новите версии на CLI по подразбиране вземат минималния <i>Skeleton theme</i>: малко код, лесен за разбиране. Ако искаш да разгледаш пълна, production тема, клонирай Dawn: <code>shopify theme init uchebna --clone-url https://github.com/Shopify/dawn</code></div>
+      <div class="done-row"><button class="done-btn" data-done="theme" aria-pressed="false"><span class="box"></span>Видях темата на 127.0.0.1:9292</button></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" id="anatomy">
+      <div class="step-head"><span class="num">04</span><h2>Анатомия на една тема</h2></div>
+      <div class="prose"><p>Всяка Online Store 2.0 тема има едни и същи папки. Shopify очаква точно тези имена, затова не ги преименувай.</p></div>
+      <div class="tree" style="margin-top:16px">
+        <div class="p">layout/</div><div class="d"><code>theme.liquid</code> е рамката на всяка страница: <code>&lt;head&gt;</code>, header, footer. Съдържанието се вмъква чрез <code>{{ content_for_layout }}</code>.</div>
+        <div class="p">templates/</div><div class="d">По един файл за всеки тип страница: <code>index.json</code>, <code>product.json</code>, <code>collection.json</code>… JSON файлът изрежда кои секции и в какъв ред.</div>
+        <div class="p">sections/</div><div class="d">Големите, преместваеми блокове на страницата. Всяка секция има <code>{% schema %}</code> с настройки за Theme Editor-а.</div>
+        <div class="p">blocks/</div><div class="d">Theme blocks: по-малки парчета, които търговецът добавя вътре в секциите.</div>
+        <div class="p">snippets/</div><div class="d">Преизползваем код без настройки. Включва се с <code>{% render 'ime' %}</code>.</div>
+        <div class="p">assets/</div><div class="d">CSS, JS, картинки, шрифтове. Линк към тях с филтъра <code>asset_url</code>.</div>
+        <div class="p">config/</div><div class="d"><code>settings_schema.json</code> описва глобалните настройки (цветове, шрифтове). <code>settings_data.json</code> пази избраните стойности.</div>
+        <div class="p">locales/</div><div class="d">Преводи. <code>bg.json</code> + <code>{{ 'kluch' | t }}</code> = текстове на български.</div>
+      </div>
+      <div class="code" style="margin-top:18px"><div class="label">templates/index.json (опростен)</div><pre><code class="lq">{
+  "sections": {
+    "hero":     { "type": "image-banner" },
+    "featured": { "type": "featured-collection" }
+  },
+  "order": ["hero", "featured"]
+}</code></pre></div>
+      <div class="prose"><p>Когато търговецът мести секции в редактора, Shopify пренаписва точно този JSON. Ти пишеш секциите, търговецът ги подрежда.</p></div>
+      <div class="done-row"><button class="done-btn" data-done="anatomy" aria-pressed="false"><span class="box"></span>Разбрах структурата</button></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="step" id="liquid">
+      <div class="step-head"><span class="num">05</span><h2>Liquid за 10 минути</h2></div>
+      <div class="prose"><p>Liquid е шаблонният език на Shopify. Сървърът го изпълнява и браузърът получава чист HTML. Има само три вида синтаксис:</p></div>
+      <div class="syn" style="margin-top:16px">
+        <div><code>{{ }}</code><p><b>Output.</b> Извежда стойност: <code>{{ product.title }}</code></p></div>
+        <div><code>{% %}</code><p><b>Tag.</b> Логика: if, for, render, schema. Сам по себе си не извежда нищо.</p></div>
+        <div><code>|</code><p><b>Filter.</b> Преобразува стойност: <code>{{ product.price | money }}</code></p></div>
+      </div>
+      <h3>Обекти</h3>
+      <div class="prose"><p>Данните идват от глобални обекти. Най-честите: <code>shop</code>, <code>product</code>, <code>collection</code>, <code>cart</code>, <code>customer</code>, <code>settings</code>, <code>request</code>. Кои са налични зависи от страницата: <code>product</code> съществува на продуктова страница, <code>cart</code> навсякъде.</p></div>
+      <h3>Пример: първите 4 продукта от колекция</h3>
+      <div class="code"><div class="label">sections/collection-grid.liquid</div><pre><code class="lq">&lt;ul class="grid"&gt;
+  {% for product in collection.products limit: 4 %}
+    &lt;li&gt;
+      &lt;a href="{{ product.url }}"&gt;
+        {{ product.featured_image | image_url: width: 400 | image_tag }}
+        &lt;h3&gt;{{ product.title | escape }}&lt;/h3&gt;
+        &lt;p&gt;{{ product.price | money }}&lt;/p&gt;
+      &lt;/a&gt;
+      {% unless product.available %}
+        &lt;span class="badge"&gt;Изчерпан&lt;/span&gt;
+      {% endunless %}
+    &lt;/li&gt;
+  {% else %}
+    &lt;li&gt;Няма продукти в тази колекция.&lt;/li&gt;
+  {% endfor %}
+&lt;/ul&gt;</code></pre></div>
+      <h3>Два непознати тага в примера</h3>
+      <div class="prose">
+        <p><b><code>{% else %}</code> вътре във <code>for</code>.</b> Тук няма <code>if</code>. Liquid позволява <code>else</code> директно в цикъла и то се изпълнява само ако колекцията е празна, т.е. цикълът не е минал нито веднъж. Същото с <code>if</code> би изглеждало така:</p>
+      </div>
+      <div class="code"><div class="label">Еквивалент с if</div><pre><code class="lq">{% if collection.products.size &gt; 0 %}
+  {% for product in collection.products limit: 4 %}
+    …
+  {% endfor %}
+{% else %}
+  &lt;li&gt;Няма продукти в тази колекция.&lt;/li&gt;
+{% endif %}</code></pre></div>
+      <div class="prose">
+        <p><b><code>{% unless %}</code></b> е обратното на <code>if</code> и означава „ако <i>не</i>“. <code>{% unless product.available %}</code> е същото като <code>{% if product.available == false %}</code>. Баджът „Изчерпан“ се показва, когато продуктът не е наличен.</p>
+      </div>
+      <div class="note"><b>Цените са в стотинки.</b> <code>product.price</code> връща <code>4999</code> за 49,99 лв. Затова винаги минавай през <code>| money</code>, който форматира по валутата на магазина.</div>
+      <div class="done-row"><button class="done-btn" data-done="liquid" aria-pressed="false"><span class="box"></span>Пробвах Liquid</button></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="step" id="section">
+      <div class="step-head"><span class="num">06</span><h2>Направи своя първа секция</h2></div>
+      <div class="prose"><p>Тук всичко се събира: HTML + Liquid + schema, която дава на търговеца бутони в Theme Editor-а. Създай файл <code>sections/hello-banner.liquid</code>:</p></div>
+      <div class="code"><div class="label">sections/hello-banner.liquid</div><pre><code class="lq">&lt;section class="hello-banner" style="background: {{ section.settings.bg }};"&gt;
+  &lt;h2&gt;{{ section.settings.heading | escape }}&lt;/h2&gt;
+
+  {% if section.settings.show_count %}
+    &lt;p&gt;В магазина има {{ collections.all.products_count }} продукта.&lt;/p&gt;
+  {% endif %}
+&lt;/section&gt;
+
+{% stylesheet %}
+  .hello-banner { padding: 48px 24px; text-align: center; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hello банер",
+  "settings": [
+    { "type": "text",     "id": "heading",    "label": "Заглавие", "default": "Здравей, Shopify!" },
+    { "type": "color",    "id": "bg",         "label": "Фон",      "default": "#eef3ee" },
+    { "type": "checkbox", "id": "show_count", "label": "Покажи броя продукти", "default": true }
+  ],
+  "presets": [{ "name": "Hello банер" }]
+}
+{% endschema %}</code></pre></div>
+      <div class="prose">
+        <ol>
+          <li>Запази файла, докато <code>shopify theme dev</code> работи.</li>
+          <li>Отвори линка за <b>theme editor</b> от терминала.</li>
+          <li>Натисни <b>Add section</b> и избери „Hello банер“.</li>
+          <li>Смени заглавието и цвета отдясно. Това са твоите <code>settings</code>.</li>
+        </ol>
+        <p><code>section.settings.heading</code> чете стойността, която търговецът е въвел. <code>presets</code> е причината секцията да се появи в списъка <b>Add section</b>. Без него няма да я намериш там.</p>
+      </div>
+      <div class="note"><b>Предизвикателство:</b> добави настройка <code>"type": "collection"</code> и покажи 3 продукта от избраната колекция с цикъла от стъпка 5.</div>
+      <div class="done-row"><button class="done-btn" data-done="section" aria-pressed="false"><span class="box"></span>Секцията ми е в редактора</button></div>
+    </section>
+
+    <!-- 7 -->
+    <section class="step" id="workflow">
+      <div class="step-head"><span class="num">07</span><h2>Работен процес, който не чупи live магазина</h2></div>
+      <div class="prose">
+        <p>В един магазин има една <b>live</b> тема, която клиентите виждат, и много <b>unpublished</b> теми. Правилото е просто: работиш локално и качваш в unpublished тема. Публикуваш едва след преглед.</p>
+      </div>
+      <div class="code"><div class="label">Командите, които ще ползваш всеки ден</div><pre><code class="sh"># списък на темите в магазина с техните ID-та
+shopify theme list --store moyat-test
+
+# сваля тема от магазина (напр. промени от редактора)
+shopify theme pull --theme 123456789
+
+# проверява кода за грешки и лоши практики
+shopify theme check
+
+# качва като НОВА скрита тема, live не се пипа
+shopify theme push --unpublished
+
+# качва в конкретна тема и дава preview линк за клиента
+shopify theme push --theme 123456789
+shopify theme share
+
+# публикува, само когато си сигурен
+shopify theme publish --theme 123456789</code></pre></div>
+      <h3>Git от първия ден</h3>
+      <div class="code"><div class="label">Терминал</div><pre><code class="sh">git init
+git add .
+git commit -m "Първоначална тема"</code></pre></div>
+      <div class="prose">
+        <p>След това можеш да свържеш GitHub repo директно с магазина: <b>Online Store → Themes → Add theme → Connect from GitHub</b>. Всеки push в клона обновява свързаната тема автоматично.</p>
+      </div>
+      <div class="note"><b>Внимание:</b> търговецът също променя темата през редактора и тези промени отиват в <code>templates/*.json</code> и <code>config/settings_data.json</code>. Преди <code>push</code> направи <code>pull</code>, иначе ще изтриеш неговата работа.</div>
+      <div class="done-row"><button class="done-btn" data-done="workflow" aria-pressed="false"><span class="box"></span>Качих тема с push --unpublished</button></div>
+    </section>
+
+    <!-- quiz -->
+    <section class="step" id="quiz">
+      <div class="step-head"><span class="num">??</span><h2>Провери се</h2></div>
+      <div id="quizbox"></div>
+      <div class="score" id="score" hidden></div>
+    </section>
+
+    <!-- next -->
+    <section class="step" id="next">
+      <div class="step-head"><span class="num">→</span><h2>Накъде след това</h2></div>
+      <div class="prose">
+        <ol>
+          <li><b>Разгледай Dawn файл по файл.</b> Отвори <code>sections/main-product.liquid</code> и проследи как работят вариантите и формата за количка.</li>
+          <li><b>Научи Section Rendering и AJAX Cart API.</b> С тях количката се обновява без презареждане.</li>
+          <li><b>Metafields.</b> Собствени полета към продукти (размери, материал, гаранция), които показваш в темата.</li>
+          <li><b>Първо приложение.</b> <code>shopify app init</code> създава шаблон с GraphQL Admin API и theme app extensions.</li>
+        </ol>
+      </div>
+      <div class="links" style="margin-top:18px">
+        <a href="https://shopify.dev/docs/storefronts/themes" target="_blank" rel="noopener"><b>Theme документация</b><span>shopify.dev/docs/storefronts/themes</span></a>
+        <a href="https://shopify.dev/docs/api/liquid" target="_blank" rel="noopener"><b>Liquid reference</b><span>shopify.dev/docs/api/liquid</span></a>
+        <a href="https://shopify.dev/docs/api/shopify-cli/theme" target="_blank" rel="noopener"><b>CLI команди за теми</b><span>shopify.dev/docs/api/shopify-cli/theme</span></a>
+        <a href="https://github.com/Shopify/dawn" target="_blank" rel="noopener"><b>Dawn в GitHub</b><span>github.com/Shopify/dawn</span></a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+// ---- оцветяване на кода
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+document.querySelectorAll("pre code").forEach(el => {
+  const raw = el.textContent;
+  let html = esc(raw);
+  if (el.classList.contains("lq")) {
+    html = html.replace(/(\{%-?[\s\S]*?-?%\}|\{\{-?[\s\S]*?-?\}\})/g, '<span class="t">$1</span>');
+  } else if (el.classList.contains("sh")) {
+    html = html.split("\n").map(l => /^\s*#/.test(l) ? '<span class="c">'+l+'</span>' : l).join("\n");
+  } else if (el.classList.contains("out")) {
+    html = html.replace(/(https?:\/\/\S+)/g, '<span class="o">$1</span>');
+  }
+  el.innerHTML = html;
+  // бутон за копиране (само за терминал и код, не за изход)
+  if (!el.classList.contains("out")) {
+    const btn = document.createElement("button");
+    btn.className = "copy"; btn.type = "button"; btn.textContent = "Копирай";
+    btn.addEventListener("click", () => {
+      const text = el.classList.contains("sh")
+        ? raw.split("\n").filter(l => l.trim() && !/^\s*#/.test(l)).join("\n")
+        : raw;
+      const ok = () => { btn.textContent = "Копирано"; setTimeout(() => btn.textContent = "Копирай", 1400); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Ctrl+C"; };
+      try { navigator.clipboard.writeText(text).then(ok, fallback); } catch(e) { fallback(); }
+    });
+    el.closest(".code").appendChild(btn);
+  }
+});
+
+// ---- прогрес по стъпките
+const KEY = "shopify-lesson-done";
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) {}
+const steps = [...document.querySelectorAll(".done-btn")];
+function render() {
+  let n = 0;
+  steps.forEach(b => {
+    const on = !!done[b.dataset.done];
+    b.setAttribute("aria-pressed", on);
+    const link = document.querySelector('.side a[data-step="'+b.dataset.done+'"]');
+    if (link) link.classList.toggle("done", on);
+    if (on && b.dataset.done !== "map") n++;
+  });
+  const total = steps.length - 1;
+  document.getElementById("pbar").style.width = (n/total*100) + "%";
+  document.getElementById("ptext").textContent = n + " от " + total + " стъпки";
+}
+steps.forEach(b => b.addEventListener("click", () => {
+  done[b.dataset.done] = !done[b.dataset.done];
+  try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e) {}
+  render();
+}));
+render();
+
+// ---- тест
+const Q = [
+  { q: "Коя команда пуска локален preview, който се обновява при всяко запазване?",
+    o: ["shopify theme push", "shopify theme dev", "shopify theme publish"], a: 1,
+    w: "theme dev качва скрита development тема и сервира preview на 127.0.0.1:9292 с hot reload." },
+  { q: "Имаш парче HTML за карта на продукт, което ползваш на 5 места. Къде го слагаш?",
+    o: ["snippets/, и го включваш с {% render %}", "templates/", "config/"], a: 0,
+    w: "Snippets са преизползваем код без собствени настройки. Секциите са за неща, които търговецът мести и настройва." },
+  { q: "product.price връща 2590. Как го показваш правилно на клиента?",
+    o: ["{{ product.price }} лв.", "{{ product.price | divided_by: 100 }}", "{{ product.price | money }}"], a: 2,
+    w: "Цените са в най-малката единица на валутата. money ги форматира според настройките на магазина." },
+  { q: "Направи секция, но тя не се появява в списъка „Add section“ в редактора. Най-вероятната причина?",
+    o: ["Липсва presets в {% schema %}", "Файлът не е в assets/", "Не си пуснал theme check"], a: 0,
+    w: "Без presets секцията съществува, но редакторът не я предлага за добавяне." },
+  { q: "Клиентът иска да види промените преди да станат live. Какво правиш?",
+    o: ["Пушваш директно в live темата", "push --unpublished, после theme share или preview линк", "Пращаш му zip на темата"], a: 1,
+    w: "Live темата не се пипа, докато промените не са одобрени. Работи в unpublished тема." },
+  { q: "Кой файл се променя, когато търговецът пренареди секциите на началната страница?",
+    o: ["layout/theme.liquid", "templates/index.json", "sections/header.liquid"], a: 1,
+    w: "JSON шаблоните пазят кои секции има и в какъв ред. Затова прави pull преди push." }
+];
+const box = document.getElementById("quizbox");
+let answered = 0, correct = 0;
+Q.forEach((item, i) => {
+  const d = document.createElement("div"); d.className = "q";
+  const p = document.createElement("p"); p.textContent = (i+1) + ". " + item.q; d.appendChild(p);
+  const opts = document.createElement("div"); opts.className = "opts";
+  const why = document.createElement("p"); why.className = "why"; why.hidden = true; why.textContent = item.w;
+  item.o.forEach((t, j) => {
+    const b = document.createElement("button"); b.type = "button"; b.id = "q"+i+"o"+j; b.textContent = t;
+    b.addEventListener("click", () => {
+      [...opts.children].forEach((x, k) => { x.disabled = true; if (k === item.a) x.classList.add("right"); });
+      if (j !== item.a) b.classList.add("wrong"); else correct++;
+      why.hidden = false; answered++;
+      if (answered === Q.length) {
+        const s = document.getElementById("score"); s.hidden = false;
+        s.textContent = "Резултат: " + correct + " / " + Q.length + (correct === Q.length ? ". Готов си за първия проект." : ". Прегледай стъпките с грешните отговори.");
+      }
+    });
+    opts.appendChild(b);
+  });
+  d.appendChild(opts); d.appendChild(why); box.appendChild(d);
+});
+</script>

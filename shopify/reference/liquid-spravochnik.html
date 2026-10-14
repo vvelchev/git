@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Справочник Liquid</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="crumbs"><a href="../index.html">Shopify курс</a><span>Справочник</span><a href="../lessons/0002-danni-promenlivi-filtri.html">Урок 02</a></div>
+<div class="ref">
+  <header class="hero" style="padding-block:28px 22px;margin-bottom:28px">
+    <div class="eyebrow">Справочник · последна проверка 12.10.2026 срещу shopify.dev</div>
+    <h1 style="font-size:clamp(28px,4.5vw,42px)">Liquid на една страница</h1>
+  </header>
+
+  <div class="ref-grid">
+    <section>
+      <h2>Синтаксис</h2>
+      <dl class="kv">
+        <dt>{{ x }}</dt><dd>output: извежда стойност</dd>
+        <dt>{% tag %}</dt><dd>логика, нищо не извежда</dd>
+        <dt>x | f: a, k: v</dt><dd>филтър с параметър и именуван параметър</dd>
+        <dt>{%- -%}</dt><dd>маха празното място около тага</dd>
+        <dt>{% liquid %}</dt><dd>много тагове без скоби; извеждаш с <code>echo</code></dd>
+        <dt>{% # бележка %}</dt><dd>коментар на един ред; <code>{% comment %}</code> за блок</dd>
+        <dt>{% raw %}</dt><dd>извежда <code>{{ }}</code> буквално (за JS шаблони)</dd>
+      </dl>
+
+      <h3>Истина и лъжа</h3>
+      <dl class="kv">
+        <dt>falsy</dt><dd>само <code>nil</code> и <code>false</code></dd>
+        <dt>truthy</dt><dd>всичко друго, вкл. <code>0</code>, <code>""</code>, <code>[]</code></dd>
+        <dt>!= blank</dt><dd>не е nil, не е празен текст: за текстови настройки и картинки</dd>
+        <dt>.size &gt; 0</dt><dd>масивът има елементи</dd>
+        <dt>!= empty</dt><dd>обектът съществува (напр. изтрита страница)</dd>
+      </dl>
+
+      <h3>Оператори</h3>
+      <dl class="kv">
+        <dt>== != &gt; &lt; &gt;= &lt;=</dt><dd>сравнение</dd>
+        <dt>and or</dt><dd>отдясно наляво, <b>без скоби</b></dd>
+        <dt>contains</dt><dd>текст в текст / текст в масив</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Откъде идват данните</h2>
+      <h3>Глобални (навсякъде)</h3>
+      <dl class="kv">
+        <dt>shop</dt><dd>name, currency, url</dd>
+        <dt>settings</dt><dd>глобални настройки ← <code>config/settings_schema.json</code></dd>
+        <dt>cart</dt><dd>item_count, total_price, items</dd>
+        <dt>customer</dt><dd>влезлият клиент; <b>nil за гост</b></dd>
+        <dt>request</dt><dd>page_type, locale, design_mode</dd>
+        <dt>routes</dt><dd>cart_url, search_url, root_url…</dd>
+        <dt>collections['h']</dt><dd>колекция по handle</dd>
+        <dt>all_products['h']</dt><dd>продукт по handle</dd>
+        <dt>pages / linklists</dt><dd>страници / менюта по handle</dd>
+        <dt>localization</dt><dd>езици и пазари</dd>
+        <dt>template</dt><dd>името на текущия шаблон</dd>
+      </dl>
+      <h3>Само в своя шаблон</h3>
+      <dl class="kv">
+        <dt>product</dt><dd>product</dd>
+        <dt>collection</dt><dd>collection</dd>
+        <dt>article / blog</dt><dd>article / blog, article</dd>
+        <dt>page</dt><dd>page</dd>
+        <dt>search</dt><dd>search</dd>
+      </dl>
+      <h3>Секция и блок</h3>
+      <dl class="kv">
+        <dt>section.settings.id</dt><dd>настройка от schema на секцията</dd>
+        <dt>section.blocks</dt><dd>блоковете на секцията</dd>
+        <dt>block.settings.id</dt><dd>настройка на блока</dd>
+        <dt>section.id</dt><dd>уникален id, удобен за CSS/JS</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Тагове</h2>
+      <h3>Променливи</h3>
+      <dl class="kv">
+        <dt>assign</dt><dd><code>{% assign x = a | f %}</code> (без сравнения)</dd>
+        <dt>capture</dt><dd>блок с HTML/логика → текст в променлива</dd>
+        <dt>increment</dt><dd>отделен брояч; рядко. Иначе <code>| plus: 1</code></dd>
+      </dl>
+      <h3>Условия</h3>
+      <dl class="kv">
+        <dt>if / elsif / else</dt><dd>класика</dd>
+        <dt>unless</dt><dd>„ако не“</dd>
+        <dt>case / when</dt><dd>много стойности на една променлива</dd>
+      </dl>
+      <h3>Цикли</h3>
+      <dl class="kv">
+        <dt>for x in arr</dt><dd>параметри: <code>limit:</code> <code>offset:</code> <code>reversed</code></dd>
+        <dt>for … else</dt><dd>else се показва, ако масивът е празен</dd>
+        <dt>break / continue</dt><dd>изход / следващ елемент</dd>
+        <dt>forloop</dt><dd>index, index0, first, last, length</dd>
+        <dt>paginate</dt><dd>страниране, до 50 на страница</dd>
+        <dt>cycle</dt><dd>редува стойности: <code>{% cycle 'a','b' %}</code></dd>
+      </dl>
+      <h3>Тема</h3>
+      <dl class="kv">
+        <dt>render 's', k: v</dt><dd>snippet; <b>не вижда външните assign</b></dd>
+        <dt>render 's' for arr as x</dt><dd>веднъж за всеки елемент</dd>
+        <dt>content_for 'blocks'</dt><dd>рендерира theme blocks на секцията</dd>
+        <dt>section 'name'</dt><dd>статична секция в layout</dd>
+        <dt>schema</dt><dd>настройки, блокове, presets</dd>
+        <dt>stylesheet / javascript</dt><dd>CSS/JS към секция или snippet</dd>
+        <dt>doc</dt><dd>документация на snippet: <code>@param {type} name - описание</code></dd>
+        <dt>form 'type'</dt><dd>форми: product, contact, customer…</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Филтри</h2>
+      <h3>string</h3>
+      <dl class="kv">
+        <dt>upcase downcase capitalize</dt><dd>регистър</dd>
+        <dt>append prepend</dt><dd>добавя отзад / отпред</dd>
+        <dt>replace remove</dt><dd>+ <code>_first</code>, <code>_last</code></dd>
+        <dt>split: ','</dt><dd>текст → масив</dd>
+        <dt>truncate: 50</dt><dd>реже до N знака; <code>truncatewords</code> до N думи</dd>
+        <dt>strip strip_html</dt><dd>интервали / HTML тагове</dd>
+        <dt>escape</dt><dd>безопасен текст за HTML и атрибути</dd>
+        <dt>handleize</dt><dd>текст → handle</dd>
+        <dt>url_encode</dt><dd>за query параметри</dd>
+      </dl>
+      <h3>math</h3>
+      <dl class="kv">
+        <dt>plus minus times</dt><dd>+ − ×</dd>
+        <dt>divided_by</dt><dd><b>÷ цяло → цяло (закръгля надолу)</b>; дели на 2.0 за дроб</dd>
+        <dt>modulo</dt><dd>остатък</dd>
+        <dt>round ceil floor</dt><dd>закръгляне</dd>
+        <dt>at_least at_most</dt><dd>минимум / максимум</dd>
+      </dl>
+      <h3>array</h3>
+      <dl class="kv">
+        <dt>size first last</dt><dd>брой, първи, последен</dd>
+        <dt>join: ', '</dt><dd>масив → текст</dd>
+        <dt>map: 'title'</dt><dd>едно свойство от всеки елемент</dd>
+        <dt>where: 'k', v</dt><dd>филтрира; без v → булевото е true</dd>
+        <dt>sort sort_natural</dt><dd>подрежда (natural: без регистър)</dd>
+        <dt>uniq reverse compact</dt><dd>уникални, обратно, без nil</dd>
+        <dt>concat sum</dt><dd>слива масиви; сбор</dd>
+        <dt>find has</dt><dd>първия по условие; има ли такъв</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Филтри за магазина</h2>
+      <h3>money</h3>
+      <dl class="kv">
+        <dt>money</dt><dd>центове → цена по формата на магазина</dd>
+        <dt>money_with_currency</dt><dd>+ код на валутата</dd>
+        <dt>money_without_currency</dt><dd>само числото</dd>
+        <dt>money_without_trailing_zeros</dt><dd>29 € вместо 29,00 €</dd>
+      </dl>
+      <h3>media и файлове</h3>
+      <dl class="kv">
+        <dt>image_url: width: 600</dt><dd>CDN адрес с размер</dd>
+        <dt>image_tag: alt: …</dt><dd>&lt;img&gt; със srcset; приема class, loading, sizes</dd>
+        <dt>video_tag media_tag</dt><dd>видео / всякакво media</dd>
+        <dt>asset_url</dt><dd>файл от <code>assets/</code></dd>
+        <dt>stylesheet_tag script_tag</dt><dd>&lt;link&gt; / &lt;script&gt;</dd>
+        <dt>placeholder_svg_tag</dt><dd>картинка-заместител</dd>
+      </dl>
+      <h3>други</h3>
+      <dl class="kv">
+        <dt>t / translate</dt><dd>превод от <code>locales/</code>; <code>count:</code> за one/other</dd>
+        <dt>default: x</dt><dd>при nil, false, празно; <code>allow_false: true</code></dd>
+        <dt>date: '%d.%m.%Y'</dt><dd>формат на дата (strftime)</dd>
+        <dt>json</dt><dd>обект → JSON (за JS и debug)</dd>
+        <dt>pluralize</dt><dd><b>само английски</b>; за български ползвай <code>t</code></dd>
+        <dt>color_*</dt><dd>color_modify, color_mix, color_lighten…</dd>
+        <dt>font_*</dt><dd>font_face, font_url, font_modify</dd>
+        <dt>metafield_tag</dt><dd>извежда metafield като HTML</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Капани</h2>
+      <dl class="kv">
+        <dt>""</dt><dd>празен текст е truthy → <code>!= blank</code></dd>
+        <dt>a or b and c</dt><dd>= <code>a or (b and c)</code>, скоби няма</dd>
+        <dt>render</dt><dd>подавай променливите изрично</dd>
+        <dt>assign collection</dt><dd>закрива глобалния обект; дай друго име</dd>
+        <dt>7 | divided_by: 2</dt><dd>= 3</dd>
+        <dt>"€" на ръка</dt><dd>не; <code>money</code> знае формата</dd>
+        <dt>/cart на ръка</dt><dd>не; <code>routes.cart_url</code></dd>
+        <dt>collection.products</dt><dd>до 50 без paginate</dd>
+      </dl>
+      <h3>Пълна документация</h3>
+      <dl class="kv">
+        <dt>обекти</dt><dd><a href="https://shopify.dev/docs/api/liquid/objects">shopify.dev/docs/api/liquid/objects</a></dd>
+        <dt>тагове</dt><dd><a href="https://shopify.dev/docs/api/liquid/tags">shopify.dev/docs/api/liquid/tags</a></dd>
+        <dt>филтри</dt><dd><a href="https://shopify.dev/docs/api/liquid/filters">shopify.dev/docs/api/liquid/filters</a></dd>
+      </dl>
+    </section>
+  </div>
+</div>
+</body>
+</html>
