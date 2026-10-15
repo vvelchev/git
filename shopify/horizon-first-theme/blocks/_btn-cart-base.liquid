@@ -1,4 +1,11 @@
-<button type="button" class="btn-cart-base" popovertarget="cart-base">
+{%- comment -%} Настройките на бутона и количката са в Theme settings → Cart Base (config/settings_schema.json) {%- endcomment -%}
+<button
+  type="button"
+  class="btn-cart-base btn-cart-base--{{ settings.cart_base_count_style }}"
+  popovertarget="cart-base"
+  aria-label="{{ 'cart_base.open' | t }}"
+  {{ block.shopify_attributes }}
+>
   {{ 'icon-cart.svg' | inline_asset_content }}
 
   <span data-cart-count>
@@ -11,7 +18,13 @@
 {
   "name": "Cart Base",
   "tag": null,
-  "settings": [{ "type": "header", "content": "General Settings" }],
+  "settings": [
+    { "type": "header", "content": "General Settings" },
+    {
+      "type": "paragraph",
+      "content": "Cart settings (title, drawer width, order note, auto open, count bubble) are in Theme settings → Cart Base."
+    }
+  ],
   "presets": [
     {
       "name": "Cart Base"

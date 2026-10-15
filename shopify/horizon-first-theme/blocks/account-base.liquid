@@ -1,0 +1,94 @@
+{%- if shop.customer_accounts_enabled -%}
+  {%- liquid
+    if customer
+      assign url = routes.account_url
+      assign label = 'header_base.account.account' | t
+    else
+      assign url = routes.account_login_url
+      assign label = 'header_base.account.login' | t
+    endif
+
+    if block.settings.label != blank
+      assign label = block.settings.label
+    endif
+
+    assign icon = block.settings.icon
+    assign show_label = block.settings.show_label
+
+    # без иконка и без текст линкът ще е невидим — показваме текста
+    if icon == 'none'
+      assign show_label = true
+    endif
+  -%}
+
+ {% comment %}  <script>
+  console.log('account-base', {
+    loggedIn: {{ customer | json }},
+    id: {{ customer.id | json }},
+    email: {{ customer.email | json }},
+    firstName: {{ customer.first_name | json }}
+  });
+</script> {% endcomment %}
+
+  <a
+    href="{{ url }}"
+    class="account-base"
+    {% unless show_label %}
+      aria-label="{{ label | escape }}"
+    {% endunless %}
+    {{ block.shopify_attributes }}
+  >
+    {%- case icon -%}
+      {%- when 'person' -%}
+        {{ 'icon-account.svg' | inline_asset_content }}
+      {%- when 'person_circle' -%}
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="8.25" stroke="currentColor" stroke-width="var(--icon-stroke-width, 1.5)"/>
+          <circle cx="10" cy="8" r="2.5" stroke="currentColor" stroke-width="var(--icon-stroke-width, 1.5)"/>
+          <path d="M5.5 15.5a5.2 5.2 0 0 1 9 0" stroke="currentColor" stroke-width="var(--icon-stroke-width, 1.5)" stroke-linecap="round"/>
+        </svg>
+    {%- endcase -%}
+
+    {%- if show_label -%}
+      <span class="account-base__label">{{ label | escape }}</span>
+    {%- endif -%}
+  </a>
+  <!-- /.account-base -->
+{%- endif -%}
+
+{{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% schema %}
+{
+  "name": "Account",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "General Settings" },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Icon",
+      "options": [
+        { "value": "person", "label": "Person" },
+        { "value": "person_circle", "label": "Person in circle" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "person"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "Show label",
+      "default": false,
+      "info": "Always shown when Icon is set to None"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "info": "Leave empty to show „Log in“ / „Account“ depending on whether the customer is logged in"
+    }
+  ],
+  "presets": [{ "name": "Account" }]
+}
+{% endschema %}

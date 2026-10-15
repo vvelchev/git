@@ -1,0 +1,77 @@
+{%- comment -%}
+  Auto  → margin: 0 auto — изяжда свободното място и избутва следващите блокове надясно.
+          Два auto spacer-а около блок го центрират.
+  Fixed → празно място с фиксирана ширина.
+{%- endcomment -%}
+<div
+  class="spacer-base spacer-base--{{ block.settings.width }}{% if block.settings.hide_on_mobile %} spacer-base--hide-mobile{% endif %}{% if request.design_mode %} spacer-base--editor{% endif %}"
+  style="--spacer-size: {{ block.settings.size }}px"
+  aria-hidden="true"
+  {{ block.shopify_attributes }}
+></div>
+
+{% stylesheet %}
+  .spacer-base {
+    flex-shrink: 0;
+  }
+
+  .spacer-base--auto {
+    margin: 0 auto;
+  }
+
+  .spacer-base--fixed {
+    width: var(--spacer-size);
+  }
+
+  @media (max-width: 749px) {
+    .spacer-base--hide-mobile {
+      display: none;
+    }
+  }
+
+  /* само в Theme Editor — иначе празният блок е 0px и не може да се хване с клик */
+  .spacer-base--editor {
+    min-width: 12px;
+    min-height: 24px;
+    outline: 1px dashed rgb(0 0 0 / 0.25);
+    outline-offset: -1px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Spacer",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "auto", "label": "Auto (fill space)" },
+        { "value": "fixed", "label": "Fixed" }
+      ],
+      "default": "auto",
+      "info": "Auto pushes the next blocks to the end. Two auto spacers around a block center it."
+    },
+    {
+      "type": "range",
+      "id": "size",
+      "label": "Size",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "visible_if": "{{ block.settings.width == 'fixed' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    }
+  ],
+  "presets": [{ "name": "Spacer" }]
+}
+{% endschema %}

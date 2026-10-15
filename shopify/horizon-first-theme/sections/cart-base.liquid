@@ -1,11 +1,32 @@
-<div class="cart-base" id="cart-base" popover>
+{%- liquid
+  assign cart_title = settings.cart_base_title
+  if cart_title == blank
+    assign cart_title = 'cart_base.title' | t
+  endif
+-%}
+
+<div
+  class="cart-base"
+  id="cart-base"
+  popover
+  data-auto-open="{{ settings.cart_base_auto_open }}"
+  data-error-generic="{{ 'cart_base.errors.generic' | t | escape }}"
+  data-error-network="{{ 'cart_base.errors.network' | t | escape }}"
+  data-error-max-quantity="{{ 'cart_base.errors.max_quantity' | t: max: '__MAX__' | escape }}"
+  style="--cart-width: {{ settings.cart_base_width }}px"
+>
   <div class="cart__scroll">
     <div class="shell">
       <div class="cart__inner">
         <div class="cart__head">
-          <h3>Твоята количка</h3>
+          <h3>{{ cart_title | escape }}</h3>
 
-          <button type="button" popovertarget="cart-base" popovertargetaction="hide">
+          <button
+            type="button"
+            popovertarget="cart-base"
+            popovertargetaction="hide"
+            aria-label="{{ 'cart_base.close' | t }}"
+          >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M1.66797 1.66663L18.3346 18.3333M18.3346 1.66663L1.66797 18.3333" stroke="black" stroke-width="1.5" stroke-linejoin="round"/>
             </svg>
@@ -24,13 +45,13 @@
                   <div class="product-small">
                     {% if item.image != blank %}
                       <figure class="product__media">
-                        {{ item.image | image_url: width: 230 | image_tag: alt: item.title, loading: 'lazy' }}
+                        {{ item.image | image_url: width: 230 | image_tag: alt: item.title }}
                       </figure>
                       <!-- /.product__media -->
                     {% endif %}
 
                     <div class="product__content">
-                      <h6>{{ item.title }}</h6>
+                      <h6><a href="{{ item.url }}">{{ item.title | escape }}</a></h6>
 
                       <p>{{ item.final_line_price | money }}</p>
 
@@ -76,25 +97,27 @@
                   <!-- /.product-small -->
                 </li>
               {% else %}
-                <li>Количката е празна.</li>
+                <li>{{ 'cart_base.empty' | t }}</li>
               {% endfor %}
             </ul>
           </div>
 
           <form action="{{ routes.cart_url }}" method="post" class="cart__foot">
-            <div class="note">
-              <label for="note">Добави бележка към поръчката</label>
+            {%- if settings.cart_base_show_note -%}
+              <div class="note">
+                <label for="note">{{ 'cart_base.note_label' | t }}</label>
 
-              <textarea id="note" name="note" rows="5" cols="33">{{ cart.note }}</textarea>
-            </div>
+                <textarea id="note" name="note" rows="5" cols="33">{{ cart.note }}</textarea>
+              </div>
+            {%- endif -%}
 
             <div class="total">
               <h5>
-                <span>Междинна Сума</span>
+                <span>{{ 'cart_base.subtotal' | t }}</span>
                 <span>{{ cart.total_price | money }}</span>
               </h5>
 
-              <p>Данъкът е включен, а доставката се изчислява при плащане</p>
+              <p>{{ 'cart_base.taxes_note' | t }}</p>
             </div>
             <button type="submit" name="checkout" class="button">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +125,7 @@
                 <path d="M9.25 15.25H14.75" stroke="currentcolor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
 
-              плащане
+              {{ 'cart_base.checkout' | t }}
             </button>
             <!-- /.btn -->
           </form>
@@ -177,11 +200,11 @@
         if (res.ok) {
           updateCartContent(data.sections['cart-base']);
         } else {
-          notice = data.description || data.message || 'Нещо се обърка. Опитай пак.';
+          notice = data.description || data.message || $cartBase.dataset.errorGeneric;
           await refreshCart();
         }
       } catch (error) {
-        notice = 'Няма връзка със сървъра. Опитай пак.';
+        notice = $cartBase.dataset.errorNetwork;
       } finally {
         $cartBase.classList.remove('is-loading');
       }
@@ -212,7 +235,7 @@
 
       if ($input.max && quantity > Number($input.max)) {
         quantity = Number($input.max);
-        notice = `Налични са само ${$input.max} бр. Добавихме максималното количество.`;
+        notice = $cartBase.dataset.errorMaxQuantity.replace('__MAX__', $input.max);
       }
 
       changeQuantity($input.dataset.key, quantity, notice);
@@ -220,6 +243,15 @@
 
     document.addEventListener('shopify:cart:lines-update', (e) => {
       e.promise?.then(() => refreshCart());
+    });
+
+    document.addEventListener('cart:updated', async () => {
+      await refreshCart();
+
+      // Theme settings → Cart Base → „Open drawer after add to cart“
+      if ($cartBase.dataset.autoOpen === 'true' && !$cartBase.matches(':popover-open')) {
+        $cartBase.showPopover();
+      }
     });
   })();
 {% endjavascript %}

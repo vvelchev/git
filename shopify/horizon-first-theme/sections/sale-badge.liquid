@@ -11,7 +11,7 @@
           {% continue %}
         {% endif %}
         <h2>
-          Колекция: <a href="{{ col.url }}">{{ col.title }}</a>
+          {{ 'sale_badge.collection' | t }} <a href="{{ col.url }}">{{ col.title }}</a>
         </h2>
         <div class="grid-alt" style="--grid-cols: {{section.settings.products_to_show}};">
           {%- assign keys = '' -%}
@@ -32,6 +32,7 @@
             {%- assign p = col.products[i] -%}
             {%- assign parts = key | split: '|' -%}
 
+
             <article class="article">
               <figure class="artile__media">
                 <!-- /.artile__media -->
@@ -45,12 +46,10 @@
                     alt: '',
                     sizes: sizes_mobile
                 }}
-
-                <figcaption>{{ d }}</figcaption>
               </figure>
 
               <div class="article__content">
-                {{ p.title }}
+                <a href="{{ p.url }}">{{ p.title }}</a>
 
                 {% assign discount = p.compare_at_price
                   | times: 1.0
@@ -66,7 +65,7 @@
                     ><s>{{ p.compare_at_price | money }}</s></small
                   >
                   <i style="display:block;"
-                    ><small>discount: {{ discount }}%</small></i
+                    ><small>{{ 'sale_badge.discount' | t: value: discount }}</small></i
                   >
                 </h6>
               </div>
@@ -75,10 +74,11 @@
               <div class="article__foot">
                 {%- assign v = p.selected_or_first_available_variant -%}
 
-                {% form 'product', p %}
+                {% form 'product', p, class: 'js-add-to-cart' %}
                   <input type="hidden" name="id" value="{{ v.id }}">
 
                   <button
+                    class="button"
                     type="submit"
                     {% unless v.available %}
                       disabled
@@ -90,6 +90,13 @@
                       {{ 'products.product.sold_out' | t }}
                     {%- endif -%}
                   </button>
+
+                  <p
+                    class="item-error"
+                    data-add-error
+                    data-fallback="{{ 'products.product.add_to_cart_error' | t | escape }}"
+                    hidden
+                  ></p>
                 {% endform %}
               </div>
               <!-- /.article__foot -->
@@ -106,8 +113,50 @@
 {% stylesheet %}
   .section-sale-badge {
     padding: 40px 0;
+
+    .article .article__foot {
+      margin-top: 20px;
+    }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const root = window.Shopify?.routes?.root || '/';
+
+    document.addEventListener('submit', async (e) => {
+      const $form = e.target.closest('.js-add-to-cart');
+      if (!$form) return;
+
+      e.preventDefault(); // ← без редирект
+
+      const $btn = $form.querySelector('[type="submit"]');
+      const $error = $form.querySelector('[data-add-error]');
+      $btn.disabled = true;
+      $error.hidden = true;
+
+      try {
+        const res = await fetch(root + 'cart/add.js', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData($form), // ← праща всички полета на формата
+        });
+        const data = await res.json();
+        console.log(data);
+
+
+        if (res.ok) {
+          document.dispatchEvent(new CustomEvent('cart:updated')); // ← казва на количката
+        } else {
+          $error.textContent = data.description || $error.dataset.fallback;
+          $error.hidden = false;
+        }
+      } finally {
+        $btn.disabled = false;
+      }
+    });
+  })();
+{% endjavascript %}
 
 {% schema %}
 {

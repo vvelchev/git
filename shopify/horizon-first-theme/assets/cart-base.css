@@ -28,33 +28,91 @@
     justify-content: center;
     align-items: center;
     padding: 0 4px;
+
+    /* празна количка — без балонче */
+    &:empty {
+      display: none;
+    }
+  }
+
+  /* Theme settings → Cart Base → Count bubble */
+  &.btn-cart-base--dot span {
+    min-width: 0;
+    width: 8px;
+    padding: 0;
+    font-size: 0;
+  }
+
+  &.btn-cart-base--none span {
+    display: none;
   }
 }
-
 
 /* ------------------------------------------------------------ *\
     Cart Base
 \* ------------------------------------------------------------ */
 
+/* html:has(.cart-base:popover-open) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+} */
+
 .cart-base {
   --page-margin: 20px;
+  --cart-duration: 0.4s;
+  --cart-easing: cubic-bezier(0.32, 0.72, 0, 1);
 
-  /* opacity: 1; */
-  /* display: block; */
   border: none;
   outline: none;
   height: 100%;
   margin: 0 0 0 auto;
-  max-width: 500px;
+  /* --cart-width идва от Theme settings → Cart Base */
+  max-width: var(--cart-width, 500px);
+  width: 100%;
   padding: 0;
+  inset: auto;
+  left: 100%;
+  transform: translateX(0);
+  transition:
+    transform var(--cart-duration) var(--cart-easing),
+    display var(--cart-duration) allow-discrete,
+    overlay var(--cart-duration) allow-discrete;
 
-  &:-internal-popover-in-top-layer::backdrop {
-    background-color: rgba(0, 0, 0, 0.2);
+  &:popover-open {
+    transform: translateX(-100%);
+
+    @starting-style {
+      transform: translateX(0);
+    }
+  }
+
+  &::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    transition:
+      background-color var(--cart-duration) ease,
+      display var(--cart-duration) allow-discrete,
+      overlay var(--cart-duration) allow-discrete;
+  }
+
+  &:popover-open::backdrop {
+    background-color: rgb(0 0 0 / 0.2);
+
+    @starting-style {
+      background-color: rgb(0 0 0 / 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    &::backdrop {
+      transition-duration: 0s;
+    }
   }
 
 
   .cart__scroll {
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .cart__inner {

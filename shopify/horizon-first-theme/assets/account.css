@@ -1,0 +1,26 @@
+/* ------------------------------------------------------------ *\
+    Account
+\* ------------------------------------------------------------ */
+
+.account-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+
+  svg {
+    width: 23px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .account-base__label {
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  &:hover .account-base__label {
+    text-decoration: underline;
+  }
+}

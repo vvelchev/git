@@ -375,6 +375,35 @@
       "open": "Open search",
       "input_label": "Search",
       "placeholder": "Search"
+    },
+    "account": {
+      "login": "Log in",
+      "account": "Account"
+    },
+    "menu": {
+      "duplicate": "Only one menu can be shown in the header. Remove this block."
+    },
+    "country": "Country/region",
+    "language": "Language",
+    "update": "Update"
+  },
+  "cart_base": {
+    "title": "Your cart",
+    "open": "Open cart",
+    "close": "Close cart",
+    "empty": "Your cart is empty.",
+    "note_label": "Add a note to your order",
+    "subtotal": "Subtotal",
+    "taxes_note": "Taxes included. Shipping calculated at checkout.",
+    "checkout": "Checkout",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "network": "Could not connect to the server. Please try again.",
+      "max_quantity": "Only {{ max }} available. We added the maximum quantity."
     }
+  },
+  "sale_badge": {
+    "collection": "Collection:",
+    "discount": "Discount: {{ value }}%"
   }
 }

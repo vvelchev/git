@@ -3,92 +3,201 @@
 \* ------------------------------------------------------------ */
 
 .nav-base {
+	--nav-duration: 0.25s;
+	--nav-easing: cubic-bezier(0.32, 0.72, 0, 1);
+	--nav-dropdown-bg: #fff;
+	--nav-dropdown-radius: 12px;
+	--nav-dropdown-shadow: 0 12px 32px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);
+	--nav-chevron: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M471.1 297.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L403.2 320 233.9 150.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>');
+
 	font-size: var(--nav-font-size, var(--font-paragraph--size));
-	transition: none 0.3s;
-
-	& a {
-		display: block;
-		transition: opacity 0.3s;
-
-		@media (min-width: 1023px) {
-			&:hover {
-				opacity: 0.6;
-			}
-		}
-	}
-
-	&>ul {
-		display: flex;
-		align-items: center;
-		gap: var(--nav-gap);
-	}
+	text-transform: var(--nav-text-transform, none);
 
 	& ul {
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
-
-		& li {
-			position: relative;
-		}
 	}
 
 	& li {
-		&:has(> ul) {
-			padding-right: 30px;
+		position: relative;
+	}
 
-			&:after {
+	& a {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	& a:focus-visible {
+		outline: 2px solid currentColor;
+		outline-offset: 3px;
+		border-radius: 4px;
+	}
+
+	/* ------------------------------------------------------------ *\
+	    Ниво 1
+	\* ------------------------------------------------------------ */
+
+	& > ul {
+		display: flex;
+		align-items: center;
+		gap: var(--nav-gap);
+
+		& > li > a {
+			position: relative;
+			padding: 8px 0;
+
+			/* линия отдолу, която „израства“ от центъра */
+			&::after {
 				content: '';
 				position: absolute;
-				top: 50%;
-				right: 5px;
-				translate: 0% -50%;
-				aspect-ratio: 1;
-				width: 17px;
-				aspect-ratio: 1;
-				mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M471.1 297.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L403.2 320 233.9 150.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>');
-				mask-size: 100% 100%;
-				rotate: 90deg;
-				mask-repeat: no-repeat;
+				left: 0;
+				right: 0;
+				bottom: 2px;
+				height: 1.5px;
 				background-color: currentColor;
-			}
-
-			@media (min-width: 1023px) {
-				&:hover {
-					>ul {
-						opacity: 1;
-						pointer-events: auto;
-					}
-				}
+				scale: 0 1;
+				transition: scale var(--nav-duration) var(--nav-easing);
 			}
 		}
 
-		/* dropdown */
-		& ul {
-			background-color: #fff;
-			border: 1px solid gray;
+		& > li:is(:hover, :focus-within) > a::after {
+			scale: 1 1;
+		}
+	}
+
+	/* стрелка до елементите с подменю */
+	& li:has(> ul) {
+		padding-right: 18px;
+
+		&::after {
+			content: '';
 			position: absolute;
-			top: 100%;
-			left: 0%;
-			opacity: 0;
+			top: 50%;
+			right: 0;
+			width: 11px;
+			aspect-ratio: 1;
+			translate: 0 -50%;
+			rotate: 90deg;
+			background-color: currentColor;
+			mask-image: var(--nav-chevron);
+			mask-size: 100% 100%;
+			mask-repeat: no-repeat;
 			pointer-events: none;
+			transition: rotate var(--nav-duration) var(--nav-easing);
+		}
 
-			& li {
-				padding: 0.5rem 1rem;
+		&:is(:hover, :focus-within)::after {
+			rotate: -90deg;
+		}
+	}
 
-				&:not(:first-child) {
-					border-top: 1px solid gray;
-				}
+	/* ------------------------------------------------------------ *\
+	    Dropdown (ниво 2 и 3)
+	\* ------------------------------------------------------------ */
 
-				&:has(> ul):after {
-					rotate: 0deg;
-				}
+	& li > ul {
+		position: absolute;
+		top: 100%;
+		left: -16px;
+		z-index: 10;
+		min-width: 220px;
+		padding: 8px;
+		margin-top: 8px;
+		background-color: var(--nav-dropdown-bg);
+		color: #111;
+		border-radius: var(--nav-dropdown-radius);
+		box-shadow: var(--nav-dropdown-shadow);
+		text-transform: none;
+
+		opacity: 0;
+		visibility: hidden;
+		translate: 0 6px;
+		transition:
+			opacity var(--nav-duration) var(--nav-easing),
+			translate var(--nav-duration) var(--nav-easing),
+			visibility 0s linear var(--nav-duration);
+
+		/* невидим „мост“ над dropdown-а — мишката не го губи, докато слиза от линка */
+		&::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 100%;
+			height: 10px;
+		}
+
+		& li {
+			padding: 0;
+		}
+
+		& a {
+			padding: 10px 14px;
+			border-radius: 8px;
+			white-space: nowrap;
+			transition:
+				background-color var(--nav-duration),
+				padding-left var(--nav-duration) var(--nav-easing);
+		}
+
+		& a:hover,
+		& a:focus-visible {
+			background-color: rgb(0 0 0 / 0.05);
+			padding-left: 18px;
+		}
+
+		/* стрелката в подменюто сочи надясно */
+		& li:has(> ul) {
+			padding-right: 0;
+
+			&::after {
+				right: 12px;
+				rotate: 0deg;
 			}
 
-			& ul {
+			&:is(:hover, :focus-within)::after {
+				rotate: 0deg;
+				translate: 3px -50%;
+			}
+		}
+
+		/* ниво 3 — излиза вдясно от ниво 2 */
+		& ul {
+			top: -8px;
+			left: 100%;
+			margin-top: 0;
+			margin-left: 8px;
+			translate: -6px 0;
+
+			&::before {
 				top: 0;
-				left: 100%;
+				bottom: 0;
+				left: auto;
+				right: 100%;
+				width: 10px;
+				height: auto;
 			}
+		}
+	}
+
+	/* отваряне — с мишка или с клавиатура (Tab), работи и без JS */
+	& li:is(:hover, :focus-within) > ul {
+		opacity: 1;
+		visibility: visible;
+		translate: 0 0;
+		transition:
+			opacity var(--nav-duration) var(--nav-easing),
+			translate var(--nav-duration) var(--nav-easing),
+			visibility 0s;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		& *,
+		& *::before,
+		& *::after {
+			transition-duration: 0s !important;
 		}
 	}
 }

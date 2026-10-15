@@ -1683,6 +1683,62 @@
 		]
 	},
 	{
+		"name": "Cart Base",
+		"settings": [
+			{
+				"type": "paragraph",
+				"content": "Settings for the custom cart drawer (sections/cart-base.liquid) and the header cart button (blocks/_btn-cart-base.liquid)."
+			},
+			{
+				"type": "header",
+				"content": "Drawer"
+			},
+			{
+				"type": "text",
+				"id": "cart_base_title",
+				"label": "Title",
+				"info": "Leave empty to use the translated default"
+			},
+			{
+				"type": "range",
+				"id": "cart_base_width",
+				"label": "Drawer width",
+				"min": 300,
+				"max": 700,
+				"step": 20,
+				"unit": "px",
+				"default": 500
+			},
+			{
+				"type": "checkbox",
+				"id": "cart_base_show_note",
+				"label": "Show order note",
+				"default": true
+			},
+			{
+				"type": "checkbox",
+				"id": "cart_base_auto_open",
+				"label": "Open drawer after add to cart",
+				"default": true
+			},
+			{
+				"type": "header",
+				"content": "Header button"
+			},
+			{
+				"type": "select",
+				"id": "cart_base_count_style",
+				"label": "Count bubble",
+				"options": [
+					{ "value": "bubble", "label": "Bubble with number" },
+					{ "value": "dot", "label": "Dot" },
+					{ "value": "none", "label": "Hidden" }
+				],
+				"default": "bubble"
+			}
+		]
+	},
+	{
 		"name": "t:names.drawers",
 		"settings": [
 			{
