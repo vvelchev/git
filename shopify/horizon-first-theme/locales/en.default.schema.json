@@ -1283,6 +1283,194 @@
 		}
 	},
 	"search": {
-		"name": "Search"
+		"name": "Search",
+		"content": {
+			"general_settings": "General Settings"
+		},
+		"settings": {
+			"style": {
+				"label": "Style",
+				"options": {
+					"popup": "Popup",
+					"drawer": "Drawer",
+					"inline": "Inline field"
+				}
+			},
+			"placeholder": {
+				"label": "Placeholder",
+				"info": "Leave empty to use the default translation"
+			},
+			"show_on_mobile": {
+				"label": "Show on mobile"
+			}
+		}
+	},
+	"header_base": {
+		"name": "Header",
+		"content": {
+			"general_settings": "General Settings",
+			"selectors": "Selectors"
+		},
+		"settings": {
+			"sticky_header": {
+				"label": "Sticky header"
+			},
+			"transparent_home": {
+				"label": "Transparent on home page"
+			},
+			"spacing_top": {
+				"label": "Spacing top"
+			},
+			"spacing_bottom": {
+				"label": "Spacing bottom"
+			},
+			"gap": {
+				"label": "Gap between items"
+			},
+			"show_border": {
+				"label": "Show bottom border"
+			},
+			"enable_country": {
+				"label": "Enable country selector"
+			},
+			"enable_language": {
+				"label": "Enable language selector"
+			}
+		},
+		"presets": {
+			"name": "Header base",
+			"category": "Header"
+		}
+	},
+	"cart_base": {
+		"name": "Cart Base"
+	},
+	"sale_badge": {
+		"name": "Sale Badge",
+		"settings": {
+			"heading": {
+				"label": "Heading"
+			},
+			"bg": {
+				"label": "Background"
+			},
+			"products_to_show": {
+				"label": "Products to show",
+				"info": "How many discounted products to show"
+			}
+		},
+		"presets": {
+			"name": "Sale Badge"
+		}
+	},
+	"nav_base": {
+		"name": "Navigation Menu",
+		"settings": {
+			"menu": {
+				"label": "Menu"
+			},
+			"font_size": {
+				"label": "Font Size"
+			},
+			"uppercase": {
+				"label": "Uppercase"
+			},
+			"gap": {
+				"label": "Gap between items"
+			}
+		},
+		"presets": {
+			"name": "Navigation Menu"
+		}
+	},
+	"btn_cart_base": {
+		"name": "Cart Base",
+		"content": {
+			"general_settings": "General Settings",
+			"cart_settings_title_drawer": "Cart settings (title, drawer width, order note, auto open, count bubble) are in Theme settings → Cart Base."
+		},
+		"presets": {
+			"name": "Cart Base"
+		}
+	},
+	"account_base": {
+		"name": "Account",
+		"content": {
+			"general_settings": "General Settings"
+		},
+		"settings": {
+			"icon": {
+				"label": "Icon",
+				"options": {
+					"person": "Person",
+					"person_circle": "Person in circle",
+					"none": "None"
+				}
+			},
+			"show_label": {
+				"label": "Show label",
+				"info": "Always shown when Icon is set to None"
+			},
+			"label": {
+				"label": "Label",
+				"info": "Leave empty to show „Log in“ / „Account“ depending on whether the customer is logged in"
+			}
+		},
+		"presets": {
+			"name": "Account"
+		}
+	},
+	"spacer_base": {
+		"name": "Spacer",
+		"settings": {
+			"width": {
+				"label": "Width",
+				"options": {
+					"auto": "Auto (fill space)",
+					"fixed": "Fixed"
+				},
+				"info": "Auto pushes the next blocks to the end. Two auto spacers around a block center it."
+			},
+			"size": {
+				"label": "Size"
+			},
+			"hide_on_mobile": {
+				"label": "Hide on mobile"
+			}
+		},
+		"presets": {
+			"name": "Spacer"
+		}
+	},
+	"cart_base_settings": {
+		"name": "Cart Base",
+		"content": {
+			"settings_for_the_custom": "Settings for the custom cart drawer (sections/cart-base.liquid) and the header cart button (blocks/_btn-cart-base.liquid).",
+			"drawer": "Drawer",
+			"header_button": "Header button"
+		},
+		"settings": {
+			"cart_base_title": {
+				"label": "Title",
+				"info": "Leave empty to use the translated default"
+			},
+			"cart_base_width": {
+				"label": "Drawer width"
+			},
+			"cart_base_show_note": {
+				"label": "Show order note"
+			},
+			"cart_base_auto_open": {
+				"label": "Open drawer after add to cart"
+			},
+			"cart_base_count_style": {
+				"label": "Count bubble",
+				"options": {
+					"bubble": "Bubble with number",
+					"dot": "Dot",
+					"none": "Hidden"
+				}
+			}
+		}
 	}
 }

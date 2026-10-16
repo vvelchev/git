@@ -98,16 +98,6 @@
     "header_base_m3F7py": {
       "type": "header-base",
       "blocks": {
-        "spacer_base_7GrYw7": {
-          "type": "_spacer-base",
-          "name": "Spacer",
-          "settings": {
-            "width": "auto",
-            "size": 40,
-            "hide_on_mobile": false
-          },
-          "blocks": {}
-        },
         "logo_base_4NhPEN": {
           "type": "_logo-base",
           "settings": {
@@ -125,6 +115,16 @@
             "font_size": 16,
             "uppercase": false,
             "gap": 20
+          },
+          "blocks": {}
+        },
+        "spacer_base_7GrYw7": {
+          "type": "_spacer-base",
+          "name": "Spacer",
+          "settings": {
+            "width": "auto",
+            "size": 40,
+            "hide_on_mobile": false
           },
           "blocks": {}
         },
@@ -173,9 +173,9 @@
         }
       },
       "block_order": [
-        "spacer_base_7GrYw7",
         "logo_base_4NhPEN",
         "nav_base_NXgDkT",
+        "spacer_base_7GrYw7",
         "search_base_6LJt6p",
         "btn_cart_base_MAJVC8",
         "account_base_mfQyBN",

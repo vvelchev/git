@@ -13,7 +13,7 @@
       "type": "sale-badge",
       "name": "Sale Badge",
       "settings": {
-        "heading": "На промоция",
+        "heading": "Best discounts",
         "bg": "#eef3ee",
         "products_to_show": 5
       }

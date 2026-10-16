@@ -40,24 +40,24 @@
 
 {% schema %}
 {
-  "name": "Spacer",
+  "name": "t:spacer_base.name",
   "tag": null,
   "settings": [
     {
       "type": "select",
       "id": "width",
-      "label": "Width",
+      "label": "t:spacer_base.settings.width.label",
       "options": [
-        { "value": "auto", "label": "Auto (fill space)" },
-        { "value": "fixed", "label": "Fixed" }
+        { "value": "auto", "label": "t:spacer_base.settings.width.options.auto" },
+        { "value": "fixed", "label": "t:spacer_base.settings.width.options.fixed" }
       ],
       "default": "auto",
-      "info": "Auto pushes the next blocks to the end. Two auto spacers around a block center it."
+      "info": "t:spacer_base.settings.width.info"
     },
     {
       "type": "range",
       "id": "size",
-      "label": "Size",
+      "label": "t:spacer_base.settings.size.label",
       "min": 0,
       "max": 200,
       "step": 4,
@@ -68,10 +68,10 @@
     {
       "type": "checkbox",
       "id": "hide_on_mobile",
-      "label": "Hide on mobile",
+      "label": "t:spacer_base.settings.hide_on_mobile.label",
       "default": false
     }
   ],
-  "presets": [{ "name": "Spacer" }]
+  "presets": [{ "name": "t:spacer_base.presets.name" }]
 }
 {% endschema %}

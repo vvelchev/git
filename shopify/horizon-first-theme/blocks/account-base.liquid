@@ -60,35 +60,35 @@
 
 {% schema %}
 {
-  "name": "Account",
+  "name": "t:account_base.name",
   "tag": null,
   "settings": [
-    { "type": "header", "content": "General Settings" },
+    { "type": "header", "content": "t:account_base.content.general_settings" },
     {
       "type": "select",
       "id": "icon",
-      "label": "Icon",
+      "label": "t:account_base.settings.icon.label",
       "options": [
-        { "value": "person", "label": "Person" },
-        { "value": "person_circle", "label": "Person in circle" },
-        { "value": "none", "label": "None" }
+        { "value": "person", "label": "t:account_base.settings.icon.options.person" },
+        { "value": "person_circle", "label": "t:account_base.settings.icon.options.person_circle" },
+        { "value": "none", "label": "t:account_base.settings.icon.options.none" }
       ],
       "default": "person"
     },
     {
       "type": "checkbox",
       "id": "show_label",
-      "label": "Show label",
+      "label": "t:account_base.settings.show_label.label",
       "default": false,
-      "info": "Always shown when Icon is set to None"
+      "info": "t:account_base.settings.show_label.info"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label",
-      "info": "Leave empty to show „Log in“ / „Account“ depending on whether the customer is logged in"
+      "label": "t:account_base.settings.label.label",
+      "info": "t:account_base.settings.label.info"
     }
   ],
-  "presets": [{ "name": "Account" }]
+  "presets": [{ "name": "t:account_base.presets.name" }]
 }
 {% endschema %}

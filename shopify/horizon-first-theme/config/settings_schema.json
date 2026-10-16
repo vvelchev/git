@@ -1683,26 +1683,26 @@
 		]
 	},
 	{
-		"name": "Cart Base",
+		"name": "t:cart_base_settings.name",
 		"settings": [
 			{
 				"type": "paragraph",
-				"content": "Settings for the custom cart drawer (sections/cart-base.liquid) and the header cart button (blocks/_btn-cart-base.liquid)."
+				"content": "t:cart_base_settings.content.settings_for_the_custom"
 			},
 			{
 				"type": "header",
-				"content": "Drawer"
+				"content": "t:cart_base_settings.content.drawer"
 			},
 			{
 				"type": "text",
 				"id": "cart_base_title",
-				"label": "Title",
-				"info": "Leave empty to use the translated default"
+				"label": "t:cart_base_settings.settings.cart_base_title.label",
+				"info": "t:cart_base_settings.settings.cart_base_title.info"
 			},
 			{
 				"type": "range",
 				"id": "cart_base_width",
-				"label": "Drawer width",
+				"label": "t:cart_base_settings.settings.cart_base_width.label",
 				"min": 300,
 				"max": 700,
 				"step": 20,
@@ -1712,27 +1712,27 @@
 			{
 				"type": "checkbox",
 				"id": "cart_base_show_note",
-				"label": "Show order note",
+				"label": "t:cart_base_settings.settings.cart_base_show_note.label",
 				"default": true
 			},
 			{
 				"type": "checkbox",
 				"id": "cart_base_auto_open",
-				"label": "Open drawer after add to cart",
+				"label": "t:cart_base_settings.settings.cart_base_auto_open.label",
 				"default": true
 			},
 			{
 				"type": "header",
-				"content": "Header button"
+				"content": "t:cart_base_settings.content.header_button"
 			},
 			{
 				"type": "select",
 				"id": "cart_base_count_style",
-				"label": "Count bubble",
+				"label": "t:cart_base_settings.settings.cart_base_count_style.label",
 				"options": [
-					{ "value": "bubble", "label": "Bubble with number" },
-					{ "value": "dot", "label": "Dot" },
-					{ "value": "none", "label": "Hidden" }
+					{ "value": "bubble", "label": "t:cart_base_settings.settings.cart_base_count_style.options.bubble" },
+					{ "value": "dot", "label": "t:cart_base_settings.settings.cart_base_count_style.options.dot" },
+					{ "value": "none", "label": "t:cart_base_settings.settings.cart_base_count_style.options.none" }
 				],
 				"default": "bubble"
 			}

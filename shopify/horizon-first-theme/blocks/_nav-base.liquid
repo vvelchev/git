@@ -42,10 +42,10 @@
 
 {% schema %}
 {
-  "name": "Navigation Menu",
+  "name": "t:nav_base.name",
   "tag": null,
   "settings": [
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "link_list", "id": "menu", "label": "t:nav_base.settings.menu.label", "default": "main-menu" },
     {
       "type": "range",
       "id": "font_size",
@@ -53,10 +53,10 @@
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Font Size",
+      "label": "t:nav_base.settings.font_size.label",
       "default": 16
     },
-    { "type": "checkbox", "id": "uppercase", "label": "Uppercase", "default": false },
+    { "type": "checkbox", "id": "uppercase", "label": "t:nav_base.settings.uppercase.label", "default": false },
     {
       "type": "range",
       "id": "gap",
@@ -64,10 +64,10 @@
       "max": 50,
       "step": 5,
       "unit": "px",
-      "label": "Gap between items",
+      "label": "t:nav_base.settings.gap.label",
       "default": 20
     }
   ],
-  "presets": [{ "name": "Navigation Menu" }]
+  "presets": [{ "name": "t:nav_base.presets.name" }]
 }
 {% endschema %}

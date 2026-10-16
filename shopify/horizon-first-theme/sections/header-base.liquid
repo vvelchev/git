@@ -85,10 +85,10 @@
       align-items: center;
       gap: var(--gap);
 
-      & .logo,
+      /* & .logo,
       & .nav-base {
         order: -1;
-      }
+      } */
     }
   }
 
@@ -186,13 +186,13 @@
 
 {% schema %}
 {
-  "name": "Header",
-  "tag": "header",
+  "name": "t:header_base.name",
+  "tag": "div",
   "class": "header-base-wrapper",
   "settings": [
-    { "type": "header", "content": "General Settings" },
-    { "type": "checkbox", "id": "sticky_header", "label": "Sticky header", "default": true },
-    { "type": "checkbox", "id": "transparent_home", "label": "Transparent on home page", "default": false },
+    { "type": "header", "content": "t:header_base.content.general_settings" },
+    { "type": "checkbox", "id": "sticky_header", "label": "t:header_base.settings.sticky_header.label", "default": true },
+    { "type": "checkbox", "id": "transparent_home", "label": "t:header_base.settings.transparent_home.label", "default": false },
     {
       "type": "range",
       "id": "spacing_top",
@@ -200,7 +200,7 @@
       "max": 50,
       "step": 5,
       "unit": "px",
-      "label": "Spacing top",
+      "label": "t:header_base.settings.spacing_top.label",
       "default": 20
     },
     {
@@ -210,7 +210,7 @@
       "max": 50,
       "step": 5,
       "unit": "px",
-      "label": "Spacing bottom",
+      "label": "t:header_base.settings.spacing_bottom.label",
       "default": 20
     },
     {
@@ -220,13 +220,13 @@
       "max": 50,
       "step": 5,
       "unit": "px",
-      "label": "Gap between items",
+      "label": "t:header_base.settings.gap.label",
       "default": 20
     },
-    { "type": "checkbox", "id": "show_border", "label": "Show bottom border", "default": false },
-    { "type": "header", "content": "Selectors" },
-    { "type": "checkbox", "id": "enable_country", "label": "Enable country selector", "default": false },
-    { "type": "checkbox", "id": "enable_language", "label": "Enable language selector", "default": false }
+    { "type": "checkbox", "id": "show_border", "label": "t:header_base.settings.show_border.label", "default": false },
+    { "type": "header", "content": "t:header_base.content.selectors" },
+    { "type": "checkbox", "id": "enable_country", "label": "t:header_base.settings.enable_country.label", "default": false },
+    { "type": "checkbox", "id": "enable_language", "label": "t:header_base.settings.enable_language.label", "default": false }
   ],
   "max_blocks": 8,
   "blocks": [
@@ -240,8 +240,8 @@
   ],
   "presets": [
     {
-      "name": "Header base",
-      "category": "Header",
+      "name": "t:header_base.presets.name",
+      "category": "t:header_base.presets.category",
       "blocks": [
         { "type": "_logo-base" },
         { "type": "_nav-base" },
